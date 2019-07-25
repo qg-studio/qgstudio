@@ -21,7 +21,11 @@
     </environments>
     <mappers>
         <!--        指定给每一个dao类配置的mapper配置文件的路径-->
+<<<<<<< HEAD:src/main/resource/SqlMapConfig.xml
         <mapper resource="com/qgailab/dao/UserDao.xml"/>
+=======
+<!--        <mapper resource="com/qgailab/dao/UserMapper.xml"/>-->
+>>>>>>> 363069cc9c1f3bf9510eeec5804c27599ccf71ea:src/main/resources/SqlMapConfig.xml
     </mappers>
 </configuration>
 
