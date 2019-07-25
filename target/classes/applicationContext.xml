@@ -15,11 +15,7 @@
 <!--开启注解的扫描，希望处理service和dao，controller不需要Spring框架去处理-->
     <context:component-scan base-package="com.qg">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-
     </context:component-scan>
-
-
-
     <!--Spring整合MyBatis框架-->
     <!--配置连接池-->
     <!-- Druid数据源  -->
@@ -57,8 +53,6 @@
 
     </bean>
 
-
-
     <!--    c3p0数据源-->
 <!--    <bean id="comboPooledDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">-->
 <!--        <property name="driverClass" value="com.mysql.jdbc.Driver"/>-->
@@ -67,13 +61,10 @@
 <!--        <property name="password" value="6868"/>-->
 <!--    </bean>-->
 
-
     <!--配置SqlSessionFactory工厂-->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="druidDataSource" />
     </bean>
-
-
 <!--配置Dao接口所在包-->
 <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
     <property name="basePackage" value="com.qg.dao"/>
@@ -83,8 +74,6 @@
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="druidDataSource" />
     </bean>
-
-
     <!--配置事务通知-->
     <tx:annotation-driven/>
     <tx:advice id="txAdvice" transaction-manager="transactionManager">
