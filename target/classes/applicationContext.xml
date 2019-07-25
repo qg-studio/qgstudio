@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans.xsd
+   http://www.springframework.org/schema/context
+   http://www.springframework.org/schema/context/spring-context.xsd
+   http://www.springframework.org/schema/aop
+   http://www.springframework.org/schema/aop/spring-aop.xsd
+   http://www.springframework.org/schema/tx
+   http://www.springframework.org/schema/tx/spring-tx.xsd">
+<!--开启注解的扫描，希望处理service和dao，controller不需要Spring框架去处理-->
+    <context:component-scan base-package="com.qg">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+    <!--Spring整合MyBatis框架-->
+    <!--配置连接池-->
+    <!-- Druid数据源  -->
+    <bean id="druidDataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://localhost:3306/ticket" />
+        <property name="username" value="root" />
+        <property name="password" value="6868" />
+        <!-- 配置初始化大小、最小、最大 -->
+        <property name="initialSize" value="10" />
+        <property name="minIdle" value="10" />
+        <property name="maxActive" value="300" />
+
+        <!-- 配置获取连接等待超时的时间 -->
+        <property name="maxWait" value="1800" />
+
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="60000" />
+
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="300000" />
+        <!-- mysql SELECT 'x'  Oracle: SELECT 1 FROM DUAL -->
+        <property name="validationQuery" value="SELECT 'x'" />
+        <property name="testWhileIdle" value="true" />
+        <property name="testOnBorrow" value="false" />
+        <property name="testOnReturn" value="false" />
+
+        <!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+        <!-- 如果用Oracle，则把poolPreparedStatements配置为true，mysql可以配置为false。分库分表较多的数据库，建议配置为false。 -->
+        <property name="poolPreparedStatements" value="true" />
+        <property name="maxPoolPreparedStatementPerConnectionSize" value="20" />
+        <!-- 配置监控统计拦截的filters，去掉后监控界面sql无法统计 wall=防火墙 -->
+        <property name="filters" value="stat,log4j" />
+        <!-- proxyFilters属性配置,通过bean的方式配置 -->
+
+    </bean>
+
+    <!--    c3p0数据源-->
+<!--    <bean id="comboPooledDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">-->
+<!--        <property name="driverClass" value="com.mysql.jdbc.Driver"/>-->
+<!--        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/ticket"/>-->
+<!--        <property name="user" value="root"/>-->
+<!--        <property name="password" value="6868"/>-->
+<!--    </bean>-->
+
+    <!--配置SqlSessionFactory工厂-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="druidDataSource" />
+    </bean>
+<!--配置Dao接口所在包-->
+<bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+    <property name="basePackage" value="com.qg.dao"/>
+</bean>
+    <!--配置Spring框架声明式事务管理-->
+    <!--配置事务管理器-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="druidDataSource" />
+    </bean>
+    <!--配置事务通知-->
+    <tx:annotation-driven/>
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="find*" read-only="true"/>
+            <tx:method name="*" isolation="DEFAULT"/>
+        </tx:attributes>
+    </tx:advice>
+    <!--配置AOP增强-->
+    <aop:config>
+        <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.qg.service.impl.*ServiceImpl.*(..))"/>
+    </aop:config>
+    <bean id="druid-stat-interceptor" class="com.alibaba.druid.support.spring.stat.DruidStatInterceptor"/>
+    <bean id="druid-stat-pointcut" class="org.springframework.aop.support.JdkRegexpMethodPointcut" scope="prototype">
+        <property name="patterns">
+            <list>
+                <value>com.qgailab.dao.*</value>
+                <value>com.qgailab.service.*</value>
+            </list>
+        </property>
+    </bean>
+
+    <aop:config proxy-target-class="true">
+        <aop:advisor advice-ref="druid-stat-interceptor" pointcut-ref="druid-stat-pointcut"/>
+    </aop:config>
+</beans>
+
+
+
+
+
+
+
