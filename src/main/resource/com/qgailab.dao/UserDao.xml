@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qgailab.dao.UserDao">
+    <!-- 配置查询所有操作 -->
+    <select id="getUserById" resultType="com.qgailab.dao.UserDao" parameterType="BigInteger">
+        select id,username,password,type,gmt_create,gmt_modified from user where id = #{id}
+    </select>
+    
+</mapper>

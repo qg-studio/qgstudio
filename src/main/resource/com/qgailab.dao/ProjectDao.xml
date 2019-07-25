@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qgailab.dao.ProjectDao">
+
+    <select id="getProjectById" resultType="com.qgailab.dao.ProjectDao">
+        select id,uuid,title,description,gmt_modified,gmt_create from project where id = #{id}
+    </select>
+
+    <delete id="removeProjectById" parameterType="BigInteger">
+        delete from project where id = #{id}
+    </delete>
+
+    <update id="updateTitleById" parameterType="java.lang.String">
+        update project set title=#{title} where id = #{id}
+    </update>
+
+    <update id="updateDescriptionById" parameterType="java.lang.String">
+        update project set description=#{description} where id = #{id}
+    </update>
+
+    <!--更新图片未写-->
+
+    <insert id="insertProjectById" parameterType="com.qgailab.dao.ProjectDao">
+        <!-- 配置插入操作后，获取插入数据的id -->
+        <selectKey keyProperty="id" keyColumn="id" resultType="BigInteger" order="AFTER">
+            select last_insert_id();
+        </selectKey>
+        insert into project(uuid,title,description,gmt_create,gmt_modified)values(#{uuid},#{title},#{description},
+        #{gmt_create},#{gmt_modified});
+    </insert>
+
+</mapper>

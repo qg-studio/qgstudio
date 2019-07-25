@@ -13,15 +13,15 @@
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://localhost:3306/ticket"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/qgstudio"/>
                 <property name="username" value="root"/>
-                <property name="password" value="6868"/>
+                <property name="password" value="guopei111666"/>
             </dataSource>
         </environment>
     </environments>
     <mappers>
         <!--        指定给每一个dao类配置的mapper配置文件的路径-->
-        <mapper resource="com/qg/dao/UserDao.xml"/>
+        <mapper resource="com/qgailab/dao/UserDao.xml"/>
     </mappers>
 </configuration>
 
