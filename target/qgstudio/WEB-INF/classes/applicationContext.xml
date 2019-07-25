@@ -13,7 +13,7 @@
    http://www.springframework.org/schema/tx
    http://www.springframework.org/schema/tx/spring-tx.xsd">
 <!--开启注解的扫描，希望处理service和dao，controller不需要Spring框架去处理-->
-    <context:component-scan base-package="com.qg">
+    <context:component-scan base-package="com.qgailab">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
     <!--Spring整合MyBatis框架-->
@@ -21,7 +21,7 @@
     <!-- Druid数据源  -->
     <bean id="druidDataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://localhost:3306/ticket" />
+        <property name="url" value="jdbc:mysql://localhost:3306/qgstudio" />
         <property name="username" value="root" />
         <property name="password" value="6868" />
         <!-- 配置初始化大小、最小、最大 -->
@@ -67,7 +67,7 @@
     </bean>
 <!--配置Dao接口所在包-->
 <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-    <property name="basePackage" value="com.qg.dao"/>
+    <property name="basePackage" value="com.qgailab.dao"/>
 </bean>
     <!--配置Spring框架声明式事务管理-->
     <!--配置事务管理器-->
@@ -84,7 +84,7 @@
     </tx:advice>
     <!--配置AOP增强-->
     <aop:config>
-        <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.qg.service.impl.*ServiceImpl.*(..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.qgailab.service.impl.*ServiceImpl.*(..))"/>
     </aop:config>
     <bean id="druid-stat-interceptor" class="com.alibaba.druid.support.spring.stat.DruidStatInterceptor"/>
     <bean id="druid-stat-pointcut" class="org.springframework.aop.support.JdkRegexpMethodPointcut" scope="prototype">
