@@ -4,4 +4,8 @@
  * @date 2019-07-25 16:42
  */
 public class Test {
+
+    public void test(){
+
+    }
 }
