@@ -5,12 +5,14 @@ import lombok.Data;
 
 import java.math.BigInteger;
 @Data
-public class User {
+public class Patent {
 
   private BigInteger id;
-  private String username;
-  private String password;
+  private BigInteger number;
   private String type;
+  private String name;
+  private String zl;
+  private String inventor;
   private java.sql.Timestamp gmtCreate;
   private java.sql.Timestamp gmtModified;
 

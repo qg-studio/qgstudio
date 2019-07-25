@@ -5,12 +5,12 @@ import lombok.Data;
 
 import java.math.BigInteger;
 @Data
-public class User {
+public class Feature {
 
   private BigInteger id;
-  private String username;
-  private String password;
-  private String type;
+  private String uuid;
+  private String title;
+  private String description;
   private java.sql.Timestamp gmtCreate;
   private java.sql.Timestamp gmtModified;
 

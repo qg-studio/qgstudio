@@ -5,15 +5,12 @@ import lombok.Data;
 
 import java.math.BigInteger;
 @Data
-public class User {
+public class Image {
 
   private BigInteger id;
-  private String username;
-  private String password;
-  private String type;
+  private String fuuid;
+  private String filename;
   private java.sql.Timestamp gmtCreate;
   private java.sql.Timestamp gmtModified;
-
-
 
 }
