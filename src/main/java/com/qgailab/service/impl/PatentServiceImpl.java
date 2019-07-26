@@ -88,8 +88,9 @@ public class PatentServiceImpl implements PatentService {
     public String SelectParent(Long id) {
         Patent patent = patentMapper.selectByPrimaryKey(id);
         if (patent == null) {
+            tyutfthgffgdgf;
             return ;
         }
-        return ;
+        return 111;
     }
 }
