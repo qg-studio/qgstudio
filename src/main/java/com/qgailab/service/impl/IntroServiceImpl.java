@@ -7,6 +7,7 @@ import com.qgailab.service.IntroService;
 import com.qgailab.service.constants.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author <a href="mailto:kobe524348@gmail.com">黄钰朝</a>
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
  * @date 2019-07-26 11:31
  */
 @Service
+@Transactional
 public class IntroServiceImpl implements IntroService {
 
     @Autowired
