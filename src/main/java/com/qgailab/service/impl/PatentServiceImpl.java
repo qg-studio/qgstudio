@@ -36,7 +36,7 @@ public class PatentServiceImpl implements PatentService {
             e.printStackTrace();
             return new ServiceResult(500, Message.please_retry);
         }
-        return new ServiceResult(200, Message.success);
+        return new ServiceResult(200, Message.success,patent);
     }
 
 
@@ -50,11 +50,12 @@ public class PatentServiceImpl implements PatentService {
     @Override
     public ServiceResult DeletePatent(Long id) {
 
-        Patent patent = patentMapper.selectByPrimaryKey(id);
-        if (patent == null) {
-            return new ServiceResult(401,Message.patent_not_found);
-        }
+        Patent patent ;
         try {
+            patent = patentMapper.selectByPrimaryKey(id);
+            if (patent == null) {
+                return new ServiceResult(401,Message.patent_not_found);
+            }
             patentMapper.deleteByPrimaryKey(id);
         } catch (Exception e) {
             e.printStackTrace();
@@ -87,11 +88,14 @@ public class PatentServiceImpl implements PatentService {
             if(patent.getName() == null || patent.getName().trim().isEmpty()){
                 patent.setName("暂无描述信息");
             }
+            if (patentMapper.updateByPrimaryKeySelective(patent) != 1) {
+                return new ServiceResult(402, Message.database_exception);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return new ServiceResult(500,Message.please_retry);
         }
-        return new ServiceResult(200, Message.success);
+        return new ServiceResult(200, Message.success,patent);
     }
 
     /**
@@ -103,11 +107,13 @@ public class PatentServiceImpl implements PatentService {
     */
     @Override
     public ServiceResult SelectParent(Long id) {
-        Patent patent = patentMapper.selectByPrimaryKey(id);
-        if (patent == null) {
-            return new ServiceResult(401, Message.patent_not_found);
-        }
+
+        Patent patent = null;
         try {
+            patent = patentMapper.selectByPrimaryKey(id);
+            if (patent == null) {
+                return new ServiceResult(401, Message.patent_not_found);
+            }
             return new ServiceResult(200, Message.success, patent);
         }catch (Exception e) {
             e.printStackTrace();
