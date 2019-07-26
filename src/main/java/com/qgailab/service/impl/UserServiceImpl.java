@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.sql.SQLException;
+
 /**
  * @author <a href="mailto:kobe524348@gmail.com">黄钰朝</a>
  * @description
@@ -33,7 +35,7 @@ public class UserServiceImpl implements UserService {
      * @date 2019-07-26
      */
     @Override
-    public ServiceResult login(@RequestBody User user) {
+    public ServiceResult login(User user) {
         if (user == null) {
             return new ServiceResult(400, Message.parameter_not_enough);
         }
@@ -49,9 +51,9 @@ public class UserServiceImpl implements UserService {
             if (!realUser.getPassword().equalsIgnoreCase(user.getPassword())) {
                 return new ServiceResult(402, Message.password_incorrect);
             }
-        } catch (DaoException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-            return new ServiceResult(500, Message.database_exception);
+            return new ServiceResult(500, Message.please_retry);
         }
         return new ServiceResult(200, Message.success, realUser);
     }

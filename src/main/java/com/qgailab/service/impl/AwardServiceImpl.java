@@ -2,12 +2,15 @@ package com.qgailab.service.impl;
 
 import com.qgailab.model.po.Award;
 import com.qgailab.service.AwardService;
+import org.springframework.stereotype.Service;
+
 /**
  * 奖项的CURD
  * @program: qgstudio
  * @author: gp
  * @create: 2019-07-26 09:24
  **/
+@Service
 public class AwardServiceImpl implements AwardService {
 
 

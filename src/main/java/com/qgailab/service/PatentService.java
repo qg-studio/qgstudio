@@ -1,8 +1,7 @@
 package com.qgailab.service;
 
+import com.qgailab.model.dto.ServiceResult;
 import com.qgailab.model.po.Patent;
-
-import java.math.BigInteger;
 
 public interface PatentService {
 
@@ -13,7 +12,7 @@ public interface PatentService {
     * @Author: gp
     * @Date: 2019/7/26
     */
-    public String InsertPatent(Patent patent);
+    public ServiceResult InsertPatent(Patent patent);
 
     /**
     * 删除专利信息
@@ -22,7 +21,7 @@ public interface PatentService {
     * @Author: gp
     * @Date: 2019/7/26
     */
-    public String DeletePatent(Long id);
+    public ServiceResult DeletePatent(Long id);
 
     /**
      * 负责更新专利信息
