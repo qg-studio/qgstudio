@@ -2,83 +2,22 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
-      <artifact name="qgstudio:war exploded" />
+      <artifact name="qgstudio:war" />
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-
     <list default="true" id="6bae96d0-0057-4d47-b8e4-a59a4ce20714" name="Default Changelist" comment="feat:添加Dao层">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/qgailab/controller/UserController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/qgailab/dao/AwardMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/qgailab/dao/CopyrightMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/qgailab/dao/FeatureMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/qgailab/dao/FieldMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/qgailab/dao/HistoryMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/qgailab/dao/HonorMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/qgailab/dao/ImageMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/qgailab/dao/IntroMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/qgailab/dao/LeaderMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/qgailab/dao/MemberMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/qgailab/dao/MomentMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/qgailab/dao/NewsMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/qgailab/dao/PatentMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/qgailab/dao/ProjectMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/qgailab/dao/UserMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/qgailab/dao/AwardMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/qgailab/dao/CopyrightMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/qgailab/dao/FeatureMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/qgailab/dao/FieldMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/qgailab/dao/HistoryMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/qgailab/dao/HonorMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/qgailab/dao/ImageMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/qgailab/dao/IntroMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/qgailab/dao/LeaderMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/qgailab/dao/MemberMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/qgailab/dao/MomentMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/qgailab/dao/NewsMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/qgailab/dao/PatentMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/qgailab/dao/ProjectMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/qgailab/dao/UserMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/generator.propertites" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/generatorConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/qgailab/model/dto/ServiceResult.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/qgailab/service/constants/Message.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/qgailab/controller/UseController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/qgailab/dao/UserDao.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/qgailab/model/po/Award.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/qgailab/model/po/Award.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/qgailab/model/po/Copyright.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/qgailab/model/po/Copyright.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/qgailab/model/po/Feature.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/qgailab/model/po/Feature.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/qgailab/model/po/Field.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/qgailab/model/po/Field.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/qgailab/model/po/History.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/qgailab/model/po/History.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/qgailab/model/po/Honor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/qgailab/model/po/Honor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/qgailab/model/po/Image.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/qgailab/model/po/Image.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/qgailab/model/po/Intro.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/qgailab/model/po/Intro.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/qgailab/model/po/Leader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/qgailab/model/po/Leader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/qgailab/model/po/Member.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/qgailab/model/po/Member.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/qgailab/model/po/Moment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/qgailab/model/po/Moment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/qgailab/model/po/News.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/qgailab/model/po/News.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/qgailab/model/po/Patent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/qgailab/model/po/Patent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/qgailab/model/po/Project.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/qgailab/model/po/Project.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/qgailab/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/qgailab/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/qgailab/dao/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/qgailab/dao/UserMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/qgailab/exception/DaoException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/qgailab/exception/DaoException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/qgailab/model/po/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/qgailab/model/po/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/qgailab/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/qgailab/service/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/qgailab/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/qgailab/service/impl/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/qgailab/util/TestUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/qgailab/util/TestUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resource/SqlMapConfig.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/SqlMapConfig.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resource/applicationContext.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/applicationContext.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resource/log4j.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/log4j.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resource/springmvc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/springmvc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/SqlMapConfig.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SqlMapConfig.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/applicationContext.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/applicationContext.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/qgailab/controller/UseController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/qgailab/dao/UserDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/qgailab/dao/UserDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/qgailab/model/po/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/qgailab/model/po/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/qgailab/service/impl/UserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/qgailab/service/impl/UserServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/qgailab/util/TestUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/qgailab/util/TestUtil.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/qgstudio/WEB-INF/classes/SqlMapConfig.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/qgstudio/WEB-INF/classes/SqlMapConfig.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/qgstudio/WEB-INF/classes/applicationContext.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/qgstudio/WEB-INF/classes/applicationContext.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/java/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/java/Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/qgailab/dao/UserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/qgailab/dao/UserMapper.xml" afterDir="false" />
     </list>
->>>>>>> temp
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -130,6 +69,7 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
 <<<<<<< HEAD
+<<<<<<< HEAD
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/qgailab/dao/UserDao.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -143,118 +83,164 @@
             <state relative-caret-position="84">
               <caret line="5" column="11" selection-start-line="5" selection-start-column="11" selection-end-line="5" selection-end-column="11" />
 >>>>>>> 363069cc9c1f3bf9510eeec5804c27599ccf71ea
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/qgailab/dao/IntroMapper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="84">
-              <caret line="5" column="11" selection-start-line="5" selection-start-column="11" selection-end-line="5" selection-end-column="11" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/qgailab/dao/ImageMapper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="84">
-              <caret line="5" column="11" selection-start-line="5" selection-start-column="11" selection-end-line="5" selection-end-column="11" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/qgailab/dao/HonorMapper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="84">
-              <caret line="5" column="11" selection-start-line="5" selection-start-column="11" selection-end-line="5" selection-end-column="11" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/qgailab/dao/HistoryMapper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="84">
-              <caret line="5" column="11" selection-start-line="5" selection-start-column="11" selection-end-line="5" selection-end-column="11" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/qgailab/dao/FieldMapper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="63">
-              <caret line="5" column="11" selection-start-line="5" selection-start-column="11" selection-end-line="5" selection-end-column="11" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/qgailab/dao/FeatureMapper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="63">
-              <caret line="5" column="11" selection-start-line="5" selection-start-column="11" selection-end-line="5" selection-end-column="11" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/qgailab/dao/CopyrightMapper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="63">
-              <caret line="5" column="11" selection-start-line="5" selection-start-column="11" selection-end-line="5" selection-end-column="11" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/qgailab/dao/AwardMapper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="42">
-              <caret line="5" column="11" selection-start-line="5" selection-start-column="11" selection-end-line="5" selection-end-column="11" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
+=======
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/qgailab/service/impl/UserServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="182">
-              <caret line="19" selection-start-line="19" selection-end-line="19" />
+            <state relative-caret-position="521">
+              <caret line="42" selection-start-line="42" selection-end-line="42" />
+>>>>>>> d35c8fcfa57bfbf78c285429a82319e03917e418
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://$USER_HOME$/.m2/repository/org/springframework/spring-web/5.0.2.RELEASE/spring-web-5.0.2.RELEASE.jar!/org/springframework/web/method/support/InvocableHandlerMethod.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-498">
+              <caret line="129" selection-start-line="129" selection-end-line="129" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://$USER_HOME$/.m2/repository/org/springframework/spring-webmvc/5.0.2.RELEASE/spring-webmvc-5.0.2.RELEASE.jar!/org/springframework/web/servlet/mvc/method/annotation/RequestMappingHandlerAdapter.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-2645">
+              <caret line="567" selection-start-line="567" selection-end-line="567" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://$USER_HOME$/.m2/repository/org/springframework/spring-webmvc/5.0.2.RELEASE/spring-webmvc-5.0.2.RELEASE.jar!/org/springframework/web/servlet/DispatcherServlet.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-2397">
+              <caret line="474" selection-start-line="474" selection-end-line="474" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/qgailab/model/po/User.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="5" column="10" selection-start-line="5" selection-start-column="10" selection-end-line="5" selection-end-column="10" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/com/qgailab/dao/UserMapper.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="319">
+              <caret line="40" column="7" selection-start-line="40" selection-start-column="7" selection-end-line="40" selection-end-column="7" />
+              <folding>
+                <element signature="n#resultMap#0;n#mapper#0;n#!!top" />
+                <element signature="e#265#457#0" />
+                <element signature="n#sql#0;n#mapper#0;n#!!top" />
+                <element signature="e#928#1120#0" />
+                <element signature="n#select#0;n#mapper#0;n#!!top" />
+                <element signature="e#1285#1477#0" />
+                <element signature="n#delete#0;n#mapper#0;n#!!top" />
+                <element signature="e#1664#1856#0" />
+                <element signature="n#insert#0;n#mapper#0;n#!!top" />
+                <element signature="e#1996#2188#0" />
+                <element signature="n#insert#1;n#mapper#0;n#!!top" />
+                <element signature="e#2574#2766#0" />
+                <element signature="n#trim#0;n#insert#1;n#mapper#0;n#!!top" />
+                <element signature="n#if#0;n#trim#0;n#insert#1;n#mapper#0;n#!!top" />
+                <element signature="n#if#1;n#trim#0;n#insert#1;n#mapper#0;n#!!top" />
+                <element signature="n#if#2;n#trim#0;n#insert#1;n#mapper#0;n#!!top" />
+                <element signature="n#if#3;n#trim#0;n#insert#1;n#mapper#0;n#!!top" />
+                <element signature="n#if#4;n#trim#0;n#insert#1;n#mapper#0;n#!!top" />
+                <element signature="n#if#5;n#trim#0;n#insert#1;n#mapper#0;n#!!top" />
+                <element signature="n#trim#1;n#insert#1;n#mapper#0;n#!!top" />
+                <element signature="n#if#0;n#trim#1;n#insert#1;n#mapper#0;n#!!top" />
+                <element signature="n#if#1;n#trim#1;n#insert#1;n#mapper#0;n#!!top" />
+                <element signature="n#if#2;n#trim#1;n#insert#1;n#mapper#0;n#!!top" />
+                <element signature="n#if#3;n#trim#1;n#insert#1;n#mapper#0;n#!!top" />
+                <element signature="n#if#4;n#trim#1;n#insert#1;n#mapper#0;n#!!top" />
+                <element signature="n#if#5;n#trim#1;n#insert#1;n#mapper#0;n#!!top" />
+                <element signature="n#update#0;n#mapper#0;n#!!top" />
+                <element signature="e#3908#4100#0" />
+                <element signature="n#set#0;n#update#0;n#mapper#0;n#!!top" />
+                <element signature="n#if#0;n#set#0;n#update#0;n#mapper#0;n#!!top" />
+                <element signature="n#if#1;n#set#0;n#update#0;n#mapper#0;n#!!top" />
+                <element signature="n#if#2;n#set#0;n#update#0;n#mapper#0;n#!!top" />
+                <element signature="n#if#3;n#set#0;n#update#0;n#mapper#0;n#!!top" />
+                <element signature="n#if#4;n#set#0;n#update#0;n#mapper#0;n#!!top" />
+                <element signature="n#update#1;n#mapper#0;n#!!top" />
+                <element signature="e#4754#4946#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/qgailab/service/constants/Message.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-174">
+              <caret line="22" selection-start-line="22" selection-end-line="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/qgailab/model/dto/ServiceResult.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="345">
+              <caret line="23" column="11" selection-start-line="23" selection-start-column="11" selection-end-line="23" selection-end-column="11" />
+              <folding>
+                <element signature="e#560#561#0" expanded="true" />
+                <element signature="e#589#590#0" expanded="true" />
+                <element signature="e#630#631#0" expanded="true" />
+                <element signature="e#666#667#0" expanded="true" />
+                <element signature="e#705#706#0" expanded="true" />
+                <element signature="e#735#736#0" expanded="true" />
+                <element signature="e#781#782#0" expanded="true" />
+                <element signature="e#819#820#0" expanded="true" />
+                <element signature="e#850#851#0" expanded="true" />
+                <element signature="e#877#878#0" expanded="true" />
+                <element signature="e#917#918#0" expanded="true" />
+                <element signature="e#949#950#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/qgailab/controller/UserController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="124">
+              <caret line="26" column="28" selection-start-line="26" selection-start-column="28" selection-end-line="26" selection-end-column="28" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#734#735#0" expanded="true" />
+                <element signature="e#766#767#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/qgailab/service/UserService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="360">
+              <caret line="24" column="18" selection-start-line="24" selection-start-column="18" selection-end-line="24" selection-end-column="18" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+<<<<<<< HEAD
 >>>>>>> 363069cc9c1f3bf9510eeec5804c27599ccf71ea
+=======
+>>>>>>> d35c8fcfa57bfbf78c285429a82319e03917e418
             </state>
           </provider>
         </entry>
@@ -264,8 +250,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -289,10 +276,13 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" />
         <option value="$PROJECT_DIR$/src/main/webapp/index.jsp" />
         <option value="$PROJECT_DIR$/src/main/resource/springmvc.xml" />
         <option value="$APPLICATION_CONFIG_DIR$/extensions/com.intellij.database/schema/Generate POJOs.groovy" />
+=======
+>>>>>>> d35c8fcfa57bfbf78c285429a82319e03917e418
         <option value="$PROJECT_DIR$/test/java/UserTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/qgailab/model/po/Copyright.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/qgailab/model/po/Feature.java" />
@@ -306,7 +296,6 @@
         <option value="$PROJECT_DIR$/src/main/java/com/qgailab/model/po/News.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/qgailab/model/po/Patent.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/qgailab/model/po/Project.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/qgailab/model/po/User.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/qgailab/model/po/Field.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/qgailab/dao/UserDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/qgailab/model/po/Award.java" />
@@ -315,12 +304,9 @@
         <option value="$PROJECT_DIR$/src/main/resource/generatorConfig.xml" />
         <option value="$PROJECT_DIR$/test/java/Test.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/qgailab/controller/UseController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/qgailab/controller/UserController.java" />
         <option value="$PROJECT_DIR$/src/main/resources/applicationContext.xml" />
-        <option value="$PROJECT_DIR$/src/main/resources/com/qgailab/dao/UserMapper.xml" />
         <option value="$PROJECT_DIR$/src/main/resources/SqlMapConfig.xml" />
         <option value="$PROJECT_DIR$/src/main/resources/generatorConfig.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/qgailab/dao/UserMapper.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/qgailab/util/TestUtil.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/qgailab/dao/ProjectMapper.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/qgailab/dao/PatentMapper.java" />
@@ -336,6 +322,17 @@
         <option value="$PROJECT_DIR$/src/main/java/com/qgailab/dao/FeatureMapper.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/qgailab/dao/CopyrightMapper.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/qgailab/dao/AwardMapper.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/qgailab/service/constants/Status.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/qgailab/service/constants/StatusCode.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/qgailab/service/constants/ServiceMessage.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/qgailab/exception/DaoException.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/qgailab/service/constants/Message.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/qgailab/dao/UserMapper.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/com/qgailab/dao/UserMapper.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/qgailab/model/dto/ServiceResult.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/qgailab/model/po/User.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/qgailab/service/UserService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/qgailab/controller/UserController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/qgailab/service/impl/UserServiceImpl.java" />
       </list>
     </option>
@@ -376,8 +373,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="CatdeaLogs" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -434,7 +431,25 @@
               <item name="qgstudio" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
+<<<<<<< HEAD
               <item name="resource" type="462c0819:PsiDirectoryNode" />
+=======
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="qgailab" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="qgstudio" type="b2602c69:ProjectViewProjectNode" />
+              <item name="qgstudio" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="qgailab" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
+              <item name="dto" type="462c0819:PsiDirectoryNode" />
+>>>>>>> d35c8fcfa57bfbf78c285429a82319e03917e418
             </path>
             <path>
               <item name="qgstudio" type="b2602c69:ProjectViewProjectNode" />
@@ -531,7 +546,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="CatdeaLogs" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -542,18 +557,25 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resource" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+<<<<<<< HEAD
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.0" />
+=======
+    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+>>>>>>> d35c8fcfa57bfbf78c285429a82319e03917e418
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Misterchaos\Desktop\qgstudio" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Misterchaos\Desktop\qgstudio\src\main\resource" />
       <recent name="C:\Users\Misterchaos\Desktop\qgstudio\src\main\java\com\qgailab\dao" />
       <recent name="C:\Users\Misterchaos\Desktop\qgstudio\src" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Misterchaos\Desktop\qgstudio" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -609,7 +631,6 @@
       <method v="2" />
     </configuration>
     <configuration name="tomcat" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9.0.17" ALTERNATIVE_JRE_ENABLED="false">
-      <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
         <artifact name="qgstudio:war exploded">
           <settings>
@@ -681,9 +702,9 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="Application.TestUtil" />
       <item itemvalue="Maven.generator" />
       <item itemvalue="Tomcat Server.tomcat" />
-      <item itemvalue="Application.TestUtil" />
     </list>
     <recent_temporary>
       <list>
@@ -703,6 +724,7 @@
       <updated>1564024399983</updated>
       <workItem from="1564024405708" duration="11048000" />
       <workItem from="1564055126014" duration="4791000" />
+      <workItem from="1564099317728" duration="5274000" />
     </task>
     <task id="LOCAL-00001" summary="feat:添加Dao层">
       <created>1564062697701</created>
@@ -715,12 +737,12 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15839000" />
+    <option name="totallyTimeSpent" value="21718000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2454739" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24920128" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -730,8 +752,8 @@
       <window_info id="Web" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32934782" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.39456522" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.49673912" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.29891303" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -767,106 +789,7 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/qgailab/model/po/Copyright.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="6" column="5" selection-start-line="6" selection-start-column="5" selection-end-line="6" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/qgailab/model/po/Feature.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="17" column="2" selection-start-line="17" selection-start-column="2" selection-end-line="17" selection-end-column="2" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/qgailab/model/po/Honor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="6" column="5" selection-start-line="6" selection-start-column="5" selection-end-line="6" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/qgailab/model/po/Image.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="6" column="5" selection-start-line="6" selection-start-column="5" selection-end-line="6" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/qgailab/model/po/Member.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/qgailab/model/po/Moment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="15" selection-start-line="15" selection-end-line="15" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/qgailab/model/po/Patent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="19" selection-start-line="19" selection-end-line="19" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/qgailab/model/po/Field.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="17" column="29" selection-start-line="17" selection-start-column="29" selection-end-line="17" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/qgailab/model/po/Project.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="16" selection-start-line="16" selection-end-line="16" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/qgailab/dao/AwardDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="15" column="3" selection-start-line="15" selection-start-column="3" selection-end-line="15" selection-end-column="3" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/qgailab/dao/AwardDao.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/qgailab/model/po/Award.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="504">
@@ -922,34 +845,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/qgailab/dao/UserDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="15" column="1" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/qgailab/dao/UserDao.java" />
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="783">
           <caret line="50" selection-start-line="50" selection-end-line="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/qgailab/model/po/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="4" column="19" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/qgailab/service/UserService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="8" column="1" selection-start-line="7" selection-start-column="29" selection-end-line="8" selection-end-column="1" />
         </state>
       </provider>
     </entry>
@@ -977,16 +877,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="93">
           <caret line="1204" selection-start-line="1204" selection-end-line="1204" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/qgailab/controller/UserController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="15" selection-start-line="15" selection-end-line="15" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1028,72 +918,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/com/qgailab/dao/UserMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="145" column="9" lean-forward="true" selection-start-line="145" selection-start-column="9" selection-end-line="145" selection-end-column="9" />
-          <folding>
-            <element signature="n#resultMap#0;n#mapper#0;n#!!top" />
-            <element signature="e#265#457#0" />
-            <element signature="n#sql#0;n#mapper#0;n#!!top" />
-            <element signature="e#928#1120#0" />
-            <element signature="n#select#0;n#mapper#0;n#!!top" />
-            <element signature="e#1285#1477#0" />
-            <element signature="e#10#73#1" />
-            <element signature="n#delete#0;n#mapper#0;n#!!top" />
-            <element signature="e#1664#1856#0" />
-            <element signature="e#10#63#0" />
-            <element signature="n#insert#0;n#mapper#0;n#!!top" />
-            <element signature="e#1996#2188#0" />
-            <element signature="e#10#300#0" />
-            <element signature="e#102#300#0" />
-            <element signature="e#109#300#0" />
-            <element signature="n#insert#1;n#mapper#0;n#!!top" />
-            <element signature="e#2574#2766#0" />
-            <element signature="n#trim#0;n#insert#1;n#mapper#0;n#!!top" />
-            <element signature="n#if#0;n#trim#0;n#insert#1;n#mapper#0;n#!!top" />
-            <element signature="n#if#1;n#trim#0;n#insert#1;n#mapper#0;n#!!top" />
-            <element signature="n#if#2;n#trim#0;n#insert#1;n#mapper#0;n#!!top" />
-            <element signature="n#if#3;n#trim#0;n#insert#1;n#mapper#0;n#!!top" />
-            <element signature="n#if#4;n#trim#0;n#insert#1;n#mapper#0;n#!!top" />
-            <element signature="n#if#5;n#trim#0;n#insert#1;n#mapper#0;n#!!top" />
-            <element signature="n#trim#1;n#insert#1;n#mapper#0;n#!!top" />
-            <element signature="n#if#0;n#trim#1;n#insert#1;n#mapper#0;n#!!top" />
-            <element signature="n#if#1;n#trim#1;n#insert#1;n#mapper#0;n#!!top" />
-            <element signature="n#if#2;n#trim#1;n#insert#1;n#mapper#0;n#!!top" />
-            <element signature="n#if#3;n#trim#1;n#insert#1;n#mapper#0;n#!!top" />
-            <element signature="n#if#4;n#trim#1;n#insert#1;n#mapper#0;n#!!top" />
-            <element signature="n#if#5;n#trim#1;n#insert#1;n#mapper#0;n#!!top" />
-            <element signature="n#update#0;n#mapper#0;n#!!top" />
-            <element signature="e#3908#4100#0" />
-            <element signature="e#10#389#0" />
-            <element signature="n#set#0;n#update#0;n#mapper#0;n#!!top" />
-            <element signature="n#if#0;n#set#0;n#update#0;n#mapper#0;n#!!top" />
-            <element signature="n#if#1;n#set#0;n#update#0;n#mapper#0;n#!!top" />
-            <element signature="n#if#2;n#set#0;n#update#0;n#mapper#0;n#!!top" />
-            <element signature="n#if#3;n#set#0;n#update#0;n#mapper#0;n#!!top" />
-            <element signature="n#if#4;n#set#0;n#update#0;n#mapper#0;n#!!top" />
-            <element signature="n#update#1;n#mapper#0;n#!!top" />
-            <element signature="e#4754#4946#0" />
-            <element signature="e#10#300#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/qgailab/util/TestUtil.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="420">
           <caret line="20" column="16" selection-start-line="20" selection-start-column="16" selection-end-line="20" selection-end-column="16" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/qgailab/dao/UserMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="5" selection-start-line="5" selection-end-line="6" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1200,7 +1028,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/qgailab/dao/FieldMapper.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/qgailab/dao/CopyrightMapper.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="63">
           <caret line="5" column="11" selection-start-line="5" selection-start-column="11" selection-end-line="5" selection-end-column="11" />
@@ -1212,17 +1040,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/qgailab/dao/FeatureMapper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
-          <caret line="5" column="11" selection-start-line="5" selection-start-column="11" selection-end-line="5" selection-end-column="11" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/qgailab/dao/CopyrightMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
+        <state relative-caret-position="84">
           <caret line="5" column="11" selection-start-line="5" selection-start-column="11" selection-end-line="5" selection-end-column="11" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1232,7 +1050,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/qgailab/dao/AwardMapper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42">
+        <state relative-caret-position="84">
           <caret line="5" column="11" selection-start-line="5" selection-start-column="11" selection-end-line="5" selection-end-column="11" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1240,10 +1058,184 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/qgailab/dao/FieldMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="63">
+          <caret line="5" column="11" selection-start-line="5" selection-start-column="11" selection-end-line="5" selection-end-column="11" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/qgailab/service/constants/Status.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="8" column="8" lean-forward="true" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/qgailab/service/constants/StatusCode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="8" selection-start-line="8" selection-end-line="8" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/qgailab/service/constants/ServiceMessage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/qgailab/exception/DaoException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="7" column="50" selection-start-line="7" selection-start-column="50" selection-end-line="7" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/qgailab/dao/UserMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="419">
+          <caret line="39" column="43" selection-start-line="39" selection-start-column="43" selection-end-line="39" selection-end-column="43" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/com/qgailab/dao/UserMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="319">
+          <caret line="40" column="7" selection-start-line="40" selection-start-column="7" selection-end-line="40" selection-end-column="7" />
+          <folding>
+            <element signature="n#resultMap#0;n#mapper#0;n#!!top" />
+            <element signature="e#265#457#0" />
+            <element signature="n#sql#0;n#mapper#0;n#!!top" />
+            <element signature="e#928#1120#0" />
+            <element signature="n#select#0;n#mapper#0;n#!!top" />
+            <element signature="e#1285#1477#0" />
+            <element signature="n#delete#0;n#mapper#0;n#!!top" />
+            <element signature="e#1664#1856#0" />
+            <element signature="n#insert#0;n#mapper#0;n#!!top" />
+            <element signature="e#1996#2188#0" />
+            <element signature="n#insert#1;n#mapper#0;n#!!top" />
+            <element signature="e#2574#2766#0" />
+            <element signature="n#trim#0;n#insert#1;n#mapper#0;n#!!top" />
+            <element signature="n#if#0;n#trim#0;n#insert#1;n#mapper#0;n#!!top" />
+            <element signature="n#if#1;n#trim#0;n#insert#1;n#mapper#0;n#!!top" />
+            <element signature="n#if#2;n#trim#0;n#insert#1;n#mapper#0;n#!!top" />
+            <element signature="n#if#3;n#trim#0;n#insert#1;n#mapper#0;n#!!top" />
+            <element signature="n#if#4;n#trim#0;n#insert#1;n#mapper#0;n#!!top" />
+            <element signature="n#if#5;n#trim#0;n#insert#1;n#mapper#0;n#!!top" />
+            <element signature="n#trim#1;n#insert#1;n#mapper#0;n#!!top" />
+            <element signature="n#if#0;n#trim#1;n#insert#1;n#mapper#0;n#!!top" />
+            <element signature="n#if#1;n#trim#1;n#insert#1;n#mapper#0;n#!!top" />
+            <element signature="n#if#2;n#trim#1;n#insert#1;n#mapper#0;n#!!top" />
+            <element signature="n#if#3;n#trim#1;n#insert#1;n#mapper#0;n#!!top" />
+            <element signature="n#if#4;n#trim#1;n#insert#1;n#mapper#0;n#!!top" />
+            <element signature="n#if#5;n#trim#1;n#insert#1;n#mapper#0;n#!!top" />
+            <element signature="n#update#0;n#mapper#0;n#!!top" />
+            <element signature="e#3908#4100#0" />
+            <element signature="n#set#0;n#update#0;n#mapper#0;n#!!top" />
+            <element signature="n#if#0;n#set#0;n#update#0;n#mapper#0;n#!!top" />
+            <element signature="n#if#1;n#set#0;n#update#0;n#mapper#0;n#!!top" />
+            <element signature="n#if#2;n#set#0;n#update#0;n#mapper#0;n#!!top" />
+            <element signature="n#if#3;n#set#0;n#update#0;n#mapper#0;n#!!top" />
+            <element signature="n#if#4;n#set#0;n#update#0;n#mapper#0;n#!!top" />
+            <element signature="n#update#1;n#mapper#0;n#!!top" />
+            <element signature="e#4754#4946#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/qgailab/service/constants/Message.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-174">
+          <caret line="22" selection-start-line="22" selection-end-line="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/qgailab/model/po/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="10" selection-start-line="5" selection-start-column="10" selection-end-line="5" selection-end-column="10" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/qgailab/model/dto/ServiceResult.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="23" column="11" selection-start-line="23" selection-start-column="11" selection-end-line="23" selection-end-column="11" />
+          <folding>
+            <element signature="e#560#561#0" expanded="true" />
+            <element signature="e#589#590#0" expanded="true" />
+            <element signature="e#630#631#0" expanded="true" />
+            <element signature="e#666#667#0" expanded="true" />
+            <element signature="e#705#706#0" expanded="true" />
+            <element signature="e#735#736#0" expanded="true" />
+            <element signature="e#781#782#0" expanded="true" />
+            <element signature="e#819#820#0" expanded="true" />
+            <element signature="e#850#851#0" expanded="true" />
+            <element signature="e#877#878#0" expanded="true" />
+            <element signature="e#917#918#0" expanded="true" />
+            <element signature="e#949#950#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/qgailab/controller/UserController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="124">
+          <caret line="26" column="28" selection-start-line="26" selection-start-column="28" selection-end-line="26" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#734#735#0" expanded="true" />
+            <element signature="e#766#767#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/qgailab/service/UserService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="24" column="18" selection-start-line="24" selection-start-column="18" selection-end-line="24" selection-end-column="18" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.m2/repository/org/springframework/spring-web/5.0.2.RELEASE/spring-web-5.0.2.RELEASE.jar!/org/springframework/web/method/support/InvocableHandlerMethod.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-498">
+          <caret line="129" selection-start-line="129" selection-end-line="129" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.m2/repository/org/springframework/spring-webmvc/5.0.2.RELEASE/spring-webmvc-5.0.2.RELEASE.jar!/org/springframework/web/servlet/mvc/method/annotation/RequestMappingHandlerAdapter.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2645">
+          <caret line="567" selection-start-line="567" selection-end-line="567" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.m2/repository/org/springframework/spring-webmvc/5.0.2.RELEASE/spring-webmvc-5.0.2.RELEASE.jar!/org/springframework/web/servlet/DispatcherServlet.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2397">
+          <caret line="474" selection-start-line="474" selection-end-line="474" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/qgailab/service/impl/UserServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="19" selection-start-line="19" selection-end-line="19" />
+        <state relative-caret-position="521">
+          <caret line="42" selection-start-line="42" selection-end-line="42" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1270,10 +1262,18 @@
       <state key="ArtifactsStructureConfigurable.UI">
         <settings>
           <artifact-editor />
+<<<<<<< HEAD
+=======
+          <last-edited>qgstudio:war exploded</last-edited>
+>>>>>>> d35c8fcfa57bfbf78c285429a82319e03917e418
           <splitter-proportions>
             <option name="proportions">
               <list>
                 <option value="0.2" />
+<<<<<<< HEAD
+=======
+                <option value="0.5" />
+>>>>>>> d35c8fcfa57bfbf78c285429a82319e03917e418
               </list>
             </option>
           </splitter-proportions>
@@ -1281,6 +1281,10 @@
       </state>
       <state key="FacetStructureConfigurable.UI">
         <settings>
+<<<<<<< HEAD
+=======
+          <last-edited>Spring</last-edited>
+>>>>>>> d35c8fcfa57bfbf78c285429a82319e03917e418
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -1314,10 +1318,18 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
+<<<<<<< HEAD
+=======
+          <last-edited>qgstudio</last-edited>
+>>>>>>> d35c8fcfa57bfbf78c285429a82319e03917e418
           <splitter-proportions>
             <option name="proportions">
               <list>
                 <option value="0.2" />
+<<<<<<< HEAD
+=======
+                <option value="0.6" />
+>>>>>>> d35c8fcfa57bfbf78c285429a82319e03917e418
               </list>
             </option>
           </splitter-proportions>
@@ -1337,6 +1349,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
+          <last-edited>Maven: c3p0:c3p0:0.9.1.2</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

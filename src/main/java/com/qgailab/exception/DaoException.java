@@ -5,5 +5,5 @@ package com.qgailab.exception;
  * @description
  * @date 2019-07-25 15:36
  */
-public class DaoException {
+public class DaoException extends RuntimeException {
 }

@@ -1,7 +1,9 @@
 package com.qgailab.model.po;
 
-import java.util.Date;
+import org.springframework.stereotype.Component;
 
+import java.util.Date;
+@Component
 public class User {
     /**
      *
