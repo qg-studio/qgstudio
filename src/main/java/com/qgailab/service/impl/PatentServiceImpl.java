@@ -72,7 +72,7 @@ public class PatentServiceImpl implements PatentService {
     public String UpdatePatent(Patent patent) {
 
         if (patent == null) {
-
+            return new ServiceResult(400, Message);
         }
 
     }
@@ -85,12 +85,16 @@ public class PatentServiceImpl implements PatentService {
     * @Date: 2019/7/26
     */
     @Override
-    public String SelectParent(Long id) {
+    public ServiceResult SelectParent(Long id) {
         Patent patent = patentMapper.selectByPrimaryKey(id);
         if (patent == null) {
-            tyutfthgffgdgf;
-            return ;
+            return new ServiceResult(401, Message.patent_not_found);
         }
-        return 111;
+        try {
+            return new ServiceResult(200, Message.success, patent);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ServiceResult(200, Message.success, patent);
     }
 }

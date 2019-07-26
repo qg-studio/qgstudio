@@ -39,6 +39,6 @@ public interface PatentService {
     * @Author: gp
     * @Date: 2019/7/26
     */
-    public String SelectParent(Long id);
+    public ServiceResult SelectParent(Long id);
 
 }
