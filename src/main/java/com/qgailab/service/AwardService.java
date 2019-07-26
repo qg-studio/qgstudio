@@ -1,5 +1,6 @@
 package com.qgailab.service;
 
+import com.qgailab.model.dto.ServiceResult;
 import com.qgailab.model.po.Award;
 
 public interface AwardService {
@@ -11,7 +12,7 @@ public interface AwardService {
     * @Author: gp
     * @Date: 2019/7/26
     */
-    public String SelectAward(Long id);
+    ServiceResult SelectAward(Long id);
 
     /**
      * 负责删除奖项的信息
@@ -20,7 +21,7 @@ public interface AwardService {
     * @Author: gp
     * @Date: 2019/7/26
     */
-    public String RemoveAward(Long id);
+    ServiceResult RemoveAward(Long id);
 
     /**
      * 负责添加奖项的信息
@@ -29,7 +30,7 @@ public interface AwardService {
     * @Author: gp
     * @Date: 2019/7/26
     */
-    public String InsertAward(Award award);
+    ServiceResult InsertAward(Award award);
 
     /**负责更新奖项的信息
     * @Param:
@@ -37,7 +38,7 @@ public interface AwardService {
     * @Author: gp
     * @Date: 2019/7/26
     */
-    public String UpdateAward(Award award);
+    ServiceResult UpdateAward(Award award);
 
 
 

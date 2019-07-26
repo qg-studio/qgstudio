@@ -1,7 +1,11 @@
 package com.qgailab.service.impl;
 
+import com.qgailab.dao.AwardMapper;
+import com.qgailab.model.dto.ServiceResult;
 import com.qgailab.model.po.Award;
 import com.qgailab.service.AwardService;
+import com.qgailab.service.constants.Message;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -13,30 +17,51 @@ import org.springframework.stereotype.Service;
 @Service
 public class AwardServiceImpl implements AwardService {
 
+    @Autowired
+    AwardMapper awardMapper;
 
     @Override
-    public String SelectAward(Long id) {
+    public ServiceResult SelectAward(Long id) {
+
+        Award award = awardMapper.selectByPrimaryKey(id);
         try {
-
+            if (award == null) {
+                return new ServiceResult(401, Message.patent_not_found);
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+            return new ServiceResult(500,Message.please_retry);
         }
-        catch () {
 
+        return new ServiceResult(200, Message.success, award);
+    }
+
+    @Override
+    public ServiceResult RemoveAward(Long id) {
+
+        Award award = awardMapper.selectByPrimaryKey(id);
+        try {
+            if (award == null) {
+                return new ServiceResult(401, Message.patent_not_found);
+            }
+            awardMapper.deleteByPrimaryKey(id);
+
+        }catch (Exception e) {
+            e.printStackTrace();
+            return new ServiceResult(500,Message.please_retry);
         }
+
+        return new ServiceResult(200, Message.success);
+        
+    }
+
+    @Override
+    public ServiceResult InsertAward(Award award) {
         return null;
     }
 
     @Override
-    public String RemoveAward(Long id) {
-        return null;
-    }
-
-    @Override
-    public String InsertAward(Award award) {
-        return null;
-    }
-
-    @Override
-    public String UpdateAward(Award award) {
+    public ServiceResult UpdateAward(Award award) {
         return null;
     }
 }

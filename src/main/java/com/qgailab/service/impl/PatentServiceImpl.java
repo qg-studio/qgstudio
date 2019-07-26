@@ -1,3 +1,5 @@
+package com.qgailab.service.impl;
+
 import com.qgailab.dao.PatentMapper;
 import com.qgailab.model.dto.ServiceResult;
 import com.qgailab.model.po.Patent;
@@ -69,12 +71,27 @@ public class PatentServiceImpl implements PatentService {
     * @Date: 2019/7/26
     */
     @Override
-    public String UpdatePatent(Patent patent) {
+    public ServiceResult UpdatePatent(Patent patent) {
 
         if (patent == null) {
-            return new ServiceResult(400, Message);
+            return new ServiceResult(400, Message.parameter_not_enough);
         }
-
+        try {
+            //专利名不能为空
+            if (patent.getName() == null || patent.getName().trim().isEmpty()) {
+                return new ServiceResult(401, Message.parameter_not_enough);
+            }
+            if(patent.getType() == null || patent.getType().trim().isEmpty()){
+                return new ServiceResult(401, Message.parameter_not_enough);
+            }
+            if(patent.getName() == null || patent.getName().trim().isEmpty()){
+                patent.setName("暂无描述信息");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ServiceResult(500,Message.please_retry);
+        }
+        return new ServiceResult(200, Message.success);
     }
 
     /**
