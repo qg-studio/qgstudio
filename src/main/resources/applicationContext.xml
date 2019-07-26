@@ -16,6 +16,8 @@
     <context:component-scan base-package="com.qgailab">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
+
+    <bean id="cors" class="com.qgailab.filter.EncodingFilter"/>
     <!--Spring整合MyBatis框架-->
     <!--配置连接池-->
     <!-- Druid数据源  -->
@@ -23,7 +25,7 @@
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
         <property name="url" value="jdbc:mysql://localhost:3306/qgstudio?characterEncoding=utf-8&amp;serverTimezone=GMT%2B8&amp;useSSL=false" />
         <property name="username" value="root" />
-        <property name="password" value="guopei111666" />
+        <property name="password" value="6868" />
         <!-- 配置初始化大小、最小、最大 -->
         <property name="initialSize" value="10" />
         <property name="minIdle" value="10" />

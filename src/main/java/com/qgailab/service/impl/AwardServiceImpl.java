@@ -39,8 +39,9 @@ public class AwardServiceImpl implements AwardService {
     @Override
     public ServiceResult RemoveAward(Long id) {
 
-        Award award = awardMapper.selectByPrimaryKey(id);
+        Award award ;
         try {
+            award = awardMapper.selectByPrimaryKey(id);
             if (award == null) {
                 return new ServiceResult(401, Message.patent_not_found);
             }

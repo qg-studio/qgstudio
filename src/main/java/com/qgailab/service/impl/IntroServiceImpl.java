@@ -5,6 +5,7 @@ import com.qgailab.model.dto.ServiceResult;
 import com.qgailab.model.po.Intro;
 import com.qgailab.service.IntroService;
 import com.qgailab.service.constants.Message;
+import com.qgailab.util.UUIDUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,6 +45,8 @@ public class IntroServiceImpl implements IntroService {
                 intro.setDescription("暂无描述信息");
             }
 
+            intro.setUuid(UUIDUtils.getUUID());
+
             if(introMapper.insertSelective(intro)!=1){
                 return new ServiceResult(402,Message.database_exception);
             }
@@ -52,5 +55,65 @@ public class IntroServiceImpl implements IntroService {
             return new ServiceResult(500,Message.please_retry);
         }
         return new ServiceResult(200,Message.success,intro);
+    }
+
+    /**
+     * 负责更新一条信息点
+     *
+     * @param intro
+     * @name updateIntro
+     * @notice none
+     * @author <a href="mailto:kobe524348@gmail.com">黄钰朝</a>
+     * @date 2019-07-26
+     */
+    @Override
+    public ServiceResult updateIntro(Intro intro) {
+        if (intro == null) {
+            return new ServiceResult(400, Message.parameter_not_enough);
+        }
+        try {
+            introMapper.updateByPrimaryKeySelective(intro);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ServiceResult(500,Message.please_retry);
+        }
+        return new ServiceResult(200,Message.success,intro);
+    }
+
+
+    /**
+     * 获取一个信息
+     *
+     * @param introId
+     * @name selectIntro
+     * @notice none
+     * @author <a href="mailto:kobe524348@gmail.com">黄钰朝</a>
+     * @date 2019-07-26
+     */
+    @Override
+    public ServiceResult selectIntro(Long introId) {
+        Intro intro ;
+        try {
+            intro = introMapper.selectByPrimaryKey(introId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ServiceResult(500,Message.please_retry);
+        }
+        return new ServiceResult(200,intro);
+    }
+
+    /**
+     * 返回信息点
+     *
+     * @param page  页数
+     * @param limit 一页最大记录数
+     * @name listIntro
+     * @notice none
+     * @author <a href="mailto:kobe524348@gmail.com">黄钰朝</a>
+     * @date 2019-07-26
+     */
+    @Override
+    public ServiceResult listIntro(int page, int limit) {
+        return null;
     }
 }

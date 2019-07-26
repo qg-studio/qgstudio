@@ -20,7 +20,9 @@
       <param-name>contextConfigLocation</param-name>
       <param-value>classpath:springmvc.xml</param-value>
     </init-param>
+
     <load-on-startup>1</load-on-startup>
+
   </servlet>
   <servlet-mapping>
     <servlet-name>dispatcherServlet</servlet-name>
@@ -48,5 +50,7 @@
     <servlet-name>druidStatView</servlet-name>
     <url-pattern>/druid/*</url-pattern>
   </servlet-mapping>
+
+<!--  文件上传-->
 
 </web-app>
