@@ -1,7 +1,6 @@
 package com.qgailab.service.impl;
 
 import com.qgailab.dao.UserMapper;
-import com.qgailab.exception.DaoException;
 import com.qgailab.model.dto.ServiceResult;
 import com.qgailab.model.po.User;
 import com.qgailab.service.UserService;
@@ -11,7 +10,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.sql.SQLException;
 
@@ -24,7 +22,7 @@ import java.sql.SQLException;
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
-    UserMapper userMapper;
+    private UserMapper userMapper;
 
     /**
      * 负责用户登陆功能

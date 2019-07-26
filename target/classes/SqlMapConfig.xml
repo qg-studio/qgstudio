@@ -21,7 +21,7 @@
     </environments>
     <mappers>
         <!--        指定给每一个dao类配置的mapper配置文件的路径-->
-<!--        <mapper resource="com/qgailab/dao/UserMapper.xml"/>-->
+        <mapper resource="com/qgailab/dao/UserMapper.xml"/>
     </mappers>
 </configuration>
 
