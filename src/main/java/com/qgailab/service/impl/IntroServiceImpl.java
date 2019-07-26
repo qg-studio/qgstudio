@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * @author <a href="mailto:kobe524348@gmail.com">黄钰朝</a>
  * @description 负责“关于QG”信息点的CRUD
@@ -106,14 +108,24 @@ public class IntroServiceImpl implements IntroService {
      * 返回信息点
      *
      * @param page  页数
-     * @param limit 一页最大记录数
+     * @param pageSize 一页最大记录数
      * @name listIntro
      * @notice none
      * @author <a href="mailto:kobe524348@gmail.com">黄钰朝</a>
      * @date 2019-07-26
      */
     @Override
-    public ServiceResult listIntro(int page, int limit) {
-        return null;
+    public ServiceResult listIntro(int page, int pageSize) {
+        if (page < 0) {
+            return new ServiceResult(400, Message.page_invalid);
+        }
+        List<Intro> introList;
+        try {
+            introList = introMapper.list(page * pageSize, pageSize);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ServiceResult(500, Message.please_retry);
+        }
+        return new ServiceResult(200, Message.success, introList);
     }
 }

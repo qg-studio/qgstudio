@@ -72,4 +72,11 @@ public class IntroController {
         }
         return new ServiceResult(200, Message.success, intro);
     }
+
+    @RequestMapping(value = "/list", method = {RequestMethod.POST,RequestMethod.GET})
+    public @ResponseBody
+    ServiceResult insertIntro(int page,int pageSize) {
+        return introService.listIntro(page,pageSize);
+    }
+
 }
