@@ -21,7 +21,7 @@
     <!-- Druid数据源  -->
     <bean id="druidDataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://localhost:3306/qgstudio" />
+        <property name="url" value="jdbc:mysql://localhost:3306/qgstudio?characterEncoding=utf-8&amp;serverTimezone=GMT%2B8&amp;useSSL=false" />
         <property name="username" value="root" />
         <property name="password" value="guopei111666" />
         <!-- 配置初始化大小、最小、最大 -->
@@ -74,11 +74,12 @@
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="druidDataSource" />
     </bean>
+
     <!--配置事务通知-->
     <tx:annotation-driven/>
     <tx:advice id="txAdvice" transaction-manager="transactionManager">
         <tx:attributes>
-            <tx:method name="find*" read-only="true"/>
+            <tx:method name="select*" read-only="true"/>
             <tx:method name="*" isolation="DEFAULT"/>
         </tx:attributes>
     </tx:advice>
