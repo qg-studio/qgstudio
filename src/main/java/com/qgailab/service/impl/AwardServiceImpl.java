@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 public class AwardServiceImpl implements AwardService {
 
     @Autowired
-    AwardMapper awardMapper;
+    private AwardMapper awardMapper;
 
     @Override
     public ServiceResult SelectAward(Long id) {
@@ -62,6 +62,27 @@ public class AwardServiceImpl implements AwardService {
 
     @Override
     public ServiceResult UpdateAward(Award award) {
-        return null;
+
+        if (award == null) {
+            return new ServiceResult(400, Message.parameter_not_enough);
+        }
+        try {
+            if (award.getProject() == null || award.getProject().trim().isEmpty()) {
+                return new ServiceResult(401, Message.parameter_not_enough);
+            }
+            if (award.getGame() == null || award.getGame().trim().isEmpty()) {
+                return new ServiceResult(401, Message.parameter_not_enough);
+            }
+            if (award.getPrize() == null || award.getPrize().trim().isEmpty()) {
+                return new ServiceResult(401, Message.parameter_not_enough);
+            }
+            if (awardMapper.updateByPrimaryKey(award) != 1) {
+                return new ServiceResult(402,Message.database_exception);
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+            return new ServiceResult(500, Message.please_retry);
+        }
+        return new ServiceResult(200, Message.success);
     }
 }

@@ -32,6 +32,11 @@ public enum Message {
      */
     patent_not_found,
 
+    /**
+     * 著作权不存在
+     */
+    copyright_not_found,
+
 
     /*
      **************************************************************
