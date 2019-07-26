@@ -2,7 +2,10 @@ package com.qgailab.service.impl;
 
 import com.qgailab.dao.UserMapper;
 import com.qgailab.model.po.User;
+import com.qgailab.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,15 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Slf4j
 @Service
-public class UserServiceImpl {
-    @Autowired
-    UserMapper userMapper;
+public class UserServiceImpl implements UserService {
 
-    @RequestMapping(value = "/user")
-    public void test(){
-        User user = new User();
-        user.setUsername("test");
-        userMapper.insertSelective(user);
-        System.out.println("user");
-    }
+
 }
