@@ -23,11 +23,14 @@ public class TestUtil {
         InputStream inputStream = Resources.getResourceAsStream("SqlMapConfig.xml");
         SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
         SqlSessionFactory factory = builder.build(inputStream);
-        SqlSession sqlSession= factory.openSession();
+        SqlSession sqlSession= factory.openSession(true);
         UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
         User user = new User();
-        user.setUsername("test");
-        userMapper.insertSelective(user);
-        sqlSession.commit();
+        user.setUsername("test3");
+        user.setPassword("1234");
+        user.setType("USER");
+
+        userMapper.insertSelectiveReturnId(user);
+        System.out.println("id = "+user.getId());
     }
 }

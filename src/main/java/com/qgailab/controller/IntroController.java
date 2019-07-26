@@ -1,8 +1,8 @@
 package com.qgailab.controller;
 
 import com.qgailab.model.dto.ServiceResult;
-import com.qgailab.model.po.User;
-import com.qgailab.service.UserService;
+import com.qgailab.model.po.Intro;
+import com.qgailab.service.IntroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,17 +13,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 /**
  * @author <a href="mailto:kobe524348@gmail.com">黄钰朝</a>
  * @description
- * @date 2019-07-25 15:36
+ * @date 2019-07-26 12:15
  */
-@RequestMapping(value = "/user")
 @Controller
-public class UserController {
-
+@RequestMapping(value = "/intro")
+public class IntroController {
     @Autowired
-    private UserService userService;
+    private IntroService introService;
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public @ResponseBody ServiceResult login(@RequestBody  User user){
-       return userService.login(user);
-   }
+    @RequestMapping(value = "/insert",method = RequestMethod.POST)
+    public @ResponseBody
+    ServiceResult insertIntro(@RequestBody Intro intro){
+        return introService.insertIntro(intro);
+    }
 }
