@@ -7,6 +7,7 @@ import com.qgailab.model.po.Award;
 import com.qgailab.model.po.Feature;
 import com.qgailab.model.po.Moment;
 import com.qgailab.service.FeatureService;
+import com.qgailab.service.ImageService;
 import com.qgailab.service.constants.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,9 @@ public class FeatureServiceImpl implements FeatureService {
 
     @Autowired
     private FeatureMapper featureMapper;
+    @Autowired
+    private ImageService imageService;
+
     /**
     * @name InsertFeature
     * @param  feature
@@ -75,6 +79,8 @@ public class FeatureServiceImpl implements FeatureService {
             if (featureMapper.deleteByPrimaryKey(id) != 1){
                 return new ServiceResult(402, Message.database_exception);
             }
+            //同时删除图片
+
         }catch (Exception e) {
             e.printStackTrace();
             return new ServiceResult(500,Message.please_retry);

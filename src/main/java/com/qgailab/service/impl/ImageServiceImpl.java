@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
-import java.util.logging.Filter;
+import java.util.List;
 
 /**
  * 对图片进行增查
@@ -34,7 +34,7 @@ public class ImageServiceImpl implements ImageService {
      * @date 2019-07-27
      */
     @Override
-    public ServiceResult removeImage(String path,Long id) {
+    public ServiceResult removeImage(String path, Long id) {
         Image image;
 
         if (id == null) {
@@ -48,9 +48,9 @@ public class ImageServiceImpl implements ImageService {
                 return new ServiceResult(401, Message.image_not_found);
             }
             //删除文件
-            File file = new File(path+image.getFilename());
-            if(!file.exists()){
-                return new ServiceResult(402,Message.image_has_lost,file);
+            File file = new File(path + image.getFilename());
+            if (!file.exists()) {
+                return new ServiceResult(402, Message.image_has_lost, file);
             }
             file.delete();
 
@@ -64,4 +64,20 @@ public class ImageServiceImpl implements ImageService {
         }
         return new ServiceResult(200, Message.success, image);
     }
+
+
+    public ServiceResult removeImageList(String path, List<Image> images) {
+        if (images == null) {
+            return new ServiceResult(400, Message.parameter_not_enough);
+        }
+        //遍历删除图片
+        for (Image image : images) {
+            ServiceResult result = removeImage(path, image.getId());
+            if (result.getStatus() != 200) {
+                return result;
+            }
+        }
+        return new ServiceResult(200, Message.success, images);
+    }
+
 }
