@@ -1,5 +1,6 @@
 package com.qgailab.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.qgailab.dao.NewsMapper;
 import com.qgailab.model.dto.ServiceResult;
 import com.qgailab.model.po.News;
@@ -7,6 +8,8 @@ import com.qgailab.service.NewsService;
 import com.qgailab.service.constants.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @description 新闻专栏增删查改
@@ -83,10 +86,34 @@ public class NewsServiceImpl implements NewsService {
             if (news == null) {
                 return new ServiceResult(401, Message.news_not_found);
             }
-            return new ServiceResult(200, Message.success, news);
         }catch (Exception e) {
             e.printStackTrace();
             return new ServiceResult(500, Message.please_retry);
         }
+            return new ServiceResult(200, Message.success, news);
+    }
+
+    /**
+     * 负责查询专利信息
+     * @param page  页数
+     * @param pageSize 一页最大记录数
+     * @return: ServiceResult
+     * @Author: gp
+     * @Date: 2019/7/26
+     */
+    @Override
+    public ServiceResult listNews(int page, int pageSize) {
+        if (page < 0 ){
+            return new ServiceResult(400, Message.page_invalid);
+        }
+        List<News> newsList;
+        try {
+            PageHelper.startPage(page, pageSize);
+            newsList = newsMapper.listPage(page * pageSize, pageSize);
+        }catch (Exception e) {
+            e.printStackTrace();
+            return new ServiceResult(500, Message.please_retry);
+        }
+        return new ServiceResult(200, Message.success, newsList);
     }
 }

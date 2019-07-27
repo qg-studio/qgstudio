@@ -78,4 +78,20 @@ public class NewsController {
         return newsService.selectNews(newsId);
     }
 
+    /**
+     * 分页查询首页信息
+     *
+     * @param page     页数
+     * @param pageSize 一页的最大记录数
+     * @return
+     * @name listFeature
+     * @notice none
+     * @author <a href="">郭沛</a>
+     * @date 2019-07-27
+     */
+    @RequestMapping(value = "/list", method = {RequestMethod.POST, RequestMethod.GET})
+    public @ResponseBody
+    ServiceResult listNews(int page, int pageSize) {
+        return newsService.listNews(page, pageSize);
+    }
 }

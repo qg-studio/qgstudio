@@ -43,4 +43,15 @@ public interface NewsService {
      */
     ServiceResult selectNews(Long id);
 
+    /**
+     * 返回信息点
+     *
+     * @param page  页数
+     * @param pageSize 一页最大记录数
+     * @name listNews
+     * @notice none
+     * @author <a href="mailto:kobe524348@gmail.com">黄钰朝</a>
+     * @date 2019-07-26
+     */
+    ServiceResult listNews(int page, int pageSize);
 }
