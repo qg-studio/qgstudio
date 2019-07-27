@@ -32,6 +32,12 @@
     from image
     where id = #{id,jdbcType=BIGINT}
   </select>
+  <select id="selectByFuuid" parameterType="java.lang.String" resultMap="BaseResultMap" resultType="java.util.List">
+    select
+     image.id as imageId , image.fuuid , image.filename ,image.gmt_create , image.gmt_modified
+    from image as image
+    where fuuid = #{id,jdbcType=BIGINT}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     <!--
       WARNING - @mbg.generated

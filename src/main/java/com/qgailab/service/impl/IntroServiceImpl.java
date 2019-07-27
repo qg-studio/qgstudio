@@ -1,5 +1,6 @@
 package com.qgailab.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.qgailab.dao.IntroMapper;
 import com.qgailab.model.dto.ServiceResult;
 import com.qgailab.model.po.Intro;
@@ -121,6 +122,7 @@ public class IntroServiceImpl implements IntroService {
         }
         List<Intro> introList;
         try {
+            PageHelper.startPage(page,pageSize);
             introList = introMapper.list(page * pageSize, pageSize);
         } catch (Exception e) {
             e.printStackTrace();
