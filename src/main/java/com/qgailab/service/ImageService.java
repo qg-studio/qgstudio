@@ -5,9 +5,14 @@ import com.qgailab.model.po.Image;
 
 public interface ImageService {
 
-    ServiceResult insertImage(Image image);
-
-    ServiceResult removeImage(Long id);
-
+    /**
+     * 负责移除一张图片
+     *
+     * @name removeImage
+     * @notice none
+     * @author <a href="mailto:kobe524348@gmail.com">黄钰朝</a>
+     * @date 2019-07-27
+     */
+    ServiceResult removeImage(String path,Long id);
 
 }

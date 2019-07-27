@@ -34,13 +34,11 @@ public enum Message {
 
     /**
      * 著作权不存在
-     *
      */
     copyright_not_found,
 
     /**
      * 最近荣誉不存在
-     *
      */
     honor_not_found,
     /**
@@ -101,6 +99,16 @@ public enum Message {
      *              系统
      **************************************************************
      */
+    /**
+     * 图片不存在
+     */
+    image_not_found,
+    /**
+     * 图片已丢失
+     */
+    image_has_lost,
+
+
     /**
      * 页数不合法
      */
