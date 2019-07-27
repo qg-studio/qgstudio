@@ -1,47 +1,41 @@
 package com.qgailab.service;
 
 import com.qgailab.model.dto.ServiceResult;
-import com.qgailab.model.po.Award;
+import com.qgailab.model.po.Copyright;
 import org.springframework.stereotype.Service;
 
 @Service
-public interface AwardService {
+public interface CopyrightService {
 
-    /**
-     * 负责查询奖项的信息
+    /**增加著作权
     * @Param:
     * @return:
     * @Author: gp
     * @Date: 2019/7/26
     */
-    ServiceResult SelectAward(Long id);
+    ServiceResult InsertCopyright(Copyright copyright);
 
-    /**
-     * 负责删除奖项的信息
+    /**删除某列著作权
     * @Param:
     * @return:
     * @Author: gp
     * @Date: 2019/7/26
     */
-    ServiceResult RemoveAward(Long id);
+    ServiceResult RemoveCopyright(Long id);
 
-    /**
-     * 负责添加奖项的信息
+    /**更新著作权信息
     * @Param:
     * @return:
     * @Author: gp
     * @Date: 2019/7/26
     */
-    ServiceResult InsertAward(Award award);
+    ServiceResult UpdateCopyright(Copyright copyright);
 
-    /**负责更新奖项的信息
+    /**查询某一著作权
     * @Param:
     * @return:
     * @Author: gp
     * @Date: 2019/7/26
     */
-    ServiceResult UpdateAward(Award award);
-
-
-
+    ServiceResult SelectCopyright(Long id);
 }

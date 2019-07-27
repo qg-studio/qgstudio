@@ -2,7 +2,9 @@ package com.qgailab.service;
 
 import com.qgailab.model.dto.ServiceResult;
 import com.qgailab.model.po.Patent;
+import org.springframework.stereotype.Service;
 
+@Service
 public interface PatentService {
 
     /**

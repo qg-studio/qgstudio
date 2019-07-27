@@ -18,8 +18,15 @@ import org.springframework.stereotype.Service;
 public class AwardServiceImpl implements AwardService {
 
     @Autowired
-    AwardMapper awardMapper;
+    private AwardMapper awardMapper;
 
+    /**
+     * 查询奖项
+    * @Param: [id]
+    * @return: com.qgailab.model.dto.ServiceResult
+    * @Author: gp
+    * @Date: 2019/7/26
+    */
     @Override
     public ServiceResult SelectAward(Long id) {
 
@@ -36,6 +43,13 @@ public class AwardServiceImpl implements AwardService {
         return new ServiceResult(200, Message.success, award);
     }
 
+    /**
+     * 移除奖项
+     * @Param: [id]
+     * @return: com.qgailab.model.dto.ServiceResult
+     * @Author: gp
+     * @Date: 2019/7/26
+     */
     @Override
     public ServiceResult RemoveAward(Long id) {
 
@@ -53,16 +67,62 @@ public class AwardServiceImpl implements AwardService {
         }
 
         return new ServiceResult(200, Message.success);
-        
+
     }
 
+    /**
+     * 添加奖项
+     * @Param: [id]
+     * @return: com.qgailab.model.dto.ServiceResult
+     * @Author: gp
+     * @Date: 2019/7/26
+     */
     @Override
     public ServiceResult InsertAward(Award award) {
-        return null;
+        if (award == null) {
+            return new ServiceResult(400, Message.parameter_not_enough);
+        }
+        try {
+            if (awardMapper.insertSelective(award) != 1) {
+                return new ServiceResult(402, Message.database_exception);
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+            return new ServiceResult(500, Message.please_retry);
+        }
+        return new ServiceResult(200, Message.success,award);
     }
 
+    /**
+     * 更新奖项
+     * @Param: [id]
+     * @return: com.qgailab.model.dto.ServiceResult
+     * @Author: gp
+     * @Date: 2019/7/26
+     */
     @Override
     public ServiceResult UpdateAward(Award award) {
-        return null;
+
+        if (award == null) {
+            return new ServiceResult(400, Message.parameter_not_enough);
+        }
+        try {
+            if (award.getProject() == null || award.getProject().trim().isEmpty()) {
+                return new ServiceResult(401, Message.parameter_not_enough);
+            }
+            if (award.getGame() == null || award.getGame().trim().isEmpty()) {
+                return new ServiceResult(401, Message.parameter_not_enough);
+            }
+            if (award.getPrize() == null || award.getPrize().trim().isEmpty()) {
+                return new ServiceResult(401, Message.parameter_not_enough);
+            }
+            if (awardMapper.updateByPrimaryKey(award) != 1) {
+                return new ServiceResult(402,Message.database_exception);
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+            return new ServiceResult(500, Message.please_retry);
+        }
+        return new ServiceResult(200, Message.success, award);
     }
 }
