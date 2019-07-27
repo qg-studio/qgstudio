@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 public class PatentServiceImpl implements PatentService {
 
     @Autowired
-    PatentMapper patentMapper;
+    private PatentMapper patentMapper;
 
     /**
      *负责插入专利
