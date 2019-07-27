@@ -38,7 +38,7 @@ public class ProjectServiceImpl implements ProjectService {
         }
         try {
             if (project.getTitle() == null || project.getTitle().trim().isEmpty()) {
-                return new ServiceResult(400, Message.parameter_not_enough);
+                return new ServiceResult(400, Message.title_not_null);
             }
             if (projectMapper.insertSelective(project) != 1) {
                 return new ServiceResult(402, Message.database_exception);
@@ -73,7 +73,7 @@ public class ProjectServiceImpl implements ProjectService {
             e.printStackTrace();
             return new ServiceResult(500, Message.please_retry);
         }
-        return new ServiceResult(200, Message.success);
+        return new ServiceResult(200, Message.success, project);
     }
 
     /**
@@ -92,7 +92,7 @@ public class ProjectServiceImpl implements ProjectService {
         }
         try {
             if (project.getTitle() == null || project.getTitle().trim().isEmpty()) {
-                return new ServiceResult(400, Message.parameter_not_enough);
+                return new ServiceResult(400, Message.title_not_null);
             }
             if (projectMapper.updateByPrimaryKeySelective(project) != 1) {
                 return new ServiceResult(402, Message.database_exception);

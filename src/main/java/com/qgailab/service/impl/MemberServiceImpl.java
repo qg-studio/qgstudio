@@ -25,9 +25,12 @@ public class MemberServiceImpl implements MemberService {
     private MemberMapper memberMapper;
     @Override
     public ServiceResult insertMember(Member member) {
+        if (member == null) {
+            return new ServiceResult(400, Message.parameter_not_enough);
+        }
         try {
-            if (member == null || member.getName() == null || member.getName().trim().isEmpty()) {
-                return new ServiceResult(400, Message.parameter_not_enough);
+            if (member.getName() == null || member.getName().trim().isEmpty()) {
+                return new ServiceResult(401, Message.name_not_null);
             }
             if (memberMapper.insertSelective(member) != 1) {
                 return new ServiceResult(402, Message.database_exception);
@@ -54,7 +57,7 @@ public class MemberServiceImpl implements MemberService {
             e.printStackTrace();
             return new ServiceResult(500, Message.please_retry);
         }
-        return new ServiceResult(200, Message.success);
+        return new ServiceResult(200, Message.success, member);
     }
 
     @Override
@@ -73,9 +76,12 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public ServiceResult updateMember(Member member) {
+        if (member == null) {
+            return new ServiceResult(400, Message.parameter_not_enough);
+        }
         try {
-            if (member == null || member.getName() == null || member.getName().trim().isEmpty()) {
-                return new ServiceResult(400, Message.parameter_not_enough);
+            if (member.getName() == null || member.getName().trim().isEmpty()) {
+                return new ServiceResult(401, Message.name_not_null);
             }
             if (memberMapper.updateByPrimaryKeySelective(member) != 1) {
                 return new ServiceResult(402, Message.database_exception);
@@ -88,7 +94,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     /**
-     * 负责查询专利信息
+     * 负责查询多个成员信息
      * @param page  页数
      * @param pageSize 一页最大记录数
      * @return: ServiceResult

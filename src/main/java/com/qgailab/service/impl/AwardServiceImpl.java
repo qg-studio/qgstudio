@@ -4,7 +4,6 @@ import com.github.pagehelper.PageHelper;
 import com.qgailab.dao.AwardMapper;
 import com.qgailab.model.dto.ServiceResult;
 import com.qgailab.model.po.Award;
-import com.qgailab.model.po.Moment;
 import com.qgailab.service.AwardService;
 import com.qgailab.service.constants.Message;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,15 +62,14 @@ public class AwardServiceImpl implements AwardService {
             if (award == null) {
                 return new ServiceResult(401, Message.patent_not_found);
             }
-            awardMapper.deleteByPrimaryKey(id);
-
+            if (awardMapper.deleteByPrimaryKey(id) != 1) {
+                return new ServiceResult(402,Message.database_exception);
+            }
         }catch (Exception e) {
             e.printStackTrace();
             return new ServiceResult(500,Message.please_retry);
         }
-
-        return new ServiceResult(200, Message.success);
-
+        return new ServiceResult(200, Message.success, award);
     }
 
     /**

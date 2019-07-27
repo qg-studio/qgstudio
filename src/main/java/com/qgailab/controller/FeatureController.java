@@ -21,7 +21,7 @@ public class FeatureController {
 
     /**
      * @name 插入特色信息
-     * @param
+     * @param feature
      * @return ServiceResult
      * @notice none
      * @author < a href=" ">郭沛</ a>
@@ -30,6 +30,45 @@ public class FeatureController {
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
     public ServiceResult insertFeature(@RequestBody Feature feature) {
         return featureService.insertFeature(feature);
+    }
+
+    /**
+     * @name 删除特色信息
+     * @param  featureId
+     * @return ServiceResult
+     * @notice none
+     * @author < a href=" ">郭沛</ a>
+     * @date
+     */
+    @RequestMapping(value = "/remove", method = RequestMethod.POST)
+    public ServiceResult removeFeature(Long featureId) {
+        return featureService.removeFeature(featureId);
+    }
+
+    /**
+     * @name 更新特色信息
+     * @param  feature
+     * @return ServiceResult
+     * @notice none
+     * @author < a href=" ">郭沛</ a>
+     * @date
+     */
+    @RequestMapping(value = "/update",method = RequestMethod.POST)
+    public ServiceResult updateFeature(@RequestBody Feature feature) {
+        return featureService.updateFeature(feature);
+    }
+
+    /**
+     * @name 查询特色信息
+     * @param  featureId
+     * @return ServiceResult
+     * @notice none
+     * @author < a href=" ">郭沛</ a>
+     * @date
+     */
+    @RequestMapping(value = "/select")
+    public ServiceResult selectFeature(Long featureId) {
+        return featureService.selectFeature(featureId);
     }
 
     /**

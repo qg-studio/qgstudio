@@ -28,7 +28,7 @@ public class NewsServiceImpl implements NewsService {
         }
         try {
             if (news.getTitle() == null || news.getTitle().trim().isEmpty()) {
-                return new ServiceResult(400, Message.parameter_not_enough);
+                return new ServiceResult(400, Message.title_not_null);
             }
             if (newsMapper.insertSelective(news) != 1) {
                 return new ServiceResult(402, Message.database_exception);
@@ -48,12 +48,14 @@ public class NewsServiceImpl implements NewsService {
             if (news == null) {
                 return new ServiceResult(401,Message.news_not_found);
             }
-            newsMapper.deleteByPrimaryKey(id);
+            if (newsMapper.deleteByPrimaryKey(id) != 1) {
+                return new ServiceResult(402,Message.database_exception);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return new ServiceResult(500,Message.please_retry);
         }
-        return new ServiceResult(200,Message.success);
+        return new ServiceResult(200,Message.success,news);
     }
 
     @Override
@@ -63,10 +65,10 @@ public class NewsServiceImpl implements NewsService {
         }
         try {
             if (news.getTitle() == null || news.getTitle().trim().isEmpty()) {
-                return new ServiceResult(401, Message.parameter_not_enough);
+                return new ServiceResult(401, Message.title_not_null);
             }
             if (news.getUrl() == null || news.getUrl().trim().isEmpty()) {
-                return new ServiceResult(401, Message.parameter_not_enough);
+                return new ServiceResult(401, Message.url_not_null);
             }
             if (newsMapper.updateByPrimaryKeySelective(news) != 1) {
                 return new ServiceResult(402, Message.database_exception);

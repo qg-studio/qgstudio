@@ -25,9 +25,12 @@ public class LeaderServiceImpl implements LeaderService {
 
     @Override
     public ServiceResult insertLeader(Leader leader) {
+        if (leader == null) {
+            return new ServiceResult(400, Message.parameter_not_enough);
+        }
         try {
-            if (leader == null || leader.getName() == null || leader.getName().trim().isEmpty()) {
-                return new ServiceResult(400, Message.parameter_not_enough);
+            if (leader.getName() == null || leader.getName().trim().isEmpty()) {
+                return new ServiceResult(400, Message.name_not_null);
             }
             if (leaderMapper.insertSelective(leader) != 1) {
                 return new ServiceResult(402, Message.database_exception);
@@ -41,8 +44,9 @@ public class LeaderServiceImpl implements LeaderService {
 
     @Override
     public ServiceResult deleteLeader(Long id) {
-        Leader leader = leaderMapper.selectByPrimaryKey(id);
+        Leader leader;
         try {
+            leader = leaderMapper.selectByPrimaryKey(id);
             if (leader == null) {
                 return new ServiceResult(401, Message.leader_not_found);
             }
@@ -53,14 +57,17 @@ public class LeaderServiceImpl implements LeaderService {
             e.printStackTrace();
             return new ServiceResult(500, Message.please_retry);
         }
-        return new ServiceResult(200, Message.success);
+        return new ServiceResult(200, Message.success, leader);
     }
 
     @Override
     public ServiceResult updateLeader(Leader leader) {
+        if (leader == null) {
+            return new ServiceResult(400, Message.parameter_not_enough);
+        }
         try {
-            if (leader == null || leader.getName() == null || leader.getName().trim().isEmpty()) {
-                return new ServiceResult(400, Message.parameter_not_enough);
+            if (leader.getName() == null || leader.getName().trim().isEmpty()) {
+                return new ServiceResult(400, Message.name_not_null);
             }
             if (leaderMapper.updateByPrimaryKeySelective(leader) != 1) {
                 return new ServiceResult(402, Message.database_exception);

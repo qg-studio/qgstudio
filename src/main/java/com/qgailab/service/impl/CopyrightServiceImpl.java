@@ -60,18 +60,20 @@ public class CopyrightServiceImpl implements CopyrightService {
      */
     @Override
     public ServiceResult removeCopyright(Long id) {
-        //查找不到相关的信息
-        if (copyrightMapper.selectByPrimaryKey(id) == null) {
-            return new ServiceResult(400, Message.copyright_not_found);
-        }
+        Copyright copyright;
         try {
+            //查找不到相关的信息
+            copyright = copyrightMapper.selectByPrimaryKey(id);
+            if (copyright == null) {
+                return new ServiceResult(400, Message.copyright_not_found);
+            }
             if (copyrightMapper.deleteByPrimaryKey(id) != 1) {
                 return new ServiceResult(402, Message.please_retry);
             }
         }catch (Exception e) {
             return new ServiceResult(500, Message.database_exception);
         }
-        return new ServiceResult(200, Message.success);
+        return new ServiceResult(200, Message.success, copyright);
     }
 
     /**

@@ -31,11 +31,16 @@ public class PatentServiceImpl implements PatentService {
     @Override
     public ServiceResult insertPatent(Patent patent) {
 
-        if (patent == null || patent.getType() == null || patent.getInventor() == null || patent.getName() == null) {
+        if (patent == null ) {
             return new ServiceResult(400, Message.parameter_not_enough);
         }
         try {
-            patentMapper.insertSelective(patent);
+            if (patent.getName() == null || patent.getName().trim().isEmpty()) {
+                return new ServiceResult(401, Message.name_not_null);
+            }
+            if (patentMapper.insertSelective(patent) !=1) {
+                return new ServiceResult(402, Message.database_exception);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return new ServiceResult(500, Message.please_retry);
@@ -65,7 +70,7 @@ public class PatentServiceImpl implements PatentService {
             e.printStackTrace();
             return new ServiceResult(500,Message.please_retry);
         }
-        return new ServiceResult(200,Message.success);
+        return new ServiceResult(200,Message.success, patent);
     }
 
     /**
@@ -84,13 +89,7 @@ public class PatentServiceImpl implements PatentService {
         try {
             //专利名不能为空
             if (patent.getName() == null || patent.getName().trim().isEmpty()) {
-                return new ServiceResult(401, Message.parameter_not_enough);
-            }
-            if(patent.getType() == null || patent.getType().trim().isEmpty()){
-                return new ServiceResult(401, Message.parameter_not_enough);
-            }
-            if(patent.getName() == null || patent.getName().trim().isEmpty()){
-                patent.setName("暂无描述信息");
+                return new ServiceResult(401, Message.name_not_null);
             }
             if (patentMapper.updateByPrimaryKeySelective(patent) != 1) {
                 return new ServiceResult(402, Message.database_exception);

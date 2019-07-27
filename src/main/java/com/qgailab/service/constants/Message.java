@@ -145,5 +145,13 @@ public enum Message {
     /**
      * 参数不足
      */
-    parameter_not_enough;
+    parameter_not_enough,
+    /**
+     * url不能为空
+     */
+    url_not_null,
+    /**
+     * 名称不能为空
+     */
+    name_not_null;
 }

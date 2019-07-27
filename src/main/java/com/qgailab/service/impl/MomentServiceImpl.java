@@ -28,7 +28,7 @@ public class MomentServiceImpl implements MomentService {
         }
         try {
             if (moment.getTitle() == null || moment.getTitle().trim().isEmpty()) {
-                return new ServiceResult(400, Message.parameter_not_enough);
+                return new ServiceResult(401, Message.title_not_null);
             }
             if (momentMapper.insertSelective(moment) != 1) {
                 return new ServiceResult(402, Message.database_exception);
@@ -53,7 +53,7 @@ public class MomentServiceImpl implements MomentService {
             e.printStackTrace();
             return new ServiceResult(500,Message.please_retry);
         }
-        return new ServiceResult(200,Message.success);
+        return new ServiceResult(200,Message.success, moment);
     }
 
     @Override
@@ -63,7 +63,7 @@ public class MomentServiceImpl implements MomentService {
         }
         try {
             if (moment.getTitle() == null || moment.getTitle().trim().isEmpty()) {
-                return new ServiceResult(401, Message.parameter_not_enough);
+                return new ServiceResult(401, Message.title_not_null);
             }
             if (momentMapper.updateByPrimaryKeySelective(moment) != 1) {
                 return new ServiceResult(402, Message.database_exception);
