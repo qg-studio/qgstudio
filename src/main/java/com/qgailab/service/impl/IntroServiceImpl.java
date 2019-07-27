@@ -123,7 +123,7 @@ public class IntroServiceImpl implements IntroService {
         List<Intro> introList;
         try {
             PageHelper.startPage(page,pageSize);
-            introList = introMapper.list(page * pageSize, pageSize);
+            introList = introMapper.listPage(page * pageSize, pageSize);
         } catch (Exception e) {
             e.printStackTrace();
             return new ServiceResult(500, Message.please_retry);

@@ -23,6 +23,8 @@
         <!--        指定给每一个dao类配置的mapper配置文件的路径-->
         <mapper resource="com/qgailab/dao/UserMapper.xml"/>
         <mapper resource="com/qgailab/dao/ImageMapper.xml"/>
+        <mapper resource="com/qgailab/dao/AwardMapper.xml"/>
+        <mapper resource="com/qgailab/dao/FeatureMapper.xml"/>
     </mappers>
 </configuration>
 
