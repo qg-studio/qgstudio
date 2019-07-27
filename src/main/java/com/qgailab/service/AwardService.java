@@ -14,7 +14,7 @@ public interface AwardService {
     * @Author: gp
     * @Date: 2019/7/26
     */
-    ServiceResult SelectAward(Long id);
+    ServiceResult selectAward(Long id);
 
     /**
      * 负责删除奖项的信息
@@ -23,7 +23,7 @@ public interface AwardService {
     * @Author: gp
     * @Date: 2019/7/26
     */
-    ServiceResult RemoveAward(Long id);
+    ServiceResult removeAward(Long id);
 
     /**
      * 负责添加奖项的信息
@@ -32,7 +32,7 @@ public interface AwardService {
     * @Author: gp
     * @Date: 2019/7/26
     */
-    ServiceResult InsertAward(Award award);
+    ServiceResult insertAward(Award award);
 
     /**负责更新奖项的信息
     * @Param:
@@ -40,7 +40,7 @@ public interface AwardService {
     * @Author: gp
     * @Date: 2019/7/26
     */
-    ServiceResult UpdateAward(Award award);
+    ServiceResult updateAward(Award award);
 
 
 

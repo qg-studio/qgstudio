@@ -37,7 +37,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public ServiceResult RemoveMember(Long id) {
+    public ServiceResult removeMember(Long id) {
         Member member = memberMapper.selectByPrimaryKey(id);
         try {
             if (member == null) {
@@ -54,7 +54,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public ServiceResult SelectMember(Long id) {
+    public ServiceResult selectMember(Long id) {
         Member member = memberMapper.selectByPrimaryKey(id);
         try {
             if (member == null) {
@@ -68,7 +68,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public ServiceResult UpdateMember(Member member) {
+    public ServiceResult updateMember(Member member) {
         try {
             if (member == null || member.getName() == null || member.getName().trim().isEmpty()) {
                 return new ServiceResult(400, Message.parameter_not_enough);

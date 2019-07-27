@@ -28,7 +28,7 @@ public class CopyrightServiceImpl implements CopyrightService {
     * @date 2019/7/26
     */
     @Override
-    public ServiceResult InsertCopyright(Copyright copyright) {
+    public ServiceResult insertCopyright(Copyright copyright) {
         if (copyright == null) {
             return new ServiceResult(400, Message.parameter_not_enough);
         }
@@ -55,7 +55,7 @@ public class CopyrightServiceImpl implements CopyrightService {
      * @Date: 2019/7/26
      */
     @Override
-    public ServiceResult RemoveCopyright(Long id) {
+    public ServiceResult removeCopyright(Long id) {
         //查找不到相关的信息
         if (copyrightMapper.selectByPrimaryKey(id) == null) {
             return new ServiceResult(400, Message.copyright_not_found);
@@ -78,7 +78,7 @@ public class CopyrightServiceImpl implements CopyrightService {
      * @Date: 2019/7/26
      */
     @Override
-    public ServiceResult UpdateCopyright(Copyright copyright) {
+    public ServiceResult updateCopyright(Copyright copyright) {
         try {
             if (copyright == null || copyright.getRn() == null || copyright.getRn().trim().isEmpty()) {
                 return new ServiceResult(400, Message.parameter_not_enough);
@@ -101,7 +101,7 @@ public class CopyrightServiceImpl implements CopyrightService {
      * @Date: 2019/7/26
      */
     @Override
-    public ServiceResult SelectCopyright(Long id) {
+    public ServiceResult selectCopyright(Long id) {
         //查找不到相关的信息
         Copyright copyright = copyrightMapper.selectByPrimaryKey(id);
         try {

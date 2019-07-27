@@ -50,7 +50,7 @@ public class HonorServiceImpl implements HonorService {
     }
 
     @Override
-    public ServiceResult RemoveHonor(Long id) {
+    public ServiceResult removeHonor(Long id) {
         Honor honor;
         try {
             honor = honorMapper.selectByPrimaryKey(id);
@@ -68,7 +68,7 @@ public class HonorServiceImpl implements HonorService {
     }
 
     @Override
-    public ServiceResult UpdateHonor(Honor honor) {
+    public ServiceResult updateHonor(Honor honor) {
         try {
             if (honor == null || honor.getTitle() == null || honor.getTitle().trim().isEmpty()) {
                 return new ServiceResult(400, Message.parameter_not_enough);

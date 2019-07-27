@@ -25,7 +25,7 @@ public interface HistoryService {
      * @author < a href=" ">郭沛</ a>
      * @date
      */
-    ServiceResult RemoveHistory(Long id);
+    ServiceResult removeHistory(Long id);
 
     /**
      * @name InsertField
@@ -35,7 +35,7 @@ public interface HistoryService {
      * @author < a href=" ">郭沛</ a>
      * @date
      */
-    ServiceResult UpdateHistory(History history);
+    ServiceResult updateHistory(History history);
 
     /**
      * @name InsertField
@@ -45,6 +45,6 @@ public interface HistoryService {
      * @author < a href=" ">郭沛</ a>
      * @date
      */
-    ServiceResult SelectHistory(Long id);
+    ServiceResult selectHistory(Long id);
 
 }

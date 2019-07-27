@@ -9,9 +9,9 @@ public interface MemberService {
 
     ServiceResult insertMember(Member member);
 
-    ServiceResult RemoveMember(Long id);
+    ServiceResult removeMember(Long id);
 
-    ServiceResult SelectMember(Long id);
+    ServiceResult selectMember(Long id);
 
-    ServiceResult UpdateMember(Member member);
+    ServiceResult updateMember(Member member);
 }

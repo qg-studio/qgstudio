@@ -14,7 +14,7 @@ public interface PatentService {
     * @Author: gp
     * @Date: 2019/7/26
     */
-    ServiceResult InsertPatent(Patent patent);
+    ServiceResult insertPatent(Patent patent);
 
     /**
     * 删除专利信息
@@ -23,7 +23,7 @@ public interface PatentService {
     * @Author: gp
     * @Date: 2019/7/26
     */
-    ServiceResult DeletePatent(Long id);
+    ServiceResult removePatent(Long id);
 
     /**
      * 负责更新专利信息
@@ -32,7 +32,7 @@ public interface PatentService {
     * @Author: gp
     * @Date: 2019/7/26
     */
-    ServiceResult UpdatePatent(Patent patent);
+    ServiceResult updatePatent(Patent patent);
 
     /**
      * 负责查询专利信息
@@ -41,6 +41,6 @@ public interface PatentService {
     * @Author: gp
     * @Date: 2019/7/26
     */
-    ServiceResult SelectParent(Long id);
+    ServiceResult selectParent(Long id);
 
 }

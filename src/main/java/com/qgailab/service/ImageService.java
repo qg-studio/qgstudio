@@ -5,9 +5,9 @@ import com.qgailab.model.po.Image;
 
 public interface ImageService {
 
-    ServiceResult InsertImage(Image image);
+    ServiceResult insertImage(Image image);
 
-    ServiceResult RemoveImage(Long id);
+    ServiceResult removeImage(Long id);
 
 
 }

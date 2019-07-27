@@ -35,7 +35,7 @@ public interface HonorService {
      * @author < a href=" ">郭沛</ a>
      * @date
      */
-    ServiceResult RemoveHonor(Long id);
+    ServiceResult removeHonor(Long id);
 
     /**
      * @name UpdateHonor
@@ -45,6 +45,6 @@ public interface HonorService {
      * @author < a href=" ">郭沛</ a>
      * @date
      */
-    ServiceResult UpdateHonor(Honor honor);
+    ServiceResult updateHonor(Honor honor);
 
 }

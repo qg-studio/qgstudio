@@ -28,7 +28,7 @@ public class AwardServiceImpl implements AwardService {
     * @Date: 2019/7/26
     */
     @Override
-    public ServiceResult SelectAward(Long id) {
+    public ServiceResult selectAward(Long id) {
 
         Award award = awardMapper.selectByPrimaryKey(id);
         try {
@@ -51,7 +51,7 @@ public class AwardServiceImpl implements AwardService {
      * @Date: 2019/7/26
      */
     @Override
-    public ServiceResult RemoveAward(Long id) {
+    public ServiceResult removeAward(Long id) {
 
         Award award ;
         try {
@@ -78,7 +78,7 @@ public class AwardServiceImpl implements AwardService {
      * @Date: 2019/7/26
      */
     @Override
-    public ServiceResult InsertAward(Award award) {
+    public ServiceResult insertAward(Award award) {
         if (award == null) {
             return new ServiceResult(400, Message.parameter_not_enough);
         }
@@ -101,7 +101,7 @@ public class AwardServiceImpl implements AwardService {
      * @Date: 2019/7/26
      */
     @Override
-    public ServiceResult UpdateAward(Award award) {
+    public ServiceResult updateAward(Award award) {
 
         if (award == null) {
             return new ServiceResult(400, Message.parameter_not_enough);

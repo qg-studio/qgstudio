@@ -26,7 +26,7 @@ public class FeatureServiceImpl implements FeatureService {
     * @date
     */
     @Override
-    public ServiceResult InsertFeature(Feature feature) {
+    public ServiceResult insertFeature(Feature feature) {
         if (feature == null) {
             return new ServiceResult(400, Message.parameter_not_enough);
         }
@@ -57,7 +57,7 @@ public class FeatureServiceImpl implements FeatureService {
      * @date
      */
     @Override
-    public ServiceResult RemoveFeature(Long id) {
+    public ServiceResult removeFeature(Long id) {
 
         Feature feature ;
         try {
@@ -84,7 +84,7 @@ public class FeatureServiceImpl implements FeatureService {
      * @date
      */
     @Override
-    public ServiceResult SelectFeature(Long id) {
+    public ServiceResult selectFeature(Long id) {
         Feature feature ;
         try {
             feature = featureMapper.selectByPrimaryKey(id);
@@ -108,7 +108,7 @@ public class FeatureServiceImpl implements FeatureService {
      * @date
      */
     @Override
-    public ServiceResult UpdateFeature(Feature feature) {
+    public ServiceResult updateFeature(Feature feature) {
         if (feature == null) {
             return new ServiceResult(400, Message.parameter_not_enough);
         }

@@ -13,7 +13,7 @@ public interface CopyrightService {
     * @Author: gp
     * @Date: 2019/7/26
     */
-    ServiceResult InsertCopyright(Copyright copyright);
+    ServiceResult insertCopyright(Copyright copyright);
 
     /**删除某列著作权
     * @Param:
@@ -21,7 +21,7 @@ public interface CopyrightService {
     * @Author: gp
     * @Date: 2019/7/26
     */
-    ServiceResult RemoveCopyright(Long id);
+    ServiceResult removeCopyright(Long id);
 
     /**更新著作权信息
     * @Param:
@@ -29,7 +29,7 @@ public interface CopyrightService {
     * @Author: gp
     * @Date: 2019/7/26
     */
-    ServiceResult UpdateCopyright(Copyright copyright);
+    ServiceResult updateCopyright(Copyright copyright);
 
     /**查询某一著作权
     * @Param:
@@ -37,5 +37,5 @@ public interface CopyrightService {
     * @Author: gp
     * @Date: 2019/7/26
     */
-    ServiceResult SelectCopyright(Long id);
+    ServiceResult selectCopyright(Long id);
 }

@@ -19,7 +19,7 @@ public class NewsServiceImpl implements NewsService {
     @Autowired
     private NewsMapper newsMapper;
     @Override
-    public ServiceResult InsertNews(News news) {
+    public ServiceResult insertNews(News news) {
         if (news == null) {
             return new ServiceResult(400, Message.parameter_not_enough);
         }
@@ -38,7 +38,7 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public ServiceResult RemoveNews(Long id) {
+    public ServiceResult removeNews(Long id) {
         News news;
         try {
             news = newsMapper.selectByPrimaryKey(id);
@@ -54,7 +54,7 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public ServiceResult UpdateNews(News news) {
+    public ServiceResult updateNews(News news) {
         if (news == null) {
             return new ServiceResult(400, Message.parameter_not_enough);
         }
@@ -76,7 +76,7 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public ServiceResult SelectNews(Long id) {
+    public ServiceResult selectNews(Long id) {
         News news = null;
         try {
             news = newsMapper.selectByPrimaryKey(id);

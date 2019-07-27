@@ -25,7 +25,7 @@ public class PatentServiceImpl implements PatentService {
      * @Date: 2019/7/26
      */
     @Override
-    public ServiceResult InsertPatent(Patent patent) {
+    public ServiceResult insertPatent(Patent patent) {
 
         if (patent == null || patent.getType() == null || patent.getInventor() == null || patent.getName() == null) {
             return new ServiceResult(400, Message.parameter_not_enough);
@@ -48,7 +48,7 @@ public class PatentServiceImpl implements PatentService {
     * @Date: 2019/7/26
     */
     @Override
-    public ServiceResult DeletePatent(Long id) {
+    public ServiceResult removePatent(Long id) {
 
         Patent patent ;
         try {
@@ -72,7 +72,7 @@ public class PatentServiceImpl implements PatentService {
     * @Date: 2019/7/26
     */
     @Override
-    public ServiceResult UpdatePatent(Patent patent) {
+    public ServiceResult updatePatent(Patent patent) {
 
         if (patent == null) {
             return new ServiceResult(400, Message.parameter_not_enough);
@@ -107,7 +107,7 @@ public class PatentServiceImpl implements PatentService {
     * @Date: 2019/7/26
     */
     @Override
-    public ServiceResult SelectParent(Long id) {
+    public ServiceResult selectParent(Long id) {
 
         Patent patent = null;
         try {

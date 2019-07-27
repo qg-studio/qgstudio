@@ -16,7 +16,7 @@ public interface FieldService {
      * @author < a href=" ">郭沛</ a>
      * @date
      */
-    ServiceResult InsertField(Field field);
+    ServiceResult insertField(Field field);
 
     /**
      * @name RemoveField
@@ -26,7 +26,7 @@ public interface FieldService {
      * @author < a href=" ">郭沛</ a>
      * @date
      */
-    ServiceResult RemoveField(Long id);
+    ServiceResult removeField(Long id);
 
     /**
      * @name SelectField
@@ -36,7 +36,7 @@ public interface FieldService {
      * @author < a href=" ">郭沛</ a>
      * @date
      */
-    ServiceResult SelectField(Long id);
+    ServiceResult selectField(Long id);
 
     /**
      * @name UpdateField
@@ -46,7 +46,7 @@ public interface FieldService {
      * @author < a href=" ">郭沛</ a>
      * @date
      */
-    ServiceResult UpdateField(Field field);
+    ServiceResult updateField(Field field);
 
 
 

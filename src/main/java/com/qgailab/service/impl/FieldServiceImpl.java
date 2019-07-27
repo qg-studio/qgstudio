@@ -29,7 +29,7 @@ public class FieldServiceImpl implements FieldService {
      * @date
      */
     @Override
-    public ServiceResult InsertField(Field field) {
+    public ServiceResult insertField(Field field) {
         if (field == null) {
             return new ServiceResult(400, Message.parameter_not_enough);
         }
@@ -53,7 +53,7 @@ public class FieldServiceImpl implements FieldService {
      * @date
      */
     @Override
-    public ServiceResult RemoveField(Long id) {
+    public ServiceResult removeField(Long id) {
         Field field ;
         try {
             field = fieldMapper.selectByPrimaryKey(id);
@@ -79,7 +79,7 @@ public class FieldServiceImpl implements FieldService {
      * @date
      */
     @Override
-    public ServiceResult SelectField(Long id) {
+    public ServiceResult selectField(Long id) {
         Field field;
         try {
             field = fieldMapper.selectByPrimaryKey(id);
@@ -103,7 +103,7 @@ public class FieldServiceImpl implements FieldService {
      * @date
      */
     @Override
-    public ServiceResult UpdateField(Field field) {
+    public ServiceResult updateField(Field field) {
         if (field == null) {
             return new ServiceResult(400, Message.parameter_not_enough);
         }

@@ -19,7 +19,7 @@ public class MomentServiceImpl implements MomentService {
     @Autowired
     private MomentMapper momentMapper;
     @Override
-    public ServiceResult InsertMoment(Moment moment) {
+    public ServiceResult insertMoment(Moment moment) {
         if (moment == null) {
             return new ServiceResult(400, Message.parameter_not_enough);
         }
@@ -38,7 +38,7 @@ public class MomentServiceImpl implements MomentService {
     }
 
     @Override
-    public ServiceResult RemoveMoment(Long id) {
+    public ServiceResult removeMoment(Long id) {
         Moment moment;
         try {
             moment = momentMapper.selectByPrimaryKey(id);
@@ -54,7 +54,7 @@ public class MomentServiceImpl implements MomentService {
     }
 
     @Override
-    public ServiceResult UpdateMoment(Moment moment) {
+    public ServiceResult updateMoment(Moment moment) {
         if (moment == null) {
             return new ServiceResult(400, Message.parameter_not_enough);
         }
@@ -73,7 +73,7 @@ public class MomentServiceImpl implements MomentService {
     }
 
     @Override
-    public ServiceResult SelectMoment(Long id) {
+    public ServiceResult selectMoment(Long id) {
         Moment moment = null;
         try {
             moment = momentMapper.selectByPrimaryKey(id);

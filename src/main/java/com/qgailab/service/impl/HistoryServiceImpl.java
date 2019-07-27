@@ -54,7 +54,7 @@ public class HistoryServiceImpl implements HistoryService {
      * @date
      */
     @Override
-    public ServiceResult RemoveHistory(Long id) {
+    public ServiceResult removeHistory(Long id) {
         History history;
         try {
             history = historyMapper.selectByPrimaryKey(id);
@@ -80,7 +80,7 @@ public class HistoryServiceImpl implements HistoryService {
      * @date
      */
     @Override
-    public ServiceResult UpdateHistory(History history) {
+    public ServiceResult updateHistory(History history) {
         if (history == null || history.getTitle() == null) {
             return new ServiceResult(400, Message.parameter_not_enough);
         }
@@ -105,7 +105,7 @@ public class HistoryServiceImpl implements HistoryService {
      * @date
      */
     @Override
-    public ServiceResult SelectHistory(Long id) {
+    public ServiceResult selectHistory(Long id) {
         History history;
         try {
             history = historyMapper.selectByPrimaryKey(id);

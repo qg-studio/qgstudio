@@ -16,7 +16,7 @@ public interface LeaderService {
      * @author < a href=" ">郭沛</ a>
      * @date
      */
-    ServiceResult InsertLeader(Leader leader);
+    ServiceResult insertLeader(Leader leader);
 
     /**
      * @name InsertLeader
@@ -26,7 +26,7 @@ public interface LeaderService {
      * @author < a href=" ">郭沛</ a>
      * @date
      */
-    ServiceResult DeleteLeader(Long id);
+    ServiceResult deleteLeader(Long id);
 
     /**
      * @name InsertLeader
@@ -36,7 +36,7 @@ public interface LeaderService {
      * @author < a href=" ">郭沛</ a>
      * @date
      */
-    ServiceResult UpdateLeader(Leader leader);
+    ServiceResult updateLeader(Leader leader);
 
     /**
      * @name InsertLeader
@@ -46,5 +46,5 @@ public interface LeaderService {
      * @author < a href=" ">郭沛</ a>
      * @date
      */
-    ServiceResult SelectLeader(Long id);
+    ServiceResult selectLeader(Long id);
 }

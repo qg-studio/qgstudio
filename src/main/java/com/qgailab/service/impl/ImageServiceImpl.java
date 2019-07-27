@@ -14,12 +14,12 @@ public class ImageServiceImpl implements ImageService {
 
 
     @Override
-    public ServiceResult InsertImage(Image image) {
+    public ServiceResult insertImage(Image image) {
         return null;
     }
 
     @Override
-    public ServiceResult RemoveImage(Long id) {
+    public ServiceResult removeImage(Long id) {
         return null;
     }
 }

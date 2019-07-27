@@ -22,5 +22,5 @@ public interface UserService {
      * @author <a href="mailto:kobe524348@gmail.com">黄钰朝</a>
      * @date 2019-07-26
      */
-    ServiceResult login(@RequestBody User user);
+    ServiceResult login( User user);
 }

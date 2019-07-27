@@ -7,11 +7,11 @@ import org.springframework.stereotype.Service;
 @Service
 public interface MomentService {
 
-    ServiceResult InsertMoment(Moment moment);
+    ServiceResult insertMoment(Moment moment);
 
-    ServiceResult RemoveMoment(Long id);
+    ServiceResult removeMoment(Long id);
 
-    ServiceResult UpdateMoment(Moment moment);
+    ServiceResult updateMoment(Moment moment);
 
-    ServiceResult SelectMoment(Long id);
+    ServiceResult selectMoment(Long id);
 }

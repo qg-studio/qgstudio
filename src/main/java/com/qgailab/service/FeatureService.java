@@ -13,7 +13,7 @@ public interface FeatureService {
     * @author < a href=" ">郭沛</ a>
     * @date
     */
-    ServiceResult InsertFeature(Feature feature);
+    ServiceResult insertFeature(Feature feature);
 
     /**
     * @name RemoveFeature
@@ -23,7 +23,7 @@ public interface FeatureService {
     * @author < a href=" ">郭沛</ a>
     * @date
     */
-    ServiceResult RemoveFeature(Long id);
+    ServiceResult removeFeature(Long id);
 
     /**
      * @name SelectFeature
@@ -33,7 +33,7 @@ public interface FeatureService {
      * @author < a href=" ">郭沛</ a>
      * @date
      */
-    ServiceResult SelectFeature(Long id);
+    ServiceResult selectFeature(Long id);
 
     /**
      * @name UpdateFeature
@@ -43,6 +43,6 @@ public interface FeatureService {
      * @author < a href=" ">郭沛</ a>
      * @date
      */
-    ServiceResult UpdateFeature(Feature feature);
+    ServiceResult updateFeature(Feature feature);
 
 }
