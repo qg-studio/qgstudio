@@ -5,5 +5,10 @@
     <input type="file" multiple name="uploads">
     <input type="submit">
 </form>
+
+
+<img src="/upload/0b5cac257da44114b7c034b20294993f.jpg">
+
+
 </body>
 </html>

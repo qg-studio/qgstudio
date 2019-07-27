@@ -55,6 +55,7 @@ public class IntroController {
                 return result;
             }
             String path = request.getSession().getServletContext().getRealPath("/upload/");
+            System.out.println("upload at "+path);
             intro = (Intro) result.getData();
             //保存图片数组
             List<Image> list = uploadService.uploadFile(intro.getUuid(), uploads, path);
