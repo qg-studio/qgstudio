@@ -68,7 +68,7 @@ public class HonorServiceImpl implements HonorService {
             e.printStackTrace();
             return new ServiceResult(500,Message.please_retry);
         }
-        return new ServiceResult(200, Message.success);
+        return new ServiceResult(200, Message.success,honor);
     }
 
     @Override

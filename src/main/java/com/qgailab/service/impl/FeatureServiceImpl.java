@@ -9,6 +9,7 @@ import com.qgailab.model.po.Moment;
 import com.qgailab.service.FeatureService;
 import com.qgailab.service.constants.Message;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -17,6 +18,7 @@ import java.util.List;
  * @author < a href=" ">郭沛</ a>
  * @date 2019-07-26 16:58
  */
+@Service
 public class FeatureServiceImpl implements FeatureService {
 
     @Autowired
@@ -65,6 +67,7 @@ public class FeatureServiceImpl implements FeatureService {
 
         Feature feature ;
         try {
+            //检查是否存在
             feature = featureMapper.selectByPrimaryKey(id);
             if (feature == null) {
                 return new ServiceResult(401, Message.patent_not_found);
@@ -76,7 +79,7 @@ public class FeatureServiceImpl implements FeatureService {
             e.printStackTrace();
             return new ServiceResult(500,Message.please_retry);
         }
-        return new ServiceResult(200, Message.success);
+        return new ServiceResult(200, Message.success,feature);
     }
 
     /**

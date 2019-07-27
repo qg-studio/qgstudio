@@ -14,5 +14,6 @@ public class UserTest {
 
     @Test
     public void test0() throws IOException {
+
     }
 }

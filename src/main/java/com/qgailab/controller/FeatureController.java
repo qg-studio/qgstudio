@@ -33,7 +33,7 @@ public class FeatureController {
     }
 
     /**
-     * 分页查询首页信息
+     * 分页查询特色
      *
      * @param page     页数
      * @param pageSize 一页的最大记录数

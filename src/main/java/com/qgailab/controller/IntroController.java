@@ -34,6 +34,11 @@ public class IntroController {
         return introService.insertIntro(intro);
     }
 
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public @ResponseBody
+    ServiceResult updateIntro(@RequestBody Intro intro) {
+        return introService.updateIntro(intro);
+    }
     /**
      * 负责上传图片
      *

@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
- * @description
  * @author < a href=" ">郭沛</ a>
+ * @description
  * @date 2019-07-27 10:04
  */
 @Controller
@@ -23,18 +23,52 @@ public class FieldController {
     private FieldService fieldService;
 
     /**
-     * @name 插入领域信息
      * @param
      * @return ServiceResult
+     * @name 插入领域信息
      * @notice none
      * @author < a href=" ">郭沛</ a>
      * @date
      */
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
     public @ResponseBody
-    ServiceResult insertFeature(@RequestBody Field field) {
+    ServiceResult insertField(@RequestBody Field field) {
         return fieldService.insertField(field);
     }
+
+    /**
+     * 更新研究方向信息
+     *
+     * @name updateField
+     * @notice none
+     * @author <a href="mailto:kobe524348@gmail.com">黄钰朝</a>
+     * @date 2019-07-27
+     */
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public @ResponseBody
+    ServiceResult updateField(@RequestBody Field field) {
+        return fieldService.updateField(field);
+    }
+
+
+
+    /**
+     * 删除研究方向信息
+     *
+     * @name removeField
+     * @notice none
+     * @author <a href="mailto:kobe524348@gmail.com">黄钰朝</a>
+     * @date 2019-07-27
+     */
+    @RequestMapping(value = "/remove", method = RequestMethod.POST)
+    public @ResponseBody
+    ServiceResult removeField(Long fieldId) {
+        return fieldService.removeField(fieldId);
+    }
+
+
+
+
 
     /**
      * 分页查询首页信息
