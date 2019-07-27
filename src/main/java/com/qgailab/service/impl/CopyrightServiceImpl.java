@@ -4,7 +4,6 @@ import com.github.pagehelper.PageHelper;
 import com.qgailab.dao.CopyrightMapper;
 import com.qgailab.model.dto.ServiceResult;
 import com.qgailab.model.po.Copyright;
-import com.qgailab.model.po.Moment;
 import com.qgailab.service.CopyrightService;
 import com.qgailab.service.constants.Message;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,7 +72,7 @@ public class CopyrightServiceImpl implements CopyrightService {
         }catch (Exception e) {
             return new ServiceResult(500, Message.database_exception);
         }
-        return new ServiceResult(200, Message.success, copyright);
+        return new ServiceResult(200, Message.success,copyright);
     }
 
     /**
