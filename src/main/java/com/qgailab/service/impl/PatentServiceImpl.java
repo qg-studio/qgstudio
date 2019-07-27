@@ -102,6 +102,7 @@ public class PatentServiceImpl implements PatentService {
      * 负责查询专利信息
     * @Param: [id]
     * @return: java.lang.String
+     *w
     * @Author: gp
     * @Date: 2019/7/26
     */
