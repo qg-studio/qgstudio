@@ -41,6 +41,7 @@ public class ImageController {
         WebResource webResource = client.resource(path + filename);
         // 上传文件
         webResource.put(upload.getBytes());
+        return null;
 
     }
 

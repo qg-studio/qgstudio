@@ -68,15 +68,27 @@ public class IntroController {
             introService.updateIntro(intro);
         } catch (Exception e) {
             e.printStackTrace();
-            return new ServiceResult(500,Message.please_retry);
+            return new ServiceResult(500, Message.please_retry);
         }
         return new ServiceResult(200, Message.success, intro);
     }
 
-    @RequestMapping(value = "/list", method = {RequestMethod.POST,RequestMethod.GET})
+
+    /**
+     * 分页查询首页信息
+     *
+     * @param page     页数
+     * @param pageSize 一页的最大记录数
+     * @return
+     * @name listIntro
+     * @notice none
+     * @author <a href="mailto:kobe524348@gmail.com">黄钰朝</a>
+     * @date 2019-07-27
+     */
+    @RequestMapping(value = "/list", method = {RequestMethod.POST, RequestMethod.GET})
     public @ResponseBody
-    ServiceResult insertIntro(int page,int pageSize) {
-        return introService.listIntro(page,pageSize);
+    ServiceResult listIntro(int page, int pageSize) {
+        return introService.listIntro(page, pageSize);
     }
 
 }

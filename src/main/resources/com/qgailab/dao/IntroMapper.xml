@@ -51,15 +51,13 @@
     <select id="selectByPrimaryKey" resultMap="intro">
     select
     intro.id,intro.uuid,intro.title,intro.description
-    ,image.id as image_id,image.fuuid,image.filename
-    from intro
-    LEFT JOIN image ON image.fuuid = intro.uuid
+    from intro as  intro
     where intro.id = #{id,jdbcType=BIGINT}
   </select>
     <select id="list" resultMap="intro">
     select
      intro.id,intro.uuid,intro.title,intro.description
-     from intro  as intro
+     from intro as intro
   </select>
     <select id="selectByFuuid" parameterType="java.lang.String" resultMap="BaseResultMap" resultType="java.util.List">
     select
