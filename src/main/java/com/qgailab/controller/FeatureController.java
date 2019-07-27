@@ -5,17 +5,14 @@ import com.qgailab.model.po.Feature;
 import com.qgailab.service.FeatureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @description
  * @author < a href=" ">郭沛</ a>
  * @date 2019-07-27 09:21
  */
-@Controller
+@RestController
 @RequestMapping(value = "/feature")
 public class FeatureController {
 
@@ -31,11 +28,24 @@ public class FeatureController {
      * @date
      */
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
-    public @ResponseBody
-    ServiceResult insertFeature(@RequestBody Feature feature) {
+    public ServiceResult insertFeature(@RequestBody Feature feature) {
         return featureService.insertFeature(feature);
     }
 
-
+    /**
+     * 分页查询首页信息
+     *
+     * @param page     页数
+     * @param pageSize 一页的最大记录数
+     * @return
+     * @name listFeature
+     * @notice none
+     * @author <a href="">gp</a>
+     * @date 2019-07-27
+     */
+    @RequestMapping(value = "/list", method = {RequestMethod.POST,RequestMethod.GET})
+    public ServiceResult listFeature(int page, int pageSize) {
+        return featureService.listFeature(page, pageSize);
+    }
 
 }

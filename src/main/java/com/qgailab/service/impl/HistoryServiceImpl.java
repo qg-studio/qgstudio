@@ -1,12 +1,16 @@
 package com.qgailab.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.qgailab.dao.HistoryMapper;
 import com.qgailab.model.dto.ServiceResult;
 import com.qgailab.model.po.History;
+import com.qgailab.model.po.Moment;
 import com.qgailab.service.HistoryService;
 import com.qgailab.service.constants.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @description QG历史的增删查改
@@ -117,5 +121,29 @@ public class HistoryServiceImpl implements HistoryService {
             return new ServiceResult(500,Message.please_retry);
         }
         return new ServiceResult(200, Message.success, history);
+    }
+
+    /**
+     * 负责查询专利信息
+     * @param page  页数
+     * @param pageSize 一页最大记录数
+     * @return: ServiceResult
+     * @Author: gp
+     * @Date: 2019/7/26
+     */
+    @Override
+    public ServiceResult listHistory(int page, int pageSize) {
+        if (page < 0 ){
+            return new ServiceResult(400, Message.page_invalid);
+        }
+        List<History> historyList;
+        try {
+            PageHelper.startPage(page, pageSize);
+            historyList = historyMapper.listPage(page * pageSize, pageSize);
+        }catch (Exception e) {
+            e.printStackTrace();
+            return new ServiceResult(500, Message.please_retry);
+        }
+        return new ServiceResult(200, Message.success, historyList);
     }
 }
