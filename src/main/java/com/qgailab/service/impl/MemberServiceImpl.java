@@ -1,13 +1,17 @@
 package com.qgailab.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.qgailab.dao.LeaderMapper;
 import com.qgailab.dao.MemberMapper;
 import com.qgailab.model.dto.ServiceResult;
 import com.qgailab.model.po.Member;
+import com.qgailab.model.po.Moment;
 import com.qgailab.service.MemberService;
 import com.qgailab.service.constants.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @description 成员增删查改
@@ -37,7 +41,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public ServiceResult RemoveMember(Long id) {
+    public ServiceResult removeMember(Long id) {
         Member member = memberMapper.selectByPrimaryKey(id);
         try {
             if (member == null) {
@@ -54,7 +58,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public ServiceResult SelectMember(Long id) {
+    public ServiceResult selectMember(Long id) {
         Member member = memberMapper.selectByPrimaryKey(id);
         try {
             if (member == null) {
@@ -68,7 +72,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public ServiceResult UpdateMember(Member member) {
+    public ServiceResult updateMember(Member member) {
         try {
             if (member == null || member.getName() == null || member.getName().trim().isEmpty()) {
                 return new ServiceResult(400, Message.parameter_not_enough);
@@ -82,4 +86,30 @@ public class MemberServiceImpl implements MemberService {
         }
         return new ServiceResult(200, Message.success, member);
     }
+
+    /**
+     * 负责查询专利信息
+     * @param page  页数
+     * @param pageSize 一页最大记录数
+     * @return: ServiceResult
+     * @Author: gp
+     * @Date: 2019/7/26
+     */
+    @Override
+    public ServiceResult listMember(int page, int pageSize) {
+        if (page < 0 ){
+            return new ServiceResult(400, Message.page_invalid);
+        }
+        List<Member> memberList;
+        try {
+            PageHelper.startPage(page, pageSize);
+            memberList = memberMapper.listPage(page * pageSize, pageSize);
+        }catch (Exception e) {
+            e.printStackTrace();
+            return new ServiceResult(500, Message.please_retry);
+        }
+        return new ServiceResult(200, Message.success, memberList);
+    }
+
+
 }

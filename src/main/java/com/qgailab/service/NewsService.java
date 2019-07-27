@@ -14,7 +14,7 @@ public interface NewsService {
      * @Author: gp
      * @Date: 2019/7/26
      */
-    ServiceResult InsertNews(News news);
+    ServiceResult insertNews(News news);
 
     /**
      * 删除新闻信息
@@ -23,7 +23,7 @@ public interface NewsService {
      * @Author: gp
      * @Date: 2019/7/26
      */
-    ServiceResult RemoveNews(Long id);
+    ServiceResult removeNews(Long id);
 
     /**
      * 负责更新新闻信息
@@ -32,7 +32,7 @@ public interface NewsService {
      * @Author: gp
      * @Date: 2019/7/26
      */
-    ServiceResult UpdateNews(News news);
+    ServiceResult updateNews(News news);
 
     /**
      * 负责查询新闻信息
@@ -41,6 +41,17 @@ public interface NewsService {
      * @Author: gp
      * @Date: 2019/7/26
      */
-    ServiceResult SelectNews(Long id);
+    ServiceResult selectNews(Long id);
 
+    /**
+     * 返回信息点
+     *
+     * @param page  页数
+     * @param pageSize 一页最大记录数
+     * @name listNews
+     * @notice none
+     * @author <a href="mailto:kobe524348@gmail.com">黄钰朝</a>
+     * @date 2019-07-26
+     */
+    ServiceResult listNews(int page, int pageSize);
 }

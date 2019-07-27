@@ -1,12 +1,16 @@
 package com.qgailab.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.qgailab.dao.CopyrightMapper;
 import com.qgailab.model.dto.ServiceResult;
 import com.qgailab.model.po.Copyright;
+import com.qgailab.model.po.Moment;
 import com.qgailab.service.CopyrightService;
 import com.qgailab.service.constants.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * 著作权的增删查改
@@ -28,7 +32,7 @@ public class CopyrightServiceImpl implements CopyrightService {
     * @date 2019/7/26
     */
     @Override
-    public ServiceResult InsertCopyright(Copyright copyright) {
+    public ServiceResult insertCopyright(Copyright copyright) {
         if (copyright == null) {
             return new ServiceResult(400, Message.parameter_not_enough);
         }
@@ -55,7 +59,7 @@ public class CopyrightServiceImpl implements CopyrightService {
      * @Date: 2019/7/26
      */
     @Override
-    public ServiceResult RemoveCopyright(Long id) {
+    public ServiceResult removeCopyright(Long id) {
         //查找不到相关的信息
         if (copyrightMapper.selectByPrimaryKey(id) == null) {
             return new ServiceResult(400, Message.copyright_not_found);
@@ -78,7 +82,7 @@ public class CopyrightServiceImpl implements CopyrightService {
      * @Date: 2019/7/26
      */
     @Override
-    public ServiceResult UpdateCopyright(Copyright copyright) {
+    public ServiceResult updateCopyright(Copyright copyright) {
         try {
             if (copyright == null || copyright.getRn() == null || copyright.getRn().trim().isEmpty()) {
                 return new ServiceResult(400, Message.parameter_not_enough);
@@ -101,7 +105,7 @@ public class CopyrightServiceImpl implements CopyrightService {
      * @Date: 2019/7/26
      */
     @Override
-    public ServiceResult SelectCopyright(Long id) {
+    public ServiceResult selectCopyright(Long id) {
         //查找不到相关的信息
         Copyright copyright = copyrightMapper.selectByPrimaryKey(id);
         try {
@@ -113,5 +117,29 @@ public class CopyrightServiceImpl implements CopyrightService {
             return new ServiceResult(500, Message.database_exception);
         }
         return new ServiceResult(200, Message.success, copyright);
+    }
+
+    /**
+     * 负责查询专利信息
+     * @param page  页数
+     * @param pageSize 一页最大记录数
+     * @return: ServiceResult
+     * @Author: gp
+     * @Date: 2019/7/26
+     */
+    @Override
+    public ServiceResult listCopyright(int page, int pageSize) {
+        if (page < 0 ){
+            return new ServiceResult(400, Message.page_invalid);
+        }
+        List<Copyright> copyrightList;
+        try {
+            PageHelper.startPage(page, pageSize);
+            copyrightList = copyrightMapper.listPage(page * pageSize, pageSize);
+        }catch (Exception e) {
+            e.printStackTrace();
+            return new ServiceResult(500, Message.please_retry);
+        }
+        return new ServiceResult(200, Message.success, copyrightList);
     }
 }

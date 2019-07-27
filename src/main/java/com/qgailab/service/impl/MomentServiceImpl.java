@@ -1,5 +1,6 @@
 package com.qgailab.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.qgailab.dao.MomentMapper;
 import com.qgailab.model.dto.ServiceResult;
 import com.qgailab.model.po.Moment;
@@ -7,6 +8,8 @@ import com.qgailab.service.MomentService;
 import com.qgailab.service.constants.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @description 重要时刻的增删查改
@@ -19,7 +22,7 @@ public class MomentServiceImpl implements MomentService {
     @Autowired
     private MomentMapper momentMapper;
     @Override
-    public ServiceResult InsertMoment(Moment moment) {
+    public ServiceResult insertMoment(Moment moment) {
         if (moment == null) {
             return new ServiceResult(400, Message.parameter_not_enough);
         }
@@ -38,7 +41,7 @@ public class MomentServiceImpl implements MomentService {
     }
 
     @Override
-    public ServiceResult RemoveMoment(Long id) {
+    public ServiceResult removeMoment(Long id) {
         Moment moment;
         try {
             moment = momentMapper.selectByPrimaryKey(id);
@@ -54,7 +57,7 @@ public class MomentServiceImpl implements MomentService {
     }
 
     @Override
-    public ServiceResult UpdateMoment(Moment moment) {
+    public ServiceResult updateMoment(Moment moment) {
         if (moment == null) {
             return new ServiceResult(400, Message.parameter_not_enough);
         }
@@ -73,7 +76,7 @@ public class MomentServiceImpl implements MomentService {
     }
 
     @Override
-    public ServiceResult SelectMoment(Long id) {
+    public ServiceResult selectMoment(Long id) {
         Moment moment = null;
         try {
             moment = momentMapper.selectByPrimaryKey(id);
@@ -85,5 +88,29 @@ public class MomentServiceImpl implements MomentService {
             e.printStackTrace();
             return new ServiceResult(500, Message.please_retry);
         }
+    }
+
+    /**
+     * 负责查询专利信息
+     * @param page  页数
+     * @param pageSize 一页最大记录数
+     * @return: ServiceResult
+     * @Author: gp
+     * @Date: 2019/7/26
+     */
+    @Override
+    public ServiceResult listMoment(int page, int pageSize) {
+        if (page < 0 ){
+            return new ServiceResult(400, Message.page_invalid);
+        }
+        List<Moment> momentList;
+        try {
+            PageHelper.startPage(page, pageSize);
+            momentList = momentMapper.listPage(page * pageSize, pageSize);
+        }catch (Exception e) {
+            e.printStackTrace();
+            return new ServiceResult(500, Message.please_retry);
+        }
+        return new ServiceResult(200, Message.success, momentList);
     }
 }

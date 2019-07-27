@@ -1,12 +1,16 @@
 package com.qgailab.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.qgailab.dao.AwardMapper;
 import com.qgailab.model.dto.ServiceResult;
 import com.qgailab.model.po.Award;
+import com.qgailab.model.po.Moment;
 import com.qgailab.service.AwardService;
 import com.qgailab.service.constants.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * 奖项的CURD
@@ -28,7 +32,7 @@ public class AwardServiceImpl implements AwardService {
     * @Date: 2019/7/26
     */
     @Override
-    public ServiceResult SelectAward(Long id) {
+    public ServiceResult selectAward(Long id) {
 
         Award award = awardMapper.selectByPrimaryKey(id);
         try {
@@ -51,7 +55,7 @@ public class AwardServiceImpl implements AwardService {
      * @Date: 2019/7/26
      */
     @Override
-    public ServiceResult RemoveAward(Long id) {
+    public ServiceResult removeAward(Long id) {
 
         Award award ;
         try {
@@ -78,7 +82,7 @@ public class AwardServiceImpl implements AwardService {
      * @Date: 2019/7/26
      */
     @Override
-    public ServiceResult InsertAward(Award award) {
+    public ServiceResult insertAward(Award award) {
         if (award == null) {
             return new ServiceResult(400, Message.parameter_not_enough);
         }
@@ -101,7 +105,7 @@ public class AwardServiceImpl implements AwardService {
      * @Date: 2019/7/26
      */
     @Override
-    public ServiceResult UpdateAward(Award award) {
+    public ServiceResult updateAward(Award award) {
 
         if (award == null) {
             return new ServiceResult(400, Message.parameter_not_enough);
@@ -124,5 +128,29 @@ public class AwardServiceImpl implements AwardService {
             return new ServiceResult(500, Message.please_retry);
         }
         return new ServiceResult(200, Message.success, award);
+    }
+
+    /**
+     * 负责查询专利信息
+     * @param page  页数
+     * @param pageSize 一页最大记录数
+     * @return: ServiceResult
+     * @Author: gp
+     * @Date: 2019/7/26
+     */
+    @Override
+    public ServiceResult listAward(int page, int pageSize) {
+        if (page < 0 ){
+            return new ServiceResult(400, Message.page_invalid);
+        }
+        List<Award> awardList;
+        try {
+            PageHelper.startPage(page, pageSize);
+            awardList = awardMapper.listPage(page * pageSize, pageSize);
+        }catch (Exception e) {
+            e.printStackTrace();
+            return new ServiceResult(500, Message.please_retry);
+        }
+        return new ServiceResult(200, Message.success, awardList);
     }
 }

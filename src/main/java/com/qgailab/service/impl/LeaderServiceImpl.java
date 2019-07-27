@@ -1,12 +1,17 @@
 package com.qgailab.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.qgailab.dao.LeaderMapper;
 import com.qgailab.model.dto.ServiceResult;
 import com.qgailab.model.po.Leader;
+import com.qgailab.model.po.Moment;
 import com.qgailab.service.LeaderService;
 import com.qgailab.service.constants.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+
 /**
  * @description 指导老师增删查改
  * @author < a href=" ">郭沛</ a>
@@ -19,7 +24,7 @@ public class LeaderServiceImpl implements LeaderService {
     private LeaderMapper leaderMapper;
 
     @Override
-    public ServiceResult InsertLeader(Leader leader) {
+    public ServiceResult insertLeader(Leader leader) {
         try {
             if (leader == null || leader.getName() == null || leader.getName().trim().isEmpty()) {
                 return new ServiceResult(400, Message.parameter_not_enough);
@@ -35,7 +40,7 @@ public class LeaderServiceImpl implements LeaderService {
     }
 
     @Override
-    public ServiceResult DeleteLeader(Long id) {
+    public ServiceResult deleteLeader(Long id) {
         Leader leader = leaderMapper.selectByPrimaryKey(id);
         try {
             if (leader == null) {
@@ -52,7 +57,7 @@ public class LeaderServiceImpl implements LeaderService {
     }
 
     @Override
-    public ServiceResult UpdateLeader(Leader leader) {
+    public ServiceResult updateLeader(Leader leader) {
         try {
             if (leader == null || leader.getName() == null || leader.getName().trim().isEmpty()) {
                 return new ServiceResult(400, Message.parameter_not_enough);
@@ -68,7 +73,7 @@ public class LeaderServiceImpl implements LeaderService {
     }
 
     @Override
-    public ServiceResult SelectLeader(Long id) {
+    public ServiceResult selectLeader(Long id) {
         Leader leader = leaderMapper.selectByPrimaryKey(id);
         try {
             if (leader == null) {
@@ -79,5 +84,29 @@ public class LeaderServiceImpl implements LeaderService {
             return new ServiceResult(500, Message.please_retry);
         }
         return new ServiceResult(200, Message.success, leader);
+    }
+
+    /**
+     * 负责查询专利信息
+     * @param page  页数
+     * @param pageSize 一页最大记录数
+     * @return: ServiceResult
+     * @Author: gp
+     * @Date: 2019/7/26
+     */
+    @Override
+    public ServiceResult listLeader(int page, int pageSize) {
+        if (page < 0 ){
+            return new ServiceResult(400, Message.page_invalid);
+        }
+        List<Leader> leaderList;
+        try {
+            PageHelper.startPage(page, pageSize);
+            leaderList = leaderMapper.listPage(page * pageSize, pageSize);
+        }catch (Exception e) {
+            e.printStackTrace();
+            return new ServiceResult(500, Message.please_retry);
+        }
+        return new ServiceResult(200, Message.success, leaderList);
     }
 }

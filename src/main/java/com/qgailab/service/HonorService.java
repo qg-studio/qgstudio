@@ -35,7 +35,7 @@ public interface HonorService {
      * @author < a href=" ">郭沛</ a>
      * @date
      */
-    ServiceResult RemoveHonor(Long id);
+    ServiceResult removeHonor(Long id);
 
     /**
      * @name UpdateHonor
@@ -45,6 +45,18 @@ public interface HonorService {
      * @author < a href=" ">郭沛</ a>
      * @date
      */
-    ServiceResult UpdateHonor(Honor honor);
+    ServiceResult updateHonor(Honor honor);
+
+    /**
+     * 返回信息点
+     *
+     * @param page  页数
+     * @param pageSize 一页最大记录数
+     * @name listHonor
+     * @notice none
+     * @author <a href="mailto:kobe524348@gmail.com">黄钰朝</a>
+     * @date 2019-07-26
+     */
+    ServiceResult listHonor(int page, int pageSize);
 
 }

@@ -1,12 +1,16 @@
 package com.qgailab.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.qgailab.dao.FeatureMapper;
 import com.qgailab.model.dto.ServiceResult;
 import com.qgailab.model.po.Award;
 import com.qgailab.model.po.Feature;
+import com.qgailab.model.po.Moment;
 import com.qgailab.service.FeatureService;
 import com.qgailab.service.constants.Message;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 /**
  * @description
@@ -26,7 +30,7 @@ public class FeatureServiceImpl implements FeatureService {
     * @date
     */
     @Override
-    public ServiceResult InsertFeature(Feature feature) {
+    public ServiceResult insertFeature(Feature feature) {
         if (feature == null) {
             return new ServiceResult(400, Message.parameter_not_enough);
         }
@@ -57,7 +61,7 @@ public class FeatureServiceImpl implements FeatureService {
      * @date
      */
     @Override
-    public ServiceResult RemoveFeature(Long id) {
+    public ServiceResult removeFeature(Long id) {
 
         Feature feature ;
         try {
@@ -84,7 +88,7 @@ public class FeatureServiceImpl implements FeatureService {
      * @date
      */
     @Override
-    public ServiceResult SelectFeature(Long id) {
+    public ServiceResult selectFeature(Long id) {
         Feature feature ;
         try {
             feature = featureMapper.selectByPrimaryKey(id);
@@ -108,7 +112,7 @@ public class FeatureServiceImpl implements FeatureService {
      * @date
      */
     @Override
-    public ServiceResult UpdateFeature(Feature feature) {
+    public ServiceResult updateFeature(Feature feature) {
         if (feature == null) {
             return new ServiceResult(400, Message.parameter_not_enough);
         }
@@ -121,5 +125,29 @@ public class FeatureServiceImpl implements FeatureService {
             return new ServiceResult(500, Message.please_retry);
         }
         return new ServiceResult(200, Message.success, feature);
+    }
+
+    /**
+     * 负责查询专利信息
+     * @param page  页数
+     * @param pageSize 一页最大记录数
+     * @return: ServiceResult
+     * @Author: gp
+     * @Date: 2019/7/26
+     */
+    @Override
+    public ServiceResult listFeature(int page, int pageSize) {
+        if (page < 0 ){
+            return new ServiceResult(400, Message.page_invalid);
+        }
+        List<Feature> featureList;
+        try {
+            PageHelper.startPage(page, pageSize);
+            featureList = featureMapper.listPage(page * pageSize, pageSize);
+        }catch (Exception e) {
+            e.printStackTrace();
+            return new ServiceResult(500, Message.please_retry);
+        }
+        return new ServiceResult(200, Message.success, featureList);
     }
 }

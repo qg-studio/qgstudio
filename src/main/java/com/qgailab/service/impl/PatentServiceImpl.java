@@ -1,12 +1,16 @@
 package com.qgailab.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.qgailab.dao.PatentMapper;
 import com.qgailab.model.dto.ServiceResult;
+import com.qgailab.model.po.Intro;
 import com.qgailab.model.po.Patent;
 import com.qgailab.service.PatentService;
 import com.qgailab.service.constants.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author 紫金大佬
@@ -25,7 +29,7 @@ public class PatentServiceImpl implements PatentService {
      * @Date: 2019/7/26
      */
     @Override
-    public ServiceResult InsertPatent(Patent patent) {
+    public ServiceResult insertPatent(Patent patent) {
 
         if (patent == null || patent.getType() == null || patent.getInventor() == null || patent.getName() == null) {
             return new ServiceResult(400, Message.parameter_not_enough);
@@ -48,7 +52,7 @@ public class PatentServiceImpl implements PatentService {
     * @Date: 2019/7/26
     */
     @Override
-    public ServiceResult DeletePatent(Long id) {
+    public ServiceResult removePatent(Long id) {
 
         Patent patent ;
         try {
@@ -72,7 +76,7 @@ public class PatentServiceImpl implements PatentService {
     * @Date: 2019/7/26
     */
     @Override
-    public ServiceResult UpdatePatent(Patent patent) {
+    public ServiceResult updatePatent(Patent patent) {
 
         if (patent == null) {
             return new ServiceResult(400, Message.parameter_not_enough);
@@ -107,7 +111,7 @@ public class PatentServiceImpl implements PatentService {
     * @Date: 2019/7/26
     */
     @Override
-    public ServiceResult SelectParent(Long id) {
+    public ServiceResult selectParent(Long id) {
 
         Patent patent = null;
         try {
@@ -121,4 +125,31 @@ public class PatentServiceImpl implements PatentService {
         }
         return new ServiceResult(200, Message.success, patent);
     }
+
+    /**
+     * 负责查询专利信息
+     * @param page  页数
+     * @param pageSize 一页最大记录数
+     * @return: ServiceResult
+     * @Author: gp
+     * @Date: 2019/7/26
+     */
+    @Override
+    public ServiceResult listPatent(int page, int pageSize) {
+        if (page < 0) {
+            return new ServiceResult(400, Message.page_invalid);
+        }
+        List<Patent> patentList;
+        try {
+            PageHelper.startPage(page, pageSize);
+            patentList = patentMapper.listPage(page * pageSize, pageSize);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ServiceResult(500, Message.please_retry);
+        }
+        return new ServiceResult(200, Message.success, patentList);
+    }
 }
+
+
+

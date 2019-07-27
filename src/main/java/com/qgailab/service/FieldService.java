@@ -16,7 +16,7 @@ public interface FieldService {
      * @author < a href=" ">郭沛</ a>
      * @date
      */
-    ServiceResult InsertField(Field field);
+    ServiceResult insertField(Field field);
 
     /**
      * @name RemoveField
@@ -26,7 +26,7 @@ public interface FieldService {
      * @author < a href=" ">郭沛</ a>
      * @date
      */
-    ServiceResult RemoveField(Long id);
+    ServiceResult removeField(Long id);
 
     /**
      * @name SelectField
@@ -36,7 +36,7 @@ public interface FieldService {
      * @author < a href=" ">郭沛</ a>
      * @date
      */
-    ServiceResult SelectField(Long id);
+    ServiceResult selectField(Long id);
 
     /**
      * @name UpdateField
@@ -46,8 +46,18 @@ public interface FieldService {
      * @author < a href=" ">郭沛</ a>
      * @date
      */
-    ServiceResult UpdateField(Field field);
+    ServiceResult updateField(Field field);
 
-
+    /**
+     * 返回信息点
+     *
+     * @param page  页数
+     * @param pageSize 一页最大记录数
+     * @name listField
+     * @notice none
+     * @author <a href="mailto:kobe524348@gmail.com">黄钰朝</a>
+     * @date 2019-07-26
+     */
+    ServiceResult listField(int page, int pageSize);
 
 }

@@ -25,7 +25,7 @@ public interface HistoryService {
      * @author < a href=" ">郭沛</ a>
      * @date
      */
-    ServiceResult RemoveHistory(Long id);
+    ServiceResult removeHistory(Long id);
 
     /**
      * @name InsertField
@@ -35,7 +35,7 @@ public interface HistoryService {
      * @author < a href=" ">郭沛</ a>
      * @date
      */
-    ServiceResult UpdateHistory(History history);
+    ServiceResult updateHistory(History history);
 
     /**
      * @name InsertField
@@ -45,6 +45,17 @@ public interface HistoryService {
      * @author < a href=" ">郭沛</ a>
      * @date
      */
-    ServiceResult SelectHistory(Long id);
+    ServiceResult selectHistory(Long id);
 
+    /**
+     * 返回信息点
+     *
+     * @param page  页数
+     * @param pageSize 一页最大记录数
+     * @name listHistory
+     * @notice none
+     * @author <a href="mailto:kobe524348@gmail.com">黄钰朝</a>
+     * @date 2019-07-26
+     */
+    ServiceResult listHistory(int page, int pageSize);
 }

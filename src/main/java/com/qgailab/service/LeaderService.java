@@ -16,7 +16,7 @@ public interface LeaderService {
      * @author < a href=" ">郭沛</ a>
      * @date
      */
-    ServiceResult InsertLeader(Leader leader);
+    ServiceResult insertLeader(Leader leader);
 
     /**
      * @name InsertLeader
@@ -26,7 +26,7 @@ public interface LeaderService {
      * @author < a href=" ">郭沛</ a>
      * @date
      */
-    ServiceResult DeleteLeader(Long id);
+    ServiceResult deleteLeader(Long id);
 
     /**
      * @name InsertLeader
@@ -36,7 +36,7 @@ public interface LeaderService {
      * @author < a href=" ">郭沛</ a>
      * @date
      */
-    ServiceResult UpdateLeader(Leader leader);
+    ServiceResult updateLeader(Leader leader);
 
     /**
      * @name InsertLeader
@@ -46,5 +46,17 @@ public interface LeaderService {
      * @author < a href=" ">郭沛</ a>
      * @date
      */
-    ServiceResult SelectLeader(Long id);
+    ServiceResult selectLeader(Long id);
+
+    /**
+     * 返回信息点
+     *
+     * @param page  页数
+     * @param pageSize 一页最大记录数
+     * @name listLeader
+     * @notice none
+     * @author <a href="mailto:kobe524348@gmail.com">黄钰朝</a>
+     * @date 2019-07-26
+     */
+    ServiceResult listLeader(int page, int pageSize);
 }

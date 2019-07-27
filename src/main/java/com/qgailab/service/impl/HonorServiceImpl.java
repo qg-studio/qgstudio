@@ -1,12 +1,16 @@
 package com.qgailab.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.qgailab.dao.HonorMapper;
 import com.qgailab.model.dto.ServiceResult;
 import com.qgailab.model.po.Honor;
+import com.qgailab.model.po.Moment;
 import com.qgailab.service.HonorService;
 import com.qgailab.service.constants.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @description QG荣誉增删查改
@@ -50,7 +54,7 @@ public class HonorServiceImpl implements HonorService {
     }
 
     @Override
-    public ServiceResult RemoveHonor(Long id) {
+    public ServiceResult removeHonor(Long id) {
         Honor honor;
         try {
             honor = honorMapper.selectByPrimaryKey(id);
@@ -68,7 +72,7 @@ public class HonorServiceImpl implements HonorService {
     }
 
     @Override
-    public ServiceResult UpdateHonor(Honor honor) {
+    public ServiceResult updateHonor(Honor honor) {
         try {
             if (honor == null || honor.getTitle() == null || honor.getTitle().trim().isEmpty()) {
                 return new ServiceResult(400, Message.parameter_not_enough);
@@ -81,5 +85,29 @@ public class HonorServiceImpl implements HonorService {
             return new ServiceResult(500, Message.please_retry);
         }
         return new ServiceResult(200, Message.success, honor);
+    }
+
+    /**
+     * 负责查询专利信息
+     * @param page  页数
+     * @param pageSize 一页最大记录数
+     * @return: ServiceResult
+     * @Author: gp
+     * @Date: 2019/7/26
+     */
+    @Override
+    public ServiceResult listHonor(int page, int pageSize) {
+        if (page < 0 ){
+            return new ServiceResult(400, Message.page_invalid);
+        }
+        List<Honor> honorList;
+        try {
+            PageHelper.startPage(page, pageSize);
+            honorList = honorMapper.listPage(page * pageSize, pageSize);
+        }catch (Exception e) {
+            e.printStackTrace();
+            return new ServiceResult(500, Message.please_retry);
+        }
+        return new ServiceResult(200, Message.success, honorList);
     }
 }

@@ -14,7 +14,7 @@ public interface AwardService {
     * @Author: gp
     * @Date: 2019/7/26
     */
-    ServiceResult SelectAward(Long id);
+    ServiceResult selectAward(Long id);
 
     /**
      * 负责删除奖项的信息
@@ -23,7 +23,7 @@ public interface AwardService {
     * @Author: gp
     * @Date: 2019/7/26
     */
-    ServiceResult RemoveAward(Long id);
+    ServiceResult removeAward(Long id);
 
     /**
      * 负责添加奖项的信息
@@ -32,7 +32,7 @@ public interface AwardService {
     * @Author: gp
     * @Date: 2019/7/26
     */
-    ServiceResult InsertAward(Award award);
+    ServiceResult insertAward(Award award);
 
     /**负责更新奖项的信息
     * @Param:
@@ -40,8 +40,19 @@ public interface AwardService {
     * @Author: gp
     * @Date: 2019/7/26
     */
-    ServiceResult UpdateAward(Award award);
+    ServiceResult updateAward(Award award);
 
+    /**
+     * 返回信息点
+     *
+     * @param page  页数
+     * @param pageSize 一页最大记录数
+     * @name listAward
+     * @notice none
+     * @author <a href="mailto:kobe524348@gmail.com">黄钰朝</a>
+     * @date 2019-07-26
+     */
+    ServiceResult listAward(int page, int pageSize);
 
 
 }
