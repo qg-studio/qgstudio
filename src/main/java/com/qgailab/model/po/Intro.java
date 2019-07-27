@@ -1,8 +1,10 @@
 package com.qgailab.model.po;
 
+import lombok.Data;
+
 import java.util.Date;
 import java.util.List;
-
+@Data
 public class Intro {
 
 
