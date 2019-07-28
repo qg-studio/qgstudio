@@ -126,7 +126,7 @@ public class AwardServiceImpl implements AwardService {
             if (award.getPrize() == null || award.getPrize().trim().isEmpty()) {
                 return new ServiceResult(401, Message.parameter_not_enough);
             }
-            if (awardMapper.updateByPrimaryKey(award) != 1) {
+            if (awardMapper.updateByPrimaryKeySelective(award) != 1) {
                 return new ServiceResult(402,Message.database_exception);
             }
         }catch (Exception e) {
