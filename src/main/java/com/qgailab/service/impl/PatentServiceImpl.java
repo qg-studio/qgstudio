@@ -22,11 +22,13 @@ public class PatentServiceImpl implements PatentService {
     private PatentMapper patentMapper;
 
     /**
-     *负责插入专利
-     * @Param: [patent]
-     * @return: java.lang.String
-     * @Author: gp
-     * @Date: 2019/7/26
+     * 负责插入一条专利信息
+     *
+     * @param patent
+     * @name insertPatent
+     * @notice none
+     * @author <a href="">郭沛</a>
+     * @date 2019-07-26
      */
     @Override
     public ServiceResult insertPatent(Patent patent) {
@@ -50,12 +52,14 @@ public class PatentServiceImpl implements PatentService {
 
 
     /**
-     * 负责删除专利信息
-    * @Param: [id]
-    * @return: java.lang.String
-    * @Author: gp
-    * @Date: 2019/7/26
-    */
+     * 负责删除一条专利
+     *
+     * @param id
+     * @name removePatent
+     * @notice none
+     * @author <a href="">郭沛</a>
+     * @date 2019-07-26
+     */
     @Override
     public ServiceResult removePatent(Long id) {
 
@@ -74,12 +78,14 @@ public class PatentServiceImpl implements PatentService {
     }
 
     /**
-     * 负责更新专利信息
-    * @Param: [patent]
-    * @return: java.lang.String
-    * @Author: gp
-    * @Date: 2019/7/26
-    */
+     * 负责更新一条专利信息
+     *
+     * @param patent
+     * @name updatePatent
+     * @notice none
+     * @author <a href="">郭沛</a>
+     * @date 2019-07-26
+     */
     @Override
     public ServiceResult updatePatent(Patent patent) {
 
@@ -102,13 +108,14 @@ public class PatentServiceImpl implements PatentService {
     }
 
     /**
-     * 负责查询专利信息
-    * @Param: [id]
-    * @return: java.lang.String
-     *w
-    * @Author: gp
-    * @Date: 2019/7/26
-    */
+     * 负责查询一条专利信息
+     *
+     * @param id
+     * @name selectParent
+     * @notice none
+     * @author <a href="">郭沛</a>
+     * @date 2019-07-26
+     */
     @Override
     public ServiceResult selectParent(Long id) {
 

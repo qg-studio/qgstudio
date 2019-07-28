@@ -18,8 +18,7 @@ import java.util.List;
  * @author < a href=" ">郭沛</ a>
  * @date 2019-07-27 10:00
  */
-@RestController
-@RequestMapping("/project")
+@RestController("/project")
 public class ProjectController {
 
     @Autowired

@@ -21,6 +21,16 @@ public class MomentServiceImpl implements MomentService {
 
     @Autowired
     private MomentMapper momentMapper;
+
+    /**
+     * 负责插入一条重要时刻信息
+     *
+     * @param moment
+     * @name insertMoment
+     * @notice none
+     * @author <a href="">郭沛</a>
+     * @date 2019-07-26
+     */
     @Override
     public ServiceResult insertMoment(Moment moment) {
         if (moment == null) {
@@ -40,6 +50,15 @@ public class MomentServiceImpl implements MomentService {
         return new ServiceResult(200, Message.success, moment);
     }
 
+    /**
+     * 负责删除一条重要时刻信息
+     *
+     * @param id
+     * @name removeMoment
+     * @notice none
+     * @author <a href="">郭沛</a>
+     * @date 2019-07-26
+     */
     @Override
     public ServiceResult removeMoment(Long id) {
         Moment moment;
@@ -56,6 +75,15 @@ public class MomentServiceImpl implements MomentService {
         return new ServiceResult(200,Message.success, moment);
     }
 
+    /**
+     * 负责更新一条重要时刻信息
+     *
+     * @param moment
+     * @name updateMoment
+     * @notice none
+     * @author <a href="">郭沛</a>
+     * @date 2019-07-26
+     */
     @Override
     public ServiceResult updateMoment(Moment moment) {
         if (moment == null) {
@@ -75,6 +103,15 @@ public class MomentServiceImpl implements MomentService {
         return new ServiceResult(200, Message.success,moment);
     }
 
+    /**
+     * 负责查询一条重要时刻信息
+     *
+     * @param id
+     * @name selectMoment
+     * @notice none
+     * @author <a href="">郭沛</a>
+     * @date 2019-07-26
+     */
     @Override
     public ServiceResult selectMoment(Long id) {
         Moment moment = null;

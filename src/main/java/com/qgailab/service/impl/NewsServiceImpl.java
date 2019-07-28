@@ -21,6 +21,16 @@ public class NewsServiceImpl implements NewsService {
 
     @Autowired
     private NewsMapper newsMapper;
+
+    /**
+     * 负责插入一条新闻信息
+     *
+     * @param news
+     * @name insertNews
+     * @notice none
+     * @author <a href="">郭沛</a>
+     * @date 2019-07-26
+     */
     @Override
     public ServiceResult insertNews(News news) {
         if (news == null) {
@@ -40,6 +50,15 @@ public class NewsServiceImpl implements NewsService {
         return new ServiceResult(200, Message.success,news);
     }
 
+    /**
+     * 负责删除一条新闻信息
+     *
+     * @param id
+     * @name removeNews
+     * @notice none
+     * @author <a href="">郭沛</a>
+     * @date 2019-07-26
+     */
     @Override
     public ServiceResult removeNews(Long id) {
         News news;
@@ -58,6 +77,15 @@ public class NewsServiceImpl implements NewsService {
         return new ServiceResult(200,Message.success,news);
     }
 
+    /**
+     * 负责更新一条新闻信息
+     *
+     * @param news
+     * @name updateNews
+     * @notice none
+     * @author <a href="">郭沛</a>
+     * @date 2019-07-26
+     */
     @Override
     public ServiceResult updateNews(News news) {
         if (news == null) {
@@ -80,6 +108,15 @@ public class NewsServiceImpl implements NewsService {
         return new ServiceResult(200, Message.success,news);
     }
 
+    /**
+     * 负责查询一条新闻信息
+     *
+     * @param id
+     * @name selectNews
+     * @notice none
+     * @author <a href="">郭沛</a>
+     * @date 2019-07-26
+     */
     @Override
     public ServiceResult selectNews(Long id) {
         News news = null;

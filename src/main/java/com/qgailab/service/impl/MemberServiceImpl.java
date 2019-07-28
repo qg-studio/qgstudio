@@ -23,6 +23,16 @@ public class MemberServiceImpl implements MemberService {
 
     @Autowired
     private MemberMapper memberMapper;
+
+    /**
+     * 负责插入一条成员信息
+     *
+     * @param member
+     * @name insertMember
+     * @notice none
+     * @author <a href="">郭沛</a>
+     * @date 2019-07-26
+     */
     @Override
     public ServiceResult insertMember(Member member) {
         if (member == null) {
@@ -43,6 +53,15 @@ public class MemberServiceImpl implements MemberService {
 
     }
 
+    /**
+     * 负责删除一条成员信息
+     *
+     * @param id
+     * @name removeMember
+     * @notice none
+     * @author <a href="">郭沛</a>
+     * @date 2019-07-26
+     */
     @Override
     public ServiceResult removeMember(Long id) {
         Member member = memberMapper.selectByPrimaryKey(id);
@@ -60,6 +79,15 @@ public class MemberServiceImpl implements MemberService {
         return new ServiceResult(200, Message.success, member);
     }
 
+    /**
+     * 负责查询一条成员信息
+     *
+     * @param id
+     * @name selectMember
+     * @notice none
+     * @author <a href="">郭沛</a>
+     * @date 2019-07-26
+     */
     @Override
     public ServiceResult selectMember(Long id) {
         Member member = memberMapper.selectByPrimaryKey(id);
@@ -74,6 +102,15 @@ public class MemberServiceImpl implements MemberService {
         return new ServiceResult(200, Message.success, member);
     }
 
+    /**
+     * 负责更新一条成员信息
+     *
+     * @param member
+     * @name updateMember
+     * @notice none
+     * @author <a href="">郭沛</a>
+     * @date 2019-07-26
+     */
     @Override
     public ServiceResult updateMember(Member member) {
         if (member == null) {

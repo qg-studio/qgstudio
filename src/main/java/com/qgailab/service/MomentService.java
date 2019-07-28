@@ -7,12 +7,44 @@ import org.springframework.stereotype.Service;
 @Service
 public interface MomentService {
 
+    /**
+     * @name insertMoment
+     * @param  moment
+     * @return ServiceResult
+     * @notice none
+     * @author < a href=" ">郭沛</ a>
+     * @date
+     */
     ServiceResult insertMoment(Moment moment);
 
+    /**
+     * @name removeMoment
+     * @param  id
+     * @return ServiceResult
+     * @notice none
+     * @author < a href=" ">郭沛</ a>
+     * @date
+     */
     ServiceResult removeMoment(Long id);
 
+    /**
+     * @name updateMoment
+     * @param  moment
+     * @return ServiceResult
+     * @notice none
+     * @author < a href=" ">郭沛</ a>
+     * @date
+     */
     ServiceResult updateMoment(Moment moment);
 
+    /**
+     * @name selectMoment
+     * @param  id
+     * @return ServiceResult
+     * @notice none
+     * @author < a href=" ">郭沛</ a>
+     * @date
+     */
     ServiceResult selectMoment(Long id);
 
     /**

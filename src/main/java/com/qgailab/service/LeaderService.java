@@ -19,7 +19,7 @@ public interface LeaderService {
     ServiceResult insertLeader(Leader leader);
 
     /**
-     * @name InsertLeader
+     * @name deleteLeader
      * @param  id
      * @return ServiceResult
      * @notice none
@@ -29,7 +29,7 @@ public interface LeaderService {
     ServiceResult deleteLeader(Long id);
 
     /**
-     * @name InsertLeader
+     * @name updateLeader
      * @param  leader
      * @return ServiceResult
      * @notice none
@@ -39,7 +39,7 @@ public interface LeaderService {
     ServiceResult updateLeader(Leader leader);
 
     /**
-     * @name InsertLeader
+     * @name selectLeader
      * @param  id
      * @return ServiceResult
      * @notice none
