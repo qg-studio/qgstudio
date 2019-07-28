@@ -2,13 +2,18 @@ package com.qgailab.controller;
 
 import com.qgailab.model.dto.ServiceResult;
 import com.qgailab.model.po.Field;
+import com.qgailab.model.po.Image;
+import com.qgailab.model.po.Field;
 import com.qgailab.service.FieldService;
+import com.qgailab.service.UploadService;
+import com.qgailab.service.constants.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * @author < a href=" ">郭沛</ a>
@@ -18,6 +23,50 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping(value = "/field")
 public class FieldController {
+
+
+    @Autowired
+    private UploadService uploadService;
+
+    /**
+     * 负责上传图片
+     *
+     * @name uploadImage
+     * @notice none
+     * @author <a href="mailto:kobe524348@gmail.com">黄钰朝</a>
+     * @date 2019-07-26
+     */
+    @RequestMapping(value = "/upload", method = RequestMethod.POST)
+    public @ResponseBody
+    ServiceResult uploadImage(HttpServletRequest request, @RequestParam(value = "fieldId") Long fieldId, @RequestParam(value = "uploads") MultipartFile[] uploads) {
+        if (uploads == null || uploads.length == 0) {
+            return new ServiceResult(400, Message.image_not_null);
+        }
+        Field field = null;
+        try {
+            ServiceResult result = fieldService.selectField(fieldId);
+            if (result.getStatus() != 200) {
+                return result;
+            }
+            String path = request.getSession().getServletContext().getRealPath("/upload/");
+            field = (Field) result.getData();
+            //保存图片数组
+            List<Image> list = uploadService.uploadFile(field.getUuid(), uploads, path);
+            //更新到field中
+            List<Image> oldList = field.getImages();
+            if (oldList == null) {
+                field.setImages(list);
+            } else {
+                oldList.addAll(list);
+            }
+            fieldService.updateField(field);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ServiceResult(500, Message.please_retry);
+        }
+        return new ServiceResult(200, Message.success, field);
+    }
+
 
     @Autowired
     private FieldService fieldService;

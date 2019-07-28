@@ -7,6 +7,7 @@ import com.qgailab.model.po.Leader;
 import com.qgailab.model.po.Moment;
 import com.qgailab.service.LeaderService;
 import com.qgailab.service.constants.Message;
+import com.qgailab.util.UUIDUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +42,7 @@ public class LeaderServiceImpl implements LeaderService {
             if (leader.getName() == null || leader.getName().trim().isEmpty()) {
                 return new ServiceResult(400, Message.name_not_null);
             }
+            leader.setUuid(UUIDUtils.getUUID());
             if (leaderMapper.insertSelective(leader) != 1) {
                 return new ServiceResult(402, Message.database_exception);
             }

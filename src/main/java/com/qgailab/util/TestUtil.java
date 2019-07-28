@@ -39,7 +39,7 @@ public class TestUtil {
         Award award = awardMapper.selectByPrimaryKey(1L);
         Feature feature = featureMapper.selectByPrimaryKey(1L);
         imageMapper.selectByPrimaryKey(10L);
-        List<Image> image = imageMapper.selectByFuuid("5c071e13afa54897b485378aae8410a2");
+        List<Image> image = imageMapper.listByFuuid("5c071e13afa54897b485378aae8410a2");
 
 
         System.out.println(awardMapper.listPage(1,10));

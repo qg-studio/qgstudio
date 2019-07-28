@@ -7,6 +7,7 @@ import com.qgailab.model.po.Honor;
 import com.qgailab.model.po.Moment;
 import com.qgailab.service.HonorService;
 import com.qgailab.service.constants.Message;
+import com.qgailab.util.UUIDUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +39,7 @@ public class HonorServiceImpl implements HonorService {
             return new ServiceResult(400, Message.parameter_not_enough);
         }
         try {
+            honor.setUuid(UUIDUtils.getUUID());
             if (honorMapper.insertSelective(honor) != 1) {
                 return new ServiceResult(401, Message.database_exception);
             }

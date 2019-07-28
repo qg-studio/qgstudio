@@ -39,6 +39,13 @@ public class IntroController {
     ServiceResult updateIntro(@RequestBody Intro intro) {
         return introService.updateIntro(intro);
     }
+
+    @RequestMapping(value = "/remove", method = RequestMethod.POST)
+    public @ResponseBody
+    ServiceResult removeIntro(Long introId) {
+        return introService.removeIntro(introId);
+    }
+
     /**
      * 负责上传图片
      *
