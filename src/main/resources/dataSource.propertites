@@ -2,4 +2,4 @@ jdbc.driverLocation=C:\Users\Misterchaos\Documents\Java Develop Workplaces\IDEA 
 driverClass=com.mysql.cj.jdbc.Driver
 connectionURL=jdbc:mysql://localhost:3306/qgstudio?characterEncoding=utf-8&serverTimezone=GMT%2B8&useSSL=false
 user=root
-password=guopei111666
+password=6868
