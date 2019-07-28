@@ -24,12 +24,14 @@ public class CopyrightServiceImpl implements CopyrightService {
     private CopyrightMapper copyrightMapper;
 
     /**
-    * @name insertcopyright
-    * @param copyright
-    * @notice none
-    * @author < a href=" ">郭沛</ a>
-    * @date 2019/7/26
-    */
+     * 负责查询一条指导老师信息
+     *
+     * @param copyright
+     * @name insertCopyright
+     * @notice none
+     * @author <a href="">郭沛</a>
+     * @date 2019-07-26
+     */
     @Override
     public ServiceResult insertCopyright(Copyright copyright) {
         if (copyright == null) {
@@ -51,11 +53,13 @@ public class CopyrightServiceImpl implements CopyrightService {
     }
 
     /**
-     * 删除著作权
-     * @Param: [copyright]
-     * @return: com.qgailab.model.dto.ServiceResult
-     * @Author: gp
-     * @Date: 2019/7/26
+     * 负责查询一条指导老师信息
+     *
+     * @param id
+     * @name removeCopyright
+     * @notice none
+     * @author <a href="">郭沛</a>
+     * @date 2019-07-26
      */
     @Override
     public ServiceResult removeCopyright(Long id) {
@@ -76,11 +80,13 @@ public class CopyrightServiceImpl implements CopyrightService {
     }
 
     /**
-     * 更新著作权
-     * @Param: [copyright]
-     * @return: com.qgailab.model.dto.ServiceResult
-     * @Author: gp
-     * @Date: 2019/7/26
+     * 负责更新一条著作权信息
+     *
+     * @param copyright
+     * @name updateCopyright
+     * @notice none
+     * @author <a href="">郭沛</a>
+     * @date 2019-07-26
      */
     @Override
     public ServiceResult updateCopyright(Copyright copyright) {
@@ -99,11 +105,13 @@ public class CopyrightServiceImpl implements CopyrightService {
     }
 
     /**
-     * 查询著作权
-     * @Param: [copyright]
-     * @return: com.qgailab.model.dto.ServiceResult
-     * @Author: gp
-     * @Date: 2019/7/26
+     * 负责查询一条著作权信息
+     *
+     * @param id
+     * @name selectCopyright
+     * @notice none
+     * @author <a href="">郭沛</a>
+     * @date 2019-07-26
      */
     @Override
     public ServiceResult selectCopyright(Long id) {

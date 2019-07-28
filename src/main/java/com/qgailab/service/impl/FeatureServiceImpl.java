@@ -28,6 +28,7 @@ public class FeatureServiceImpl implements FeatureService {
     private ImageService imageService;
 
     /**
+     * 插入QG特色
     * @name InsertFeature
     * @param  feature
     * @return ServiceResult
@@ -59,6 +60,7 @@ public class FeatureServiceImpl implements FeatureService {
     }
 
     /**
+     * 删除QG特色
      * @name RemoveFeature
      * @param  id
      * @return ServiceResult
@@ -89,6 +91,7 @@ public class FeatureServiceImpl implements FeatureService {
     }
 
     /**
+     * 查询QG特色
      * @name SelectFeature
      * @param  id
      * @return ServiceResult
@@ -113,6 +116,7 @@ public class FeatureServiceImpl implements FeatureService {
     }
 
     /**
+     * 更新QG特色
      * @name UpdateFeature
      * @param  feature
      * @return ServiceResult

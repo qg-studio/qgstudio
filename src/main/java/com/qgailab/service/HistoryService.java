@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 @Service
 public interface HistoryService {
 
-    /**
-     * @name InsertField
+    /**插入QG历史
+     * @name insertHistory
      * @param  history
      * @return ServiceResult
      * @notice none
@@ -18,7 +18,8 @@ public interface HistoryService {
     ServiceResult insertHistory(History history);
 
     /**
-     * @name InsertField
+     * 移除QG历史
+     * @name removeHistory
      * @param  id
      * @return ServiceResult
      * @notice none
@@ -28,7 +29,8 @@ public interface HistoryService {
     ServiceResult removeHistory(Long id);
 
     /**
-     * @name InsertField
+     * 更新QG历史
+     * @name updateHistory
      * @param  history
      * @return ServiceResult
      * @notice none
@@ -38,7 +40,8 @@ public interface HistoryService {
     ServiceResult updateHistory(History history);
 
     /**
-     * @name InsertField
+     * 查询单个QG历史
+     * @name selectHistory
      * @param  id
      * @return ServiceResult
      * @notice none

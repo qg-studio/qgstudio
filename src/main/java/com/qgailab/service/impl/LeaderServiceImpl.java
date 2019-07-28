@@ -23,6 +23,15 @@ public class LeaderServiceImpl implements LeaderService {
     @Autowired
     private LeaderMapper leaderMapper;
 
+    /**
+     * 负责插入一条指导老师信息
+     *
+     * @param leader
+     * @name insertLeader
+     * @notice none
+     * @author <a href="">郭沛</a>
+     * @date 2019-07-26
+     */
     @Override
     public ServiceResult insertLeader(Leader leader) {
         if (leader == null) {
@@ -42,6 +51,15 @@ public class LeaderServiceImpl implements LeaderService {
         return new ServiceResult(200, Message.success, leader);
     }
 
+    /**
+     * 负责删除一条指导老师信息
+     *
+     * @param id
+     * @name deleteLeader
+     * @notice none
+     * @author <a href="">郭沛</a>
+     * @date 2019-07-26
+     */
     @Override
     public ServiceResult deleteLeader(Long id) {
         Leader leader;
@@ -60,6 +78,15 @@ public class LeaderServiceImpl implements LeaderService {
         return new ServiceResult(200, Message.success, leader);
     }
 
+    /**
+     * 负责更新一条指导老师信息
+     *
+     * @param leader
+     * @name updateLeader
+     * @notice none
+     * @author <a href="">郭沛</a>
+     * @date 2019-07-26
+     */
     @Override
     public ServiceResult updateLeader(Leader leader) {
         if (leader == null) {
@@ -79,6 +106,15 @@ public class LeaderServiceImpl implements LeaderService {
         return new ServiceResult(200, Message.success, leader);
     }
 
+    /**
+     * 负责查询一条指导老师信息
+     *
+     * @param id
+     * @name selectLeader
+     * @notice none
+     * @author <a href="">郭沛</a>
+     * @date 2019-07-26
+     */
     @Override
     public ServiceResult selectLeader(Long id) {
         Leader leader = leaderMapper.selectByPrimaryKey(id);

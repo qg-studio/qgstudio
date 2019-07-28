@@ -7,12 +7,44 @@ import org.springframework.stereotype.Service;
 @Service
 public interface MemberService {
 
+    /**
+     * @name insertMember
+     * @param  member
+     * @return ServiceResult
+     * @notice none
+     * @author < a href=" ">郭沛</ a>
+     * @date
+     */
     ServiceResult insertMember(Member member);
 
+    /**
+     * @name removeMember
+     * @param  id
+     * @return ServiceResult
+     * @notice none
+     * @author < a href=" ">郭沛</ a>
+     * @date
+     */
     ServiceResult removeMember(Long id);
 
+    /**
+     * @name selectMember
+     * @param  id
+     * @return ServiceResult
+     * @notice none
+     * @author < a href=" ">郭沛</ a>
+     * @date
+     */
     ServiceResult selectMember(Long id);
 
+    /**
+     * @name updateMember
+     * @param  member
+     * @return ServiceResult
+     * @notice none
+     * @author < a href=" ">郭沛</ a>
+     * @date
+     */
     ServiceResult updateMember(Member member);
 
     /**

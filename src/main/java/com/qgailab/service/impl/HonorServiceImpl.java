@@ -22,6 +22,16 @@ public class HonorServiceImpl implements HonorService {
 
     @Autowired
     private HonorMapper honorMapper;
+
+    /**
+     * 负责插入一条荣誉信息
+     *
+     * @param honor
+     * @name insertHonor
+     * @notice none
+     * @author <a href="">郭沛</a>
+     * @date 2019-07-26
+     */
     @Override
     public ServiceResult insertHonor(Honor honor) {
         if (honor == null || honor.getTitle() == null || honor.getTitle().trim().isEmpty()) {
@@ -38,6 +48,15 @@ public class HonorServiceImpl implements HonorService {
         return new ServiceResult(200, Message.success, honor);
     }
 
+    /**
+     * 负责查询一条荣誉信息
+     *
+     * @param id
+     * @name selectHonor
+     * @notice none
+     * @author <a href="">郭沛</a>
+     * @date 2019-07-26
+     */
     @Override
     public ServiceResult selectHonor(Long id) {
         Honor honor;
@@ -53,6 +72,15 @@ public class HonorServiceImpl implements HonorService {
         return new ServiceResult(200, Message.success, honor);
     }
 
+    /**
+     * 负责删除一条荣誉信息
+     *
+     * @param id
+     * @name removeHonor
+     * @notice none
+     * @author <a href="">郭沛</a>
+     * @date 2019-07-26
+     */
     @Override
     public ServiceResult removeHonor(Long id) {
         Honor honor;
@@ -71,6 +99,15 @@ public class HonorServiceImpl implements HonorService {
         return new ServiceResult(200, Message.success,honor);
     }
 
+    /**
+     * 负责更新一条荣誉信息
+     *
+     * @param honor
+     * @name updateHonor
+     * @notice none
+     * @author <a href="">郭沛</a>
+     * @date 2019-07-26
+     */
     @Override
     public ServiceResult updateHonor(Honor honor) {
         try {

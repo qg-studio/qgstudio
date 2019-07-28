@@ -23,6 +23,7 @@ public class HistoryServiceImpl implements HistoryService {
     @Autowired
     private HistoryMapper historyMapper;
     /**
+     * 插入QG历史
      * @name insertHistory
      * @param  history
      * @return ServiceResult
@@ -50,6 +51,7 @@ public class HistoryServiceImpl implements HistoryService {
     }
 
     /**
+     * 删除QG历史
      * @name RemoveHistory
      * @param  id
      * @return ServiceResult
@@ -76,6 +78,7 @@ public class HistoryServiceImpl implements HistoryService {
     }
 
     /**
+     * 更新GQ历史
      * @name UpdateHistory
      * @param  history
      * @return ServiceResult
@@ -101,6 +104,7 @@ public class HistoryServiceImpl implements HistoryService {
 
 
     /**
+     * 查询QG历史
      * @name SelectHistory
      * @param  id
      * @return ServiceResult

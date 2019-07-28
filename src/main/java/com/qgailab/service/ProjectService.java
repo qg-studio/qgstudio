@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 @Service
 public interface ProjectService {
     /**
-     * 插入专利信息
+     * 插入项目信息
      * @Param: project
      * @return: ServiceResult
      * @Author: gp
@@ -16,7 +16,7 @@ public interface ProjectService {
     ServiceResult insertProject(Project project);
 
     /**
-     * 删除专利信息
+     * 删除项目信息
      * @Param: [id]
      * @return: ServiceResult
      * @Author: gp
@@ -25,7 +25,7 @@ public interface ProjectService {
     ServiceResult removeProject(Long id);
 
     /**
-     * 负责更新专利信息
+     * 负责更新项目信息
      * @Param: [project]
      * @return: ServiceResult
      * @Author: gp
@@ -34,7 +34,7 @@ public interface ProjectService {
     ServiceResult updateProject(Project project);
 
     /**
-     * 负责查询专利信息
+     * 负责查询项目信息
      * @Param: id
      * @return: ServiceResult
      * @Author: gp

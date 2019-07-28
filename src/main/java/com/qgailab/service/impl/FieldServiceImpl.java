@@ -25,6 +25,7 @@ public class FieldServiceImpl implements FieldService {
     private FieldMapper fieldMapper;
 
     /**
+     * 插入领域
      * @name InsertField
      * @param  field
      * @return ServiceResult
@@ -49,6 +50,7 @@ public class FieldServiceImpl implements FieldService {
     }
 
     /**
+     * 移除领域
      * @name RemoveField
      * @param  id
      * @return ServiceResult
@@ -75,6 +77,7 @@ public class FieldServiceImpl implements FieldService {
     }
 
     /**
+     * 查询领域
      * @name SelectField
      * @param  id
      * @return ServiceResult
@@ -99,6 +102,7 @@ public class FieldServiceImpl implements FieldService {
     }
 
     /**
+     * 更新领域
      * @name UpdateField
      * @param  field
      * @return ServiceResult
