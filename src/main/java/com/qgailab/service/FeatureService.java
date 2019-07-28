@@ -6,6 +6,7 @@ import com.qgailab.model.po.Feature;
 public interface FeatureService {
 
     /**
+     * 插入QG特色
     * @name InsertFeature
     * @param  feature
     * @return ServiceResult
@@ -16,6 +17,7 @@ public interface FeatureService {
     ServiceResult insertFeature(Feature feature);
 
     /**
+     * 移除QG特色
     * @name RemoveFeature
     * @param  id
     * @return ServiceResult
@@ -26,6 +28,7 @@ public interface FeatureService {
     ServiceResult removeFeature(Long id);
 
     /**
+     * 查询QG特色
      * @name SelectFeature
      * @param  id
      * @return ServiceResult
@@ -36,6 +39,7 @@ public interface FeatureService {
     ServiceResult selectFeature(Long id);
 
     /**
+     * 更新某一QG特色
      * @name UpdateFeature
      * @param  feature
      * @return ServiceResult

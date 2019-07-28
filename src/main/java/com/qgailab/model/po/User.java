@@ -1,5 +1,6 @@
 package com.qgailab.model.po;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
@@ -49,6 +50,7 @@ public class User {
      *
      * @mbg.generated Thu Jul 25 21:46:07 CST 2019
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date gmtCreate;
 
     /**
@@ -58,6 +60,7 @@ public class User {
      *
      * @mbg.generated Thu Jul 25 21:46:07 CST 2019
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date gmtModified;
 
 }

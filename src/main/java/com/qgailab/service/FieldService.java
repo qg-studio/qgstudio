@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 public interface FieldService {
 
     /**
+     * 插入领域
      * @name InsertField
      * @param  field
      * @return ServiceResult
@@ -19,6 +20,7 @@ public interface FieldService {
     ServiceResult insertField(Field field);
 
     /**
+     * 删除领域
      * @name RemoveField
      * @param  id
      * @return ServiceResult
@@ -29,6 +31,7 @@ public interface FieldService {
     ServiceResult removeField(Long id);
 
     /**
+     * 查询领域
      * @name SelectField
      * @param  id
      * @return ServiceResult
@@ -39,6 +42,7 @@ public interface FieldService {
     ServiceResult selectField(Long id);
 
     /**
+     * 更新领域
      * @name UpdateField
      * @param  field
      * @return ServiceResult

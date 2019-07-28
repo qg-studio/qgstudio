@@ -24,12 +24,14 @@ public class AwardServiceImpl implements AwardService {
     private AwardMapper awardMapper;
 
     /**
-     * 查询奖项
-    * @Param: [id]
-    * @return: com.qgailab.model.dto.ServiceResult
-    * @Author: gp
-    * @Date: 2019/7/26
-    */
+     * 负责查询一条奖项信息
+     *
+     * @param id
+     * @name selectAward
+     * @notice none
+     * @author <a href="">郭沛</a>
+     * @date 2019-07-26
+     */
     @Override
     public ServiceResult selectAward(Long id) {
 
@@ -47,11 +49,13 @@ public class AwardServiceImpl implements AwardService {
     }
 
     /**
-     * 移除奖项
-     * @Param: [id]
-     * @return: com.qgailab.model.dto.ServiceResult
-     * @Author: gp
-     * @Date: 2019/7/26
+     * 负责删除一条奖项信息
+     *
+     * @param id
+     * @name removeAward
+     * @notice none
+     * @author <a href="">郭沛</a>
+     * @date 2019-07-26
      */
     @Override
     public ServiceResult removeAward(Long id) {
@@ -73,11 +77,13 @@ public class AwardServiceImpl implements AwardService {
     }
 
     /**
-     * 添加奖项
-     * @Param: [id]
-     * @return: com.qgailab.model.dto.ServiceResult
-     * @Author: gp
-     * @Date: 2019/7/26
+     * 负责插入一条奖项信息
+     *
+     * @param award
+     * @name insertAward
+     * @notice none
+     * @author <a href="">郭沛</a>
+     * @date 2019-07-26
      */
     @Override
     public ServiceResult insertAward(Award award) {
@@ -96,11 +102,13 @@ public class AwardServiceImpl implements AwardService {
     }
 
     /**
-     * 更新奖项
-     * @Param: [id]
-     * @return: com.qgailab.model.dto.ServiceResult
-     * @Author: gp
-     * @Date: 2019/7/26
+     * 负责更新一条奖项信息
+     *
+     * @param award
+     * @name updateAward
+     * @notice none
+     * @author <a href="">郭沛</a>
+     * @date 2019-07-26
      */
     @Override
     public ServiceResult updateAward(Award award) {
