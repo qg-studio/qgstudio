@@ -9,6 +9,7 @@ import com.qgailab.model.po.Member;
 import com.qgailab.model.po.PageVO;
 import com.qgailab.service.MemberService;
 import com.qgailab.service.constants.Message;
+import com.qgailab.util.PageUtils;
 import com.qgailab.util.UUIDUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -199,8 +200,6 @@ public class MemberServiceImpl implements MemberService {
             e.printStackTrace();
             return new ServiceResult(500, Message.please_retry);
         }
-        return new ServiceResult(200, Message.success, new PageVO(count / pageSize, memberList));
+        return new ServiceResult(200, Message.success, new PageVO(PageUtils.getPage(count, pageSize), memberList));
     }
-
-
 }
