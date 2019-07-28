@@ -23,7 +23,7 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public @ResponseBody ServiceResult login(@RequestBody  User user){
+    public @ResponseBody ServiceResult login(@RequestBody User user){
        return userService.login(user);
    }
 }

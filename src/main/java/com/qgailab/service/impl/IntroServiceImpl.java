@@ -138,6 +138,9 @@ public class IntroServiceImpl implements IntroService {
         Intro intro ;
         try {
             intro = introMapper.selectByPrimaryKey(introId);
+            if(intro==null){
+                return new ServiceResult(404,Message.intro_not_found);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return new ServiceResult(500,Message.please_retry);
