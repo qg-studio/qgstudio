@@ -180,12 +180,18 @@ public class MemberServiceImpl implements MemberService {
         if (pageSize <= 0) {
             return new ServiceResult(401, Message.pageSize_invalid);
         }
+        if(grade==null||grade.trim().isEmpty()||grade.equalsIgnoreCase("")||grade.equalsIgnoreCase("null")){
+            grade=null;
+        }
+        if(field==null||field.trim().isEmpty()||field.equalsIgnoreCase("")||field.equalsIgnoreCase("null")){
+            field=null;
+        }
         List<Member> memberList;
         int count;
         try {
             PageHelper.startPage(page, pageSize);
             memberList = memberMapper.listPageSelective(grade,field);
-            count = memberMapper.selectCount();
+            count = memberMapper.selectCountSelective(grade,field);
             //创建一个默认的成员
             Member member = new Member();
             member.setField("");
