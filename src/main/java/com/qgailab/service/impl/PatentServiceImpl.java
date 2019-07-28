@@ -4,9 +4,11 @@ import com.github.pagehelper.PageHelper;
 import com.qgailab.dao.PatentMapper;
 import com.qgailab.model.dto.ServiceResult;
 import com.qgailab.model.po.Intro;
+import com.qgailab.model.po.PageVO;
 import com.qgailab.model.po.Patent;
 import com.qgailab.service.PatentService;
 import com.qgailab.service.constants.Message;
+import com.qgailab.util.PageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -142,6 +144,7 @@ public class PatentServiceImpl implements PatentService {
         return new ServiceResult(200, Message.success, patent);
     }
 
+
     /**
      * 负责查询专利信息
      * @param page  页数
@@ -152,18 +155,23 @@ public class PatentServiceImpl implements PatentService {
      */
     @Override
     public ServiceResult listPatent(int page, int pageSize) {
-        if (page < 0) {
+        if (page <= 0) {
             return new ServiceResult(400, Message.page_invalid);
         }
+        if (pageSize <= 0) {
+            return new ServiceResult(401, Message.pageSize_invalid);
+        }
         List<Patent> patentList;
+        int count;
         try {
             PageHelper.startPage(page, pageSize);
-            patentList = patentMapper.listPage(page * pageSize, pageSize);
+            patentList = patentMapper.listPage();
+            count = patentMapper.selectCount();
         } catch (Exception e) {
             e.printStackTrace();
             return new ServiceResult(500, Message.please_retry);
         }
-        return new ServiceResult(200, Message.success, patentList);
+        return new ServiceResult(200, Message.success, new PageVO(PageUtils.getPage(count, pageSize), patentList));
     }
 }
 
