@@ -38,7 +38,7 @@ public class HistoryServiceImpl implements HistoryService {
             return new ServiceResult(400, Message.parameter_not_enough);
         }
         try {
-            if (history.getTitle() == null || history.getTitle().trim().isEmpty() || history.getTitle().trim().isEmpty()) {
+            if (history.getTitle() == null || history.getTitle().trim().isEmpty()) {
                 return new ServiceResult(400, Message.parameter_not_enough);
             }
             history.setUuid(UUIDUtils.getUUID());
@@ -63,11 +63,14 @@ public class HistoryServiceImpl implements HistoryService {
      */
     @Override
     public ServiceResult removeHistory(Long id) {
+        if (id == null) {
+            return new ServiceResult(400, Message.parameter_not_enough);
+        }
         History history;
         try {
             history = historyMapper.selectByPrimaryKey(id);
             if (history == null) {
-                return new ServiceResult(401, Message.patent_not_found);
+                return new ServiceResult(401, Message.history_not_found);
             }
             if (historyMapper.deleteByPrimaryKey(id) != 1){
                 return new ServiceResult(402, Message.database_exception);
@@ -90,10 +93,19 @@ public class HistoryServiceImpl implements HistoryService {
      */
     @Override
     public ServiceResult updateHistory(History history) {
-        if (history == null || history.getTitle() == null) {
+        if (history == null ) {
             return new ServiceResult(400, Message.parameter_not_enough);
         }
         try {
+            if (history.getId() == null) {
+                return new ServiceResult(400, Message.parameter_not_enough);
+            }
+            if (historyMapper.selectByPrimaryKey(history.getId()) == null) {
+                return new ServiceResult(401, Message.history_not_found);
+            }
+            if (history.getTitle() == null) {
+                return new ServiceResult(401, Message.title_not_null);
+            }
             if (historyMapper.updateByPrimaryKeySelective(history) != 1) {
                 return new ServiceResult(402, Message.database_exception);
             }
@@ -116,11 +128,14 @@ public class HistoryServiceImpl implements HistoryService {
      */
     @Override
     public ServiceResult selectHistory(Long id) {
+        if (id == null) {
+            return new ServiceResult(400, Message.parameter_not_enough);
+        }
         History history;
         try {
             history = historyMapper.selectByPrimaryKey(id);
             if (history == null) {
-                return new ServiceResult(401, Message.patent_not_found);
+                return new ServiceResult(401, Message.history_not_found);
             }
         }catch (Exception e) {
             e.printStackTrace();

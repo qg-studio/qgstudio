@@ -63,14 +63,18 @@ public class PatentServiceImpl implements PatentService {
      */
     @Override
     public ServiceResult removePatent(Long id) {
-
+        if (id == null) {
+            return new ServiceResult(400, Message.parameter_not_enough);
+        }
         Patent patent ;
         try {
             patent = patentMapper.selectByPrimaryKey(id);
             if (patent == null) {
                 return new ServiceResult(401,Message.patent_not_found);
             }
-            patentMapper.deleteByPrimaryKey(id);
+            if (patentMapper.deleteByPrimaryKey(id) != 1) {
+                return new ServiceResult(402, Message.database_exception);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return new ServiceResult(500,Message.please_retry);
@@ -94,6 +98,9 @@ public class PatentServiceImpl implements PatentService {
             return new ServiceResult(400, Message.parameter_not_enough);
         }
         try {
+            if (patent.getId() == null) {
+                return new ServiceResult(400, Message.parameter_not_enough);
+            }
             //专利名不能为空
             if (patent.getName() == null || patent.getName().trim().isEmpty()) {
                 return new ServiceResult(401, Message.name_not_null);
@@ -119,7 +126,9 @@ public class PatentServiceImpl implements PatentService {
      */
     @Override
     public ServiceResult selectParent(Long id) {
-
+        if (id == null) {
+            return new ServiceResult(400, Message.parameter_not_enough);
+        }
         Patent patent = null;
         try {
             patent = patentMapper.selectByPrimaryKey(id);

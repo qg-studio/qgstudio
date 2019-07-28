@@ -39,12 +39,14 @@ public class CopyrightServiceImpl implements CopyrightService {
         }
         try {
             if (copyright.getName() == null || copyright.getName().trim().isEmpty()) {
-                return new ServiceResult(401, Message.parameter_not_enough);
+                return new ServiceResult(401, Message.name_not_null);
             }
             if (copyright.getRn() == null || copyright.getRn().trim().isEmpty()) {
                 return new ServiceResult(401, Message.parameter_not_enough);
             }
-            copyrightMapper.insert(copyright);
+            if (copyrightMapper.insertSelective(copyright) != 1) {
+                return new ServiceResult(402, Message.database_exception);
+            }
         }catch (Exception e) {
             e.printStackTrace();
             return new ServiceResult(500, Message.please_retry);
@@ -63,6 +65,9 @@ public class CopyrightServiceImpl implements CopyrightService {
      */
     @Override
     public ServiceResult removeCopyright(Long id) {
+        if (id == null) {
+            return new ServiceResult(400, Message.parameter_not_enough);
+        }
         Copyright copyright;
         try {
             //查找不到相关的信息
@@ -90,8 +95,17 @@ public class CopyrightServiceImpl implements CopyrightService {
      */
     @Override
     public ServiceResult updateCopyright(Copyright copyright) {
+        if (copyright == null) {
+            return new ServiceResult(400, Message.parameter_not_enough);
+        }
         try {
-            if (copyright == null || copyright.getRn() == null || copyright.getRn().trim().isEmpty()) {
+            if (copyright.getId() == null) {
+                return new ServiceResult(401, Message.parameter_not_enough);
+            }
+            if (copyrightMapper.selectByPrimaryKey(copyright.getId()) == null) {
+                return new ServiceResult(401, Message.copyright_not_found);
+            }
+            if (copyright.getRn() == null || copyright.getRn().trim().isEmpty()) {
                 return new ServiceResult(400, Message.parameter_not_enough);
             }
             if (copyrightMapper.updateByPrimaryKeySelective(copyright) != 1) {
@@ -115,9 +129,13 @@ public class CopyrightServiceImpl implements CopyrightService {
      */
     @Override
     public ServiceResult selectCopyright(Long id) {
+        if (id == null) {
+            return new ServiceResult(400, Message.parameter_not_enough);
+        }
         //查找不到相关的信息
-        Copyright copyright = copyrightMapper.selectByPrimaryKey(id);
+        Copyright copyright;
         try {
+            copyright = copyrightMapper.selectByPrimaryKey(id);
             if (copyright == null) {
                 return new ServiceResult(400, Message.copyright_not_found);
             }

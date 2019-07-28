@@ -34,11 +34,14 @@ public class AwardServiceImpl implements AwardService {
      */
     @Override
     public ServiceResult selectAward(Long id) {
-
-        Award award = awardMapper.selectByPrimaryKey(id);
+        if (id == null) {
+            return new ServiceResult(400, Message.parameter_not_enough);
+        }
+        Award award;
         try {
+            award = awardMapper.selectByPrimaryKey(id);
             if (award == null) {
-                return new ServiceResult(401, Message.patent_not_found);
+                return new ServiceResult(401, Message.award_not_found);
             }
         }catch (Exception e) {
             e.printStackTrace();
@@ -59,12 +62,14 @@ public class AwardServiceImpl implements AwardService {
      */
     @Override
     public ServiceResult removeAward(Long id) {
-
-        Award award ;
+        if (id == null) {
+            return new ServiceResult(400, Message.parameter_not_enough);
+        }
+        Award award;
         try {
             award = awardMapper.selectByPrimaryKey(id);
             if (award == null) {
-                return new ServiceResult(401, Message.patent_not_found);
+                return new ServiceResult(401, Message.award_not_found);
             }
             if (awardMapper.deleteByPrimaryKey(id) != 1) {
                 return new ServiceResult(402,Message.database_exception);
@@ -117,6 +122,12 @@ public class AwardServiceImpl implements AwardService {
             return new ServiceResult(400, Message.parameter_not_enough);
         }
         try {
+            if (award.getId() == null) {
+                return new ServiceResult(400, Message.parameter_not_enough);
+            }
+            if (awardMapper.selectByPrimaryKey(award.getId()) == null) {
+                return new ServiceResult(401, Message.award_not_found);
+            }
             if (award.getProject() == null || award.getProject().trim().isEmpty()) {
                 return new ServiceResult(401, Message.parameter_not_enough);
             }

@@ -73,13 +73,15 @@ public class FeatureServiceImpl implements FeatureService {
      */
     @Override
     public ServiceResult removeFeature(Long id) {
-
+        if (id == null) {
+            return new ServiceResult(400, Message.parameter_not_enough);
+        }
         Feature feature ;
         try {
             //检查是否存在
             feature = featureMapper.selectByPrimaryKey(id);
             if (feature == null) {
-                return new ServiceResult(401, Message.patent_not_found);
+                return new ServiceResult(401, Message.feature_not_found);
             }
             if (featureMapper.deleteByPrimaryKey(id) != 1){
                 return new ServiceResult(402, Message.database_exception);
@@ -104,11 +106,14 @@ public class FeatureServiceImpl implements FeatureService {
      */
     @Override
     public ServiceResult selectFeature(Long id) {
+        if (id == null) {
+            return new ServiceResult(400, Message.parameter_not_enough);
+        }
         Feature feature ;
         try {
             feature = featureMapper.selectByPrimaryKey(id);
             if (feature == null) {
-                return new ServiceResult(401, Message.patent_not_found);
+                return new ServiceResult(401, Message.feature_not_found);
             }
         }catch (Exception e) {
             e.printStackTrace();
@@ -133,6 +138,12 @@ public class FeatureServiceImpl implements FeatureService {
             return new ServiceResult(400, Message.parameter_not_enough);
         }
         try {
+            if (feature.getId() == null) {
+                return new ServiceResult(400, Message.parameter_not_enough);
+            }
+            if (featureMapper.selectByPrimaryKey(feature.getId()) == null) {
+                return new ServiceResult(401, Message.feature_not_found);
+            }
             if (featureMapper.updateByPrimaryKeySelective(feature) != 1) {
                 return new ServiceResult(402, Message.database_exception);
             }

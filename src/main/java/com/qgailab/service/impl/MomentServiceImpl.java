@@ -63,6 +63,9 @@ public class MomentServiceImpl implements MomentService {
      */
     @Override
     public ServiceResult removeMoment(Long id) {
+        if (id == null) {
+            return new ServiceResult(400, Message.parameter_not_enough);
+        }
         Moment moment;
         try {
             moment = momentMapper.selectByPrimaryKey(id);
@@ -92,6 +95,9 @@ public class MomentServiceImpl implements MomentService {
             return new ServiceResult(400, Message.parameter_not_enough);
         }
         try {
+            if (moment.getId() == null) {
+                return new ServiceResult(400, Message.parameter_not_enough);
+            }
             if (moment.getTitle() == null || moment.getTitle().trim().isEmpty()) {
                 return new ServiceResult(401, Message.title_not_null);
             }
@@ -116,7 +122,10 @@ public class MomentServiceImpl implements MomentService {
      */
     @Override
     public ServiceResult selectMoment(Long id) {
-        Moment moment = null;
+        if (id == null) {
+            return new ServiceResult(400, Message.parameter_not_enough);
+        }
+        Moment moment;
         try {
             moment = momentMapper.selectByPrimaryKey(id);
             if (moment == null) {

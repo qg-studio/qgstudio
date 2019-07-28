@@ -63,8 +63,12 @@ public class ProjectServiceImpl implements ProjectService {
      */
     @Override
     public ServiceResult removeProject(Long id) {
-        Project project = projectMapper.selectByPrimaryKey(id);
+        if (id == null) {
+            return new ServiceResult(400, Message.parameter_not_enough);
+        }
+        Project project;
         try {
+            project = projectMapper.selectByPrimaryKey(id);
             if (project == null) {
                 return new ServiceResult(400, Message.project_not_found);
             }
@@ -93,6 +97,9 @@ public class ProjectServiceImpl implements ProjectService {
             return new ServiceResult(400, Message.parameter_not_enough);
         }
         try {
+            if (project.getId() == null) {
+                return new ServiceResult(400, Message.parameter_not_enough);
+            }
             if (project.getTitle() == null || project.getTitle().trim().isEmpty()) {
                 return new ServiceResult(400, Message.title_not_null);
             }
@@ -117,8 +124,12 @@ public class ProjectServiceImpl implements ProjectService {
      */
     @Override
     public ServiceResult selectProject(Long id) {
-        Project project = projectMapper.selectByPrimaryKey(id);
+        if (id == null) {
+            return new ServiceResult(400, Message.parameter_not_enough);
+        }
+        Project project;
         try {
+            project= projectMapper.selectByPrimaryKey(id);
             if (project == null) {
                 return new ServiceResult(400, Message.project_not_found);
             }

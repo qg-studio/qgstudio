@@ -35,10 +35,13 @@ public class HonorServiceImpl implements HonorService {
      */
     @Override
     public ServiceResult insertHonor(Honor honor) {
-        if (honor == null || honor.getTitle() == null || honor.getTitle().trim().isEmpty()) {
+        if (honor == null) {
             return new ServiceResult(400, Message.parameter_not_enough);
         }
         try {
+            if (honor.getTitle() == null || honor.getTitle().trim().isEmpty()) {
+                return new ServiceResult(401, Message.title_not_null);
+            }
             honor.setUuid(UUIDUtils.getUUID());
             if (honorMapper.insertSelective(honor) != 1) {
                 return new ServiceResult(401, Message.database_exception);
@@ -61,6 +64,9 @@ public class HonorServiceImpl implements HonorService {
      */
     @Override
     public ServiceResult selectHonor(Long id) {
+        if (id == null) {
+            return new ServiceResult(400, Message.parameter_not_enough);
+        }
         Honor honor;
         try {
             honor = honorMapper.selectByPrimaryKey(id);
@@ -85,6 +91,9 @@ public class HonorServiceImpl implements HonorService {
      */
     @Override
     public ServiceResult removeHonor(Long id) {
+        if (id == null) {
+            return new ServiceResult(400, Message.parameter_not_enough);
+        }
         Honor honor;
         try {
             honor = honorMapper.selectByPrimaryKey(id);
@@ -112,9 +121,15 @@ public class HonorServiceImpl implements HonorService {
      */
     @Override
     public ServiceResult updateHonor(Honor honor) {
+        if (honor == null) {
+            return new ServiceResult(400, Message.parameter_not_enough);
+        }
         try {
-            if (honor == null || honor.getTitle() == null || honor.getTitle().trim().isEmpty()) {
-                return new ServiceResult(400, Message.parameter_not_enough);
+            if (honor.getId() == null) {
+                return new ServiceResult(401, Message.parameter_not_enough);
+            }
+            if (honor.getTitle() == null || honor.getTitle().trim().isEmpty()) {
+                return new ServiceResult(401, Message.title_not_null);
             }
             if (honorMapper.updateByPrimaryKeySelective(honor) != 1) {
                 return new ServiceResult(402, Message.database_exception);

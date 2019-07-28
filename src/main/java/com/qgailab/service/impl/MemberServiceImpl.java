@@ -66,8 +66,12 @@ public class MemberServiceImpl implements MemberService {
      */
     @Override
     public ServiceResult removeMember(Long id) {
-        Member member = memberMapper.selectByPrimaryKey(id);
+        if (id == null) {
+            return new ServiceResult(400, Message.parameter_not_enough);
+        }
+        Member member;
         try {
+            member = memberMapper.selectByPrimaryKey(id);
             if (member == null) {
                 return new ServiceResult(401, Message.member_not_found);
             }
@@ -92,8 +96,12 @@ public class MemberServiceImpl implements MemberService {
      */
     @Override
     public ServiceResult selectMember(Long id) {
-        Member member = memberMapper.selectByPrimaryKey(id);
+        if (id == null) {
+            return new ServiceResult(400, Message.parameter_not_enough);
+        }
+        Member member;
         try {
+            member = memberMapper.selectByPrimaryKey(id);
             if (member == null) {
                 return new ServiceResult(401, Message.member_not_found);
             }
@@ -119,6 +127,9 @@ public class MemberServiceImpl implements MemberService {
             return new ServiceResult(400, Message.parameter_not_enough);
         }
         try {
+            if (member.getId() == null) {
+                return new ServiceResult(400, Message.parameter_not_enough);
+            }
             if (member.getName() == null || member.getName().trim().isEmpty()) {
                 return new ServiceResult(401, Message.name_not_null);
             }

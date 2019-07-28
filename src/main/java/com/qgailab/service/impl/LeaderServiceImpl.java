@@ -64,6 +64,9 @@ public class LeaderServiceImpl implements LeaderService {
      */
     @Override
     public ServiceResult deleteLeader(Long id) {
+        if (id == null) {
+            return new ServiceResult(400, Message.parameter_not_enough);
+        }
         Leader leader;
         try {
             leader = leaderMapper.selectByPrimaryKey(id);
@@ -95,6 +98,9 @@ public class LeaderServiceImpl implements LeaderService {
             return new ServiceResult(400, Message.parameter_not_enough);
         }
         try {
+            if (leader.getId() == null) {
+                return new ServiceResult(401, Message.parameter_not_enough);
+            }
             if (leader.getName() == null || leader.getName().trim().isEmpty()) {
                 return new ServiceResult(400, Message.name_not_null);
             }
@@ -119,8 +125,12 @@ public class LeaderServiceImpl implements LeaderService {
      */
     @Override
     public ServiceResult selectLeader(Long id) {
-        Leader leader = leaderMapper.selectByPrimaryKey(id);
+        if (id == null) {
+            return new ServiceResult(400, Message.parameter_not_enough);
+        }
+        Leader leader;
         try {
+            leader = leaderMapper.selectByPrimaryKey(id);
             if (leader == null) {
                 return new ServiceResult(401, Message.leader_not_found);
             }

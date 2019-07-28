@@ -75,7 +75,15 @@ public class IntroServiceImpl implements IntroService {
             return new ServiceResult(400, Message.parameter_not_enough);
         }
         try {
-            introMapper.updateByPrimaryKeySelective(intro);
+            if (intro.getId() == null) {
+                return new ServiceResult(401, Message.parameter_not_enough);
+            }
+            if (introMapper.selectByPrimaryKey(intro.getId()) == null) {
+                return new ServiceResult(401, Message.intro_not_found);
+            }
+            if (introMapper.updateByPrimaryKeySelective(intro) != 1) {
+                return new ServiceResult(402, Message.database_exception);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return new ServiceResult(500,Message.please_retry);
@@ -124,6 +132,9 @@ public class IntroServiceImpl implements IntroService {
      */
     @Override
     public ServiceResult selectIntro(Long introId) {
+        if (introId == null) {
+            return new ServiceResult(400, Message.parameter_not_enough);
+        }
         Intro intro ;
         try {
             intro = introMapper.selectByPrimaryKey(introId);

@@ -62,6 +62,9 @@ public class NewsServiceImpl implements NewsService {
      */
     @Override
     public ServiceResult removeNews(Long id) {
+        if (id == null) {
+            return new ServiceResult(400, Message.parameter_not_enough);
+        }
         News news;
         try {
             news = newsMapper.selectByPrimaryKey(id);
@@ -93,6 +96,9 @@ public class NewsServiceImpl implements NewsService {
             return new ServiceResult(400, Message.parameter_not_enough);
         }
         try {
+            if (news.getId() == null) {
+                return new ServiceResult(400, Message.parameter_not_enough);
+            }
             if (news.getTitle() == null || news.getTitle().trim().isEmpty()) {
                 return new ServiceResult(401, Message.title_not_null);
             }
@@ -120,7 +126,10 @@ public class NewsServiceImpl implements NewsService {
      */
     @Override
     public ServiceResult selectNews(Long id) {
-        News news = null;
+        if (id == null) {
+            return new ServiceResult(400, Message.parameter_not_enough);
+        }
+        News news;
         try {
             news = newsMapper.selectByPrimaryKey(id);
             if (news == null) {

@@ -40,6 +40,9 @@ public class FieldServiceImpl implements FieldService {
             return new ServiceResult(400, Message.parameter_not_enough);
         }
         try {
+            if (field.getName() == null) {
+                return new ServiceResult(400,Message.name_not_null);
+            }
             field.setUuid(UUIDUtils.getUUID());
             if (fieldMapper.insertSelective(field) != 1) {
                 return new ServiceResult(402, Message.database_exception);
@@ -62,11 +65,14 @@ public class FieldServiceImpl implements FieldService {
      */
     @Override
     public ServiceResult removeField(Long id) {
+        if (id == null) {
+            return new ServiceResult(400, Message.parameter_not_enough);
+        }
         Field field ;
         try {
             field = fieldMapper.selectByPrimaryKey(id);
             if (field == null) {
-                return new ServiceResult(401, Message.patent_not_found);
+                return new ServiceResult(401, Message.field_not_found);
             }
             if (fieldMapper.deleteByPrimaryKey(id) != 1){
                 return new ServiceResult(402, Message.database_exception);
@@ -89,11 +95,14 @@ public class FieldServiceImpl implements FieldService {
      */
     @Override
     public ServiceResult selectField(Long id) {
+        if (id == null) {
+            return new ServiceResult(400, Message.parameter_not_enough);
+        }
         Field field;
         try {
             field = fieldMapper.selectByPrimaryKey(id);
             if (field == null) {
-                return new ServiceResult(401, Message.patent_not_found);
+                return new ServiceResult(401, Message.field_not_found);
             }
         }catch (Exception e) {
             e.printStackTrace();
@@ -118,6 +127,12 @@ public class FieldServiceImpl implements FieldService {
             return new ServiceResult(400, Message.parameter_not_enough);
         }
         try {
+            if (field.getId() == null) {
+                return new ServiceResult(400, Message.parameter_not_enough);
+            }
+            if (fieldMapper.selectByPrimaryKey(field.getId()) == null) {
+                return new ServiceResult(401, Message.field_not_found);
+            }
             if (fieldMapper.updateByPrimaryKeySelective(field) != 1) {
                 return new ServiceResult(402, Message.database_exception);
             }
