@@ -40,6 +40,7 @@ public interface PatentMapper {
      * @mbg.generated Thu Jul 25 21:46:07 CST 2019
      */
     Patent selectByPrimaryKey(Long id);
+    int selectCount();
 
     List<Patent> listPage(int page, int pageSize);
 

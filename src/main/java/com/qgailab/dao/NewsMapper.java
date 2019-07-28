@@ -39,6 +39,7 @@ public interface NewsMapper {
      * @mbg.generated Thu Jul 25 21:46:07 CST 2019
      */
     News selectByPrimaryKey(Long id);
+    int selectCount();
 
     List<News> listPage(int page, int pageSize);
 
