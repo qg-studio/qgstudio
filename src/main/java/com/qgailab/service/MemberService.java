@@ -57,5 +57,5 @@ public interface MemberService {
      * @author <a href="mailto:kobe524348@gmail.com">黄钰朝</a>
      * @date 2019-07-26
      */
-    ServiceResult listMember(int page, int pageSize);
+    ServiceResult listMember(int page, int pageSize,String grade,String field);
 }

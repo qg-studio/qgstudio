@@ -2,6 +2,7 @@ package com.qgailab.dao;
 
 import com.qgailab.model.po.Award;
 import com.qgailab.model.po.Member;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -40,7 +41,8 @@ public interface MemberMapper {
      */
     Member selectByPrimaryKey(Long id);
 
-    List<Member> listPage(int page, int pageSize);
+    List<Member> listPage();
+    List<Member> listPageSelective(@Param("grade") String grade, @Param("field") String field);
 
     int selectCount();
 

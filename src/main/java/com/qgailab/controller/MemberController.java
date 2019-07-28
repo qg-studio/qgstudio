@@ -46,8 +46,8 @@ public class MemberController {
      */
     @RequestMapping(value = "/list", method = {RequestMethod.POST, RequestMethod.GET})
     public @ResponseBody
-    ServiceResult listMember(int page, int pageSize) {
-        return memberService.listMember(page, pageSize);
+    ServiceResult listMember(int page, int pageSize,String grade,String field) {
+        return memberService.listMember(page, pageSize,grade,field);
     }
 
     /**

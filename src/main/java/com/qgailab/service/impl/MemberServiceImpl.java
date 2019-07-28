@@ -10,6 +10,7 @@ import com.qgailab.model.po.PageVO;
 import com.qgailab.service.MemberService;
 import com.qgailab.service.constants.Message;
 import com.qgailab.util.UUIDUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,7 @@ import java.util.List;
  * @date 2019-07-26 22:23
  */
 @Service
+@Slf4j
 public class MemberServiceImpl implements MemberService {
 
     @Autowired
@@ -170,7 +172,7 @@ public class MemberServiceImpl implements MemberService {
      * @Date: 2019/7/26
      */
     @Override
-    public ServiceResult listMember(int page, int pageSize) {
+    public ServiceResult listMember(int page, int pageSize,String grade,String field) {
         if (page <= 0) {
             return new ServiceResult(400, Message.page_invalid);
         }
@@ -181,7 +183,7 @@ public class MemberServiceImpl implements MemberService {
         int count;
         try {
             PageHelper.startPage(page, pageSize);
-            memberList = memberMapper.listPage(page * pageSize, pageSize);
+            memberList = memberMapper.listPageSelective(grade,field);
             count = memberMapper.selectCount();
             //创建一个默认的成员
             Member member = new Member();
