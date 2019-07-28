@@ -4,8 +4,10 @@ import com.github.pagehelper.PageHelper;
 import com.qgailab.dao.NewsMapper;
 import com.qgailab.model.dto.ServiceResult;
 import com.qgailab.model.po.News;
+import com.qgailab.model.po.PageVO;
 import com.qgailab.service.NewsService;
 import com.qgailab.service.constants.Message;
+import com.qgailab.util.PageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -152,17 +154,22 @@ public class NewsServiceImpl implements NewsService {
      */
     @Override
     public ServiceResult listNews(int page, int pageSize) {
-        if (page < 0 ){
+        if (page <= 0 ){
             return new ServiceResult(400, Message.page_invalid);
         }
+        if (pageSize <= 0) {
+            return new ServiceResult(401, Message.pageSize_invalid);
+        }
         List<News> newsList;
+        int count;
         try {
             PageHelper.startPage(page, pageSize);
-            newsList = newsMapper.listPage(page * pageSize, pageSize);
+            newsList = newsMapper.listPage();
+            count = newsMapper.selectCount();
         }catch (Exception e) {
             e.printStackTrace();
             return new ServiceResult(500, Message.please_retry);
         }
-        return new ServiceResult(200, Message.success, newsList);
+        return new ServiceResult(200, Message.success, new PageVO(PageUtils.getPage(count, pageSize), newsList));
     }
 }

@@ -4,8 +4,10 @@ import com.github.pagehelper.PageHelper;
 import com.qgailab.dao.AwardMapper;
 import com.qgailab.model.dto.ServiceResult;
 import com.qgailab.model.po.Award;
+import com.qgailab.model.po.PageVO;
 import com.qgailab.service.AwardService;
 import com.qgailab.service.constants.Message;
+import com.qgailab.util.PageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -157,17 +159,22 @@ public class AwardServiceImpl implements AwardService {
      */
     @Override
     public ServiceResult listAward(int page, int pageSize) {
-        if (page < 0 ){
+        if (page <= 0) {
             return new ServiceResult(400, Message.page_invalid);
         }
+        if (pageSize <= 0) {
+            return new ServiceResult(401, Message.pageSize_invalid);
+        }
+        int count;
         List<Award> awardList;
         try {
             PageHelper.startPage(page, pageSize);
-            awardList = awardMapper.listPage(page * pageSize, pageSize);
+            awardList = awardMapper.listPage();
+            count = awardMapper.selectCount();
         }catch (Exception e) {
             e.printStackTrace();
             return new ServiceResult(500, Message.please_retry);
         }
-        return new ServiceResult(200, Message.success, awardList);
+        return new ServiceResult(200, Message.success, new PageVO(PageUtils.getPage(count, pageSize), awardList));
     }
 }
