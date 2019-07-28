@@ -166,6 +166,4 @@ public class MemberServiceImpl implements MemberService {
         }
         return new ServiceResult(200, Message.success, memberList);
     }
-
-
 }
