@@ -110,7 +110,10 @@ public enum Message {
      * 图片已丢失
      */
     image_has_lost,
-
+    /**
+     * 页的大小不能小于零
+     */
+    pageSize_invalid,
 
     /**
      * 页数不合法
@@ -155,4 +158,4 @@ public enum Message {
      * 名称不能为空
      */
     name_not_null;
-}
+    }

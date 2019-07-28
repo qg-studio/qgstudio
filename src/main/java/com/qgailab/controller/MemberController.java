@@ -3,8 +3,8 @@ package com.qgailab.controller;
 import com.qgailab.model.dto.ServiceResult;
 import com.qgailab.model.po.Image;
 import com.qgailab.model.po.Member;
+import com.qgailab.service.ImageService;
 import com.qgailab.service.MemberService;
-import com.qgailab.service.MomentService;
 import com.qgailab.service.UploadService;
 import com.qgailab.service.constants.Message;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +16,8 @@ import java.util.List;
 
 
 /**
- * @description
  * @author < a href=" ">郭沛</ a>
+ * @description
  * @date 2019-07-27 10:02
  */
 @RestController
@@ -29,6 +29,10 @@ public class MemberController {
 
     @Autowired
     private UploadService uploadService;
+
+    @Autowired
+    private ImageService imageService;
+
     /**
      * 分页查询首页信息
      *
@@ -47,9 +51,9 @@ public class MemberController {
     }
 
     /**
-     * @name 插入成员的信息
      * @param member
      * @return ServiceResult
+     * @name 插入成员的信息
      * @notice none
      * @author < a href=" ">郭沛</ a>
      * @date
@@ -61,9 +65,9 @@ public class MemberController {
     }
 
     /**
-     * @name 更新成员的信息
      * @param member
      * @return ServiceResult
+     * @name 更新成员的信息
      * @notice none
      * @author < a href=" ">郭沛</ a>
      * @date
@@ -75,9 +79,9 @@ public class MemberController {
     }
 
     /**
-     * @name 删除指导老师信息
      * @param memberId
      * @return ServiceResult
+     * @name 删除指导老师信息
      * @notice none
      * @author < a href=" ">郭沛</ a>
      * @date
@@ -89,9 +93,9 @@ public class MemberController {
     }
 
     /**
-     * @name 查询单个成员信息
      * @param memberId
      * @return ServiceResult
+     * @name 查询单个成员信息
      * @notice none
      * @author < a href=" ">郭沛</ a>
      * @date
@@ -128,11 +132,9 @@ public class MemberController {
             List<Image> list = uploadService.uploadFile(member.getUuid(), uploads, path);
             //更新到leader中
             List<Image> oldList = member.getImages();
-            if (oldList == null) {
-                member.setImages(list);
-            } else {
-                oldList.addAll(list);
-            }
+            //删除之前的图片
+            imageService.removeImageList(path,oldList);
+            member.setImages(list);
             memberService.updateMember(member);
         } catch (Exception e) {
             e.printStackTrace();

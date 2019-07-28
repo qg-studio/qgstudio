@@ -29,7 +29,7 @@ public class ImageCleaner {
     @Autowired
     private ImageMapper imageMapper;
 
-    @Value(value = "#{upload.path}")
+    @Value(value = "#{conf.path}")
     private String path;
 
     /**

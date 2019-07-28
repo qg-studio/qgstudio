@@ -17,7 +17,7 @@ import java.util.List;
  * @author: gp
  * @create: 2019-07-26 09:24
  **/
-@Service
+@Service()
 public class AwardServiceImpl implements AwardService {
 
     @Autowired

@@ -17,7 +17,7 @@
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
-    <util:properties id="upload" location="classpath:uploadPath.properties"/>
+    <util:properties id="conf" location="classpath:qgConfig.properties"/>
 
     <bean id="cors" class="com.qgailab.filter.EncodingFilter"/>
     <!--Spring整合MyBatis框架-->
