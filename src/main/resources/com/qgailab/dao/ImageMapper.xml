@@ -32,7 +32,7 @@
     from image
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <select id="selectByFuuid" parameterType="java.lang.String" resultMap="BaseResultMap" resultType="java.util.List">
+  <select id="listByFuuid" parameterType="java.lang.String" resultMap="BaseResultMap" resultType="java.util.List">
     select
      image.id as imageId , image.fuuid , image.filename ,image.gmt_create , image.gmt_modified
     from image as image

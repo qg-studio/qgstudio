@@ -8,6 +8,7 @@ import com.qgailab.model.po.Member;
 import com.qgailab.model.po.Moment;
 import com.qgailab.service.MemberService;
 import com.qgailab.service.constants.Message;
+import com.qgailab.util.UUIDUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +33,7 @@ public class MemberServiceImpl implements MemberService {
             if (member.getName() == null || member.getName().trim().isEmpty()) {
                 return new ServiceResult(401, Message.name_not_null);
             }
+            member.setUuid(UUIDUtils.getUUID());
             if (memberMapper.insertSelective(member) != 1) {
                 return new ServiceResult(402, Message.database_exception);
             }

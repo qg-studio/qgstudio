@@ -83,6 +83,35 @@ public class IntroServiceImpl implements IntroService {
         return new ServiceResult(200,Message.success,intro);
     }
 
+    /**
+     * 负责删除一条信息点
+     *
+     * @param introId
+     * @name removeIntro
+     * @notice none
+     * @author <a href="mailto:kobe524348@gmail.com">黄钰朝</a>
+     * @date 2019-07-26
+     */
+    @Override
+    public ServiceResult removeIntro(Long introId) {
+        if (introId == null) {
+            return new ServiceResult(400, Message.parameter_not_enough);
+        }
+        Intro intro;
+        try {
+            intro = introMapper.selectByPrimaryKey(introId);
+            if(intro==null){
+                return new ServiceResult(402,Message.intro_not_found);
+            }
+            if(introMapper.deleteByPrimaryKey(introId)!=1){
+                return new ServiceResult(401,Message.database_exception);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ServiceResult(500,Message.please_retry);
+        }
+        return new ServiceResult(200,Message.success, intro);
+    }
 
     /**
      * 获取一个信息

@@ -1,6 +1,8 @@
 package com.qgailab.service.impl;
 
 import com.qgailab.dao.ImageMapper;
+import com.qgailab.exception.PathNotExistException;
+import com.qgailab.exception.UploadException;
 import com.qgailab.model.dto.ServiceResult;
 import com.qgailab.model.po.Image;
 import com.qgailab.service.ImageService;
@@ -50,7 +52,7 @@ public class ImageServiceImpl implements ImageService {
             //删除文件
             File file = new File(path + image.getFilename());
             if (!file.exists()) {
-                return new ServiceResult(402, Message.image_has_lost, file);
+                throw new PathNotExistException("图片路径不存在");
             }
             file.delete();
 
@@ -65,10 +67,20 @@ public class ImageServiceImpl implements ImageService {
         return new ServiceResult(200, Message.success, image);
     }
 
-
+    /**
+     * 负责删除图片集合
+     * @name removeImageList
+     * @param path 图片路径
+     * @param images 图片集合
+     * @return
+     * @notice none
+     * @author <a href="mailto:kobe524348@gmail.com">黄钰朝</a>
+     * @date 2019-07-28
+     */
+    @Override
     public ServiceResult removeImageList(String path, List<Image> images) {
         if (images == null) {
-            return new ServiceResult(400, Message.parameter_not_enough);
+           return new ServiceResult(400, Message.parameter_not_enough);
         }
         //遍历删除图片
         for (Image image : images) {

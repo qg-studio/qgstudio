@@ -30,6 +30,7 @@ public class NewsServiceImpl implements NewsService {
             if (news.getTitle() == null || news.getTitle().trim().isEmpty()) {
                 return new ServiceResult(400, Message.title_not_null);
             }
+
             if (newsMapper.insertSelective(news) != 1) {
                 return new ServiceResult(402, Message.database_exception);
             }

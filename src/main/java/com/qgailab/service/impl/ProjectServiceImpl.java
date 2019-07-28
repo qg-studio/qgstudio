@@ -7,6 +7,7 @@ import com.qgailab.model.po.Patent;
 import com.qgailab.model.po.Project;
 import com.qgailab.service.ProjectService;
 import com.qgailab.service.constants.Message;
+import com.qgailab.util.UUIDUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,6 +41,7 @@ public class ProjectServiceImpl implements ProjectService {
             if (project.getTitle() == null || project.getTitle().trim().isEmpty()) {
                 return new ServiceResult(400, Message.title_not_null);
             }
+            project.setUuid(UUIDUtils.getUUID());
             if (projectMapper.insertSelective(project) != 1) {
                 return new ServiceResult(402, Message.database_exception);
             }

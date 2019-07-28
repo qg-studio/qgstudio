@@ -6,6 +6,7 @@ import com.qgailab.model.dto.ServiceResult;
 import com.qgailab.model.po.Moment;
 import com.qgailab.service.MomentService;
 import com.qgailab.service.constants.Message;
+import com.qgailab.util.UUIDUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +31,7 @@ public class MomentServiceImpl implements MomentService {
             if (moment.getTitle() == null || moment.getTitle().trim().isEmpty()) {
                 return new ServiceResult(401, Message.title_not_null);
             }
+            moment.setUuid(UUIDUtils.getUUID());
             if (momentMapper.insertSelective(moment) != 1) {
                 return new ServiceResult(402, Message.database_exception);
             }

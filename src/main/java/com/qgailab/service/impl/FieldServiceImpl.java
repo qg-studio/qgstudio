@@ -8,6 +8,7 @@ import com.qgailab.model.po.Field;
 import com.qgailab.model.po.Moment;
 import com.qgailab.service.FieldService;
 import com.qgailab.service.constants.Message;
+import com.qgailab.util.UUIDUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +39,7 @@ public class FieldServiceImpl implements FieldService {
             return new ServiceResult(400, Message.parameter_not_enough);
         }
         try {
+            field.setUuid(UUIDUtils.getUUID());
             if (fieldMapper.insertSelective(field) != 1) {
                 return new ServiceResult(402, Message.database_exception);
             }

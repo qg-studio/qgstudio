@@ -2,6 +2,7 @@ package com.qgailab.service;
 
 import com.qgailab.model.dto.ServiceResult;
 import com.qgailab.model.po.Intro;
+import com.qgailab.service.constants.Message;
 import org.springframework.stereotype.Service;
 
 /**
@@ -43,6 +44,17 @@ public interface IntroService {
      * @date 2019-07-26
      */
     ServiceResult updateIntro(Intro intro);
+
+    /**
+     * 负责删除一条信息点
+     *
+     * @param introId
+     * @name removeIntro
+     * @notice none
+     * @author <a href="mailto:kobe524348@gmail.com">黄钰朝</a>
+     * @date 2019-07-26
+     */
+    ServiceResult removeIntro(Long introId);
 
     /**
      * 返回信息点

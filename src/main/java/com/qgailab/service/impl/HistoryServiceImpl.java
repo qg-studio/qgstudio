@@ -7,6 +7,7 @@ import com.qgailab.model.po.History;
 import com.qgailab.model.po.Moment;
 import com.qgailab.service.HistoryService;
 import com.qgailab.service.constants.Message;
+import com.qgailab.util.UUIDUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,6 +40,7 @@ public class HistoryServiceImpl implements HistoryService {
             if (history.getTitle() == null || history.getTitle().trim().isEmpty() || history.getTitle().trim().isEmpty()) {
                 return new ServiceResult(400, Message.parameter_not_enough);
             }
+            history.setUuid(UUIDUtils.getUUID());
             if (historyMapper.insertSelective(history) != 1) {
                 return new ServiceResult(402, Message.database_exception);
             }
