@@ -41,6 +41,9 @@ public class HistoryServiceImpl implements HistoryService {
             if (history.getTitle() == null || history.getTitle().trim().isEmpty()) {
                 return new ServiceResult(400, Message.parameter_not_enough);
             }
+            if (history.getDescription() == null || history.getDescription().trim().isEmpty()) {
+                history.setDescription("");
+            }
             history.setUuid(UUIDUtils.getUUID());
             if (historyMapper.insertSelective(history) != 1) {
                 return new ServiceResult(402, Message.database_exception);
@@ -102,6 +105,9 @@ public class HistoryServiceImpl implements HistoryService {
             }
             if (historyMapper.selectByPrimaryKey(history.getId()) == null) {
                 return new ServiceResult(401, Message.history_not_found);
+            }
+            if (history.getDescription() == null || history.getDescription().trim().isEmpty()) {
+                history.setDescription("");
             }
             if (history.getTitle() == null) {
                 return new ServiceResult(401, Message.title_not_null);

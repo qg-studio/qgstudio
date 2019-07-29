@@ -43,6 +43,9 @@ public class FieldServiceImpl implements FieldService {
             if (field.getName() == null) {
                 return new ServiceResult(400,Message.name_not_null);
             }
+            if (field.getDescription() == null || field.getDescription().trim().isEmpty()) {
+                field.setDescription("");
+            }
             field.setUuid(UUIDUtils.getUUID());
             if (fieldMapper.insertSelective(field) != 1) {
                 return new ServiceResult(402, Message.database_exception);
@@ -132,6 +135,9 @@ public class FieldServiceImpl implements FieldService {
             }
             if (fieldMapper.selectByPrimaryKey(field.getId()) == null) {
                 return new ServiceResult(401, Message.field_not_found);
+            }
+            if (field.getDescription() == null || field.getDescription().trim().isEmpty()) {
+                field.setDescription("");
             }
             if (fieldMapper.updateByPrimaryKeySelective(field) != 1) {
                 return new ServiceResult(402, Message.database_exception);

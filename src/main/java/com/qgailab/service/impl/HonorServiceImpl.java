@@ -42,6 +42,9 @@ public class HonorServiceImpl implements HonorService {
             if (honor.getTitle() == null || honor.getTitle().trim().isEmpty()) {
                 return new ServiceResult(401, Message.title_not_null);
             }
+            if (honor.getDescription() == null || honor.getDescription().trim().isEmpty()) {
+                honor.setDescription("");
+            }
             honor.setUuid(UUIDUtils.getUUID());
             if (honorMapper.insertSelective(honor) != 1) {
                 return new ServiceResult(401, Message.database_exception);
@@ -130,6 +133,9 @@ public class HonorServiceImpl implements HonorService {
             }
             if (honor.getTitle() == null || honor.getTitle().trim().isEmpty()) {
                 return new ServiceResult(401, Message.title_not_null);
+            }
+            if (honor.getDescription() == null || honor.getDescription().trim().isEmpty()) {
+                honor.setDescription("");
             }
             if(honorMapper.selectByPrimaryKey(honor.getId())==null){
                 return new ServiceResult(402,Message.honor_not_found);

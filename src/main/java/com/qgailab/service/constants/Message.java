@@ -170,6 +170,10 @@ public enum Message {
      */
     url_not_null,
     /**
+     * 描述不能为空
+     */
+    description_not_null,
+    /**
      * 名称不能为空
      */
     name_not_null;

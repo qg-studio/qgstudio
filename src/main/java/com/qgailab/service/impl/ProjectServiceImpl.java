@@ -41,6 +41,9 @@ public class ProjectServiceImpl implements ProjectService {
             if (project.getTitle() == null || project.getTitle().trim().isEmpty()) {
                 return new ServiceResult(400, Message.title_not_null);
             }
+            if (project.getDescription() == null || project.getDescription().trim().isEmpty()) {
+                project.setDescription("");
+            }
             project.setUuid(UUIDUtils.getUUID());
             if (projectMapper.insertSelective(project) != 1) {
                 return new ServiceResult(402, Message.database_exception);
@@ -102,6 +105,9 @@ public class ProjectServiceImpl implements ProjectService {
             }
             if (project.getTitle() == null || project.getTitle().trim().isEmpty()) {
                 return new ServiceResult(400, Message.title_not_null);
+            }
+            if (project.getDescription() == null || project.getDescription().trim().isEmpty()) {
+                project.setDescription("");
             }
             if (projectMapper.selectByPrimaryKey(project.getId()) == null) {
                 return new ServiceResult(401, Message.project_not_found);

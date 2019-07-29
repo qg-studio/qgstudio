@@ -42,6 +42,9 @@ public class LeaderServiceImpl implements LeaderService {
             if (leader.getName() == null || leader.getName().trim().isEmpty()) {
                 return new ServiceResult(400, Message.name_not_null);
             }
+            if (leader.getDescription() == null || leader.getDescription().trim().isEmpty()) {
+                leader.setDescription("");
+            }
             leader.setUuid(UUIDUtils.getUUID());
             if (leaderMapper.insertSelective(leader) != 1) {
                 return new ServiceResult(402, Message.database_exception);
@@ -103,6 +106,9 @@ public class LeaderServiceImpl implements LeaderService {
             }
             if (leader.getName() == null || leader.getName().trim().isEmpty()) {
                 return new ServiceResult(400, Message.name_not_null);
+            }
+            if (leader.getDescription() == null || leader.getDescription().trim().isEmpty()) {
+                leader.setDescription("");
             }
             if (leaderMapper.selectByPrimaryKey(leader.getId()) == null) {
                 return new ServiceResult(401, Message.leader_not_found);

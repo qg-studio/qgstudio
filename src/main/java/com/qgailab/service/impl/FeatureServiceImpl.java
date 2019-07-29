@@ -49,9 +49,8 @@ public class FeatureServiceImpl implements FeatureService {
                 return new ServiceResult(401, Message.title_not_null);
             }
             if (feature.getDescription() == null || feature.getDescription().trim().isEmpty()) {
-                feature.setDescription("暂未填写");
+                feature.setDescription("");
             }
-
             feature.setUuid(UUIDUtils.getUUID());
 
             if (featureMapper.insertSelective(feature) != 1) {
@@ -142,6 +141,9 @@ public class FeatureServiceImpl implements FeatureService {
         try {
             if (feature.getId() == null) {
                 return new ServiceResult(400, Message.parameter_not_enough);
+            }
+            if (feature.getDescription() == null || feature.getDescription().trim().isEmpty()) {
+                feature.setDescription("");
             }
             if (featureMapper.selectByPrimaryKey(feature.getId()) == null) {
                 return new ServiceResult(401, Message.feature_not_found);

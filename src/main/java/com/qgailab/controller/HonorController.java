@@ -105,7 +105,7 @@ public class HonorController {
      * @date 2019-07-27
      */
     @RequestMapping(value = "/remove", method = RequestMethod.POST)
-    public ServiceResult removeHonor(@RequestBody Long honorId) {
+    public ServiceResult removeHonor(Long honorId) {
         return honorService.removeHonor(honorId);
     }
 

@@ -47,7 +47,7 @@ public class IntroServiceImpl implements IntroService {
                 return new ServiceResult(401, Message.parameter_not_enough);
             }
             if(intro.getDescription()==null||intro.getDescription().trim().isEmpty()){
-                intro.setDescription("暂无描述信息");
+                intro.setDescription("");
             }
 
             intro.setUuid(UUIDUtils.getUUID());
@@ -79,6 +79,9 @@ public class IntroServiceImpl implements IntroService {
         try {
             if (intro.getId() == null) {
                 return new ServiceResult(401, Message.parameter_not_enough);
+            }
+            if (intro.getDescription() == null || intro.getDescription().trim().isEmpty()) {
+                intro.setDescription("");
             }
             if (introMapper.selectByPrimaryKey(intro.getId()) == null) {
                 return new ServiceResult(401, Message.intro_not_found);
