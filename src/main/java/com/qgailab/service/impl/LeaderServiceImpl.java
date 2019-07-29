@@ -104,6 +104,9 @@ public class LeaderServiceImpl implements LeaderService {
             if (leader.getName() == null || leader.getName().trim().isEmpty()) {
                 return new ServiceResult(400, Message.name_not_null);
             }
+            if (leaderMapper.selectByPrimaryKey(leader.getId()) == null) {
+                return new ServiceResult(401, Message.leader_not_found);
+            }
             if (leaderMapper.updateByPrimaryKeySelective(leader) != 1) {
                 return new ServiceResult(402, Message.database_exception);
             }

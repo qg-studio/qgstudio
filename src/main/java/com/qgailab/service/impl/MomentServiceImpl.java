@@ -101,6 +101,9 @@ public class MomentServiceImpl implements MomentService {
             if (moment.getTitle() == null || moment.getTitle().trim().isEmpty()) {
                 return new ServiceResult(401, Message.title_not_null);
             }
+            if (momentMapper.selectByPrimaryKey(moment.getId()) == null) {
+                return new ServiceResult(401, Message.moment_not_found);
+            }
             if (momentMapper.updateByPrimaryKeySelective(moment) != 1) {
                 return new ServiceResult(402, Message.database_exception);
             }
