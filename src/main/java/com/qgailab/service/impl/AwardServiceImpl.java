@@ -1,12 +1,15 @@
 package com.qgailab.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.qgailab.annotation.Permmision;
 import com.qgailab.dao.AwardMapper;
 import com.qgailab.model.dto.ServiceResult;
 import com.qgailab.model.po.Award;
 import com.qgailab.model.po.PageVO;
 import com.qgailab.service.AwardService;
 import com.qgailab.service.constants.Message;
+import com.qgailab.service.constants.Module;
+import com.qgailab.service.constants.Operation;
 import com.qgailab.util.PageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +22,7 @@ import java.util.List;
  * @author: gp
  * @create: 2019-07-26 09:24
  **/
-@Service()
+@Service
 public class AwardServiceImpl implements AwardService {
 
     @Autowired
@@ -63,6 +66,7 @@ public class AwardServiceImpl implements AwardService {
      * @date 2019-07-26
      */
     @Override
+    @Permmision(module = Module.award,operation = Operation.REMOVE)
     public ServiceResult removeAward(Long id) {
         if (id == null) {
             return new ServiceResult(400, Message.parameter_not_enough);
@@ -93,6 +97,7 @@ public class AwardServiceImpl implements AwardService {
      * @date 2019-07-26
      */
     @Override
+    @Permmision(module = Module.award,operation = Operation.INSERT)
     public ServiceResult insertAward(Award award) {
         if (award == null) {
             return new ServiceResult(400, Message.parameter_not_enough);
@@ -118,6 +123,7 @@ public class AwardServiceImpl implements AwardService {
      * @date 2019-07-26
      */
     @Override
+    @Permmision(module = Module.award,operation = Operation.UPDATE)
     public ServiceResult updateAward(Award award) {
 
         if (award == null) {
