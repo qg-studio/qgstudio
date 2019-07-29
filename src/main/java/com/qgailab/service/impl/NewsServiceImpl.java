@@ -106,6 +106,9 @@ public class NewsServiceImpl implements NewsService {
             if (news.getUrl() == null || news.getUrl().trim().isEmpty()) {
                 return new ServiceResult(401, Message.url_not_null);
             }
+            if (newsMapper.selectByPrimaryKey(news.getId()) == null) {
+                return new ServiceResult(401, Message.news_not_found);
+            }
             if (newsMapper.updateByPrimaryKeySelective(news) != 1) {
                 return new ServiceResult(402, Message.database_exception);
             }

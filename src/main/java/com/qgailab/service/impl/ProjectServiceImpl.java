@@ -103,6 +103,9 @@ public class ProjectServiceImpl implements ProjectService {
             if (project.getTitle() == null || project.getTitle().trim().isEmpty()) {
                 return new ServiceResult(400, Message.title_not_null);
             }
+            if (projectMapper.selectByPrimaryKey(project.getId()) == null) {
+                return new ServiceResult(401, Message.project_not_found);
+            }
             if (projectMapper.updateByPrimaryKeySelective(project) != 1) {
                 return new ServiceResult(402, Message.database_exception);
             }

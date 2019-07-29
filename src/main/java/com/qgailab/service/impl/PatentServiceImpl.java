@@ -107,6 +107,9 @@ public class PatentServiceImpl implements PatentService {
             if (patent.getName() == null || patent.getName().trim().isEmpty()) {
                 return new ServiceResult(401, Message.name_not_null);
             }
+            if (patentMapper.selectByPrimaryKey(patent.getId()) == null) {
+                return new ServiceResult(401, Message.patent_not_found);
+            }
             if (patentMapper.updateByPrimaryKeySelective(patent) != 1) {
                 return new ServiceResult(402, Message.database_exception);
             }
