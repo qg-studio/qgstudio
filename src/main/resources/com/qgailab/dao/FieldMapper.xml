@@ -54,6 +54,10 @@
     from field
     where id = #{id,jdbcType=BIGINT}
   </select>
+  <select id="selectCount" resultType="java.lang.Integer">
+        select count(*)
+        from field
+    </select>
   <select id="listPage" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
     <!--
       WARNING - @mbg.generated

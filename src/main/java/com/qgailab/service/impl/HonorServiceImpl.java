@@ -151,8 +151,11 @@ public class HonorServiceImpl implements HonorService {
      */
     @Override
     public ServiceResult listHonor(int page, int pageSize) {
-        if (page < 0 ){
+        if (page <= 0 ){
             return new ServiceResult(400, Message.page_invalid);
+        }
+        if (pageSize <= 0) {
+            return new ServiceResult(400, Message.pageSize_invalid);
         }
         List<Honor> honorList;
         try {

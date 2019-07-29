@@ -66,6 +66,10 @@
     <include refid="Blob_Column_List" />
     from feature
   </select>
+  <select id="selectCount" resultType="java.lang.Integer">
+        select count(*)
+        from feature
+    </select>
 <!--  插入图片查询语句和映射-->
   <resultMap id="ImageResultMap" type="com.qgailab.model.po.Image">
     <!--
