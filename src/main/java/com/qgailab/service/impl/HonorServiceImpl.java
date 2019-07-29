@@ -131,8 +131,11 @@ public class HonorServiceImpl implements HonorService {
             if (honor.getTitle() == null || honor.getTitle().trim().isEmpty()) {
                 return new ServiceResult(401, Message.title_not_null);
             }
+            if(honorMapper.selectByPrimaryKey(honor.getId())==null){
+                return new ServiceResult(402,Message.honor_not_found);
+            }
             if (honorMapper.updateByPrimaryKeySelective(honor) != 1) {
-                return new ServiceResult(402, Message.database_exception);
+                return new ServiceResult(403, Message.database_exception);
             }
         }catch (Exception e) {
             e.printStackTrace();

@@ -32,17 +32,18 @@ public class OperationLogger {
     @Around(value = "execution(* com.qgailab.service.impl.*ServiceImpl.remove*(..))" +
             "||execution(* com.qgailab.service.impl.*ServiceImpl.update*(..))" +
             "||execution(* com.qgailab.service.impl.*ServiceImpl.insert*(..))")
-    public void aroundOperate(ProceedingJoinPoint proceedingJoinPoint) {
+    public ServiceResult aroundOperate(ProceedingJoinPoint proceedingJoinPoint) {
         User user = (User) session.getAttribute("login");
         user = new User();
         Logger log = Logger.getLogger("LOGDB2");
-        Logger fileLogger  = Logger.getLogger(proceedingJoinPoint.getTarget().getClass());
+        Logger fileLogger = Logger.getLogger(proceedingJoinPoint.getTarget().getClass());
+        ServiceResult result = null;
         try {
             //获取正在执行的方法和返回值
             MethodSignature ms = (MethodSignature) proceedingJoinPoint.getSignature();
             Method method = proceedingJoinPoint.getTarget().getClass().getDeclaredMethod(ms.getName(), ms.getParameterTypes());
             Object[] args = proceedingJoinPoint.getArgs();
-            ServiceResult result = (ServiceResult) proceedingJoinPoint.proceed(args);
+            result = (ServiceResult) proceedingJoinPoint.proceed(args);
 
             if (method.isAnnotationPresent(Permmision.class)) {
                 Permmision permmision = method.getAnnotation(Permmision.class);
@@ -54,6 +55,7 @@ public class OperationLogger {
         } catch (Throwable throwable) {
             throwable.printStackTrace();
         }
+        return result;
     }
 
 }
