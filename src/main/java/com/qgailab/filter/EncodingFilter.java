@@ -1,8 +1,10 @@
 package com.qgailab.filter;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import javax.servlet.*;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.http.HttpServletRequest;
@@ -21,9 +23,9 @@ import java.io.IOException;
                 @WebInitParam(name = "ENCODING", value = "UTF-8")
         }
 )
+@Slf4j
 public class EncodingFilter extends OncePerRequestFilter {
-
-    private String ENCODING = "UTF-8";
+    private final String ENCODING = "UTF-8";
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {

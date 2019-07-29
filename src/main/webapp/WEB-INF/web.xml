@@ -50,7 +50,10 @@
     <servlet-name>druidStatView</servlet-name>
     <url-pattern>/druid/*</url-pattern>
   </servlet-mapping>
-
+  <!-- 用于普通类获取session和request对象 -->
+  <listener>
+    <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+  </listener>
 <!--  文件上传-->
 
 </web-app>
