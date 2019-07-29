@@ -150,8 +150,11 @@ public class MemberServiceImpl implements MemberService {
             if (member.getName() == null || member.getName().trim().isEmpty()) {
                 return new ServiceResult(401, Message.name_not_null);
             }
+            if(memberMapper.selectByPrimaryKey(member.getId())==null){
+                return new ServiceResult(402,Message.member_not_found);
+            }
             if (memberMapper.updateByPrimaryKeySelective(member) != 1) {
-                return new ServiceResult(402, Message.database_exception);
+                return new ServiceResult(403, Message.database_exception);
             }
         } catch (Exception e) {
             e.printStackTrace();
