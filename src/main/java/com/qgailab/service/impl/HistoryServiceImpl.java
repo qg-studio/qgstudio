@@ -154,8 +154,11 @@ public class HistoryServiceImpl implements HistoryService {
      */
     @Override
     public ServiceResult listHistory(int page, int pageSize) {
-        if (page < 0 ){
+        if (page <= 0 ){
             return new ServiceResult(400, Message.page_invalid);
+        }
+        if (pageSize <= 0) {
+            return new ServiceResult(400, Message.pageSize_invalid);
         }
         List<History> historyList;
         try {

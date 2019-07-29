@@ -48,6 +48,10 @@
                     javaType="java.util.List" select="selectByFuuid">
         </collection>
     </resultMap>
+    <select id="selectCount" resultType="java.lang.Integer">
+        select count(*)
+        from intro
+    </select>
     <select id="selectByPrimaryKey" resultMap="intro">
     select
     intro.id,intro.uuid,intro.title,intro.description
@@ -59,6 +63,7 @@
      intro.id,intro.uuid,intro.title,intro.description
      from intro as intro
   </select>
+
     <!--  插入图片查询语句和映射-->
     <resultMap id="ImageResultMap" type="com.qgailab.model.po.Image">
         <!--

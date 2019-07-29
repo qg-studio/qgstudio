@@ -148,8 +148,11 @@ public class MomentServiceImpl implements MomentService {
      */
     @Override
     public ServiceResult listMoment(int page, int pageSize) {
-        if (page < 0 ){
+        if (page <= 0 ){
             return new ServiceResult(400, Message.page_invalid);
+        }
+        if (pageSize <= 0) {
+            return new ServiceResult(400, Message.pageSize_invalid);
         }
         List<Moment> momentList;
         try {

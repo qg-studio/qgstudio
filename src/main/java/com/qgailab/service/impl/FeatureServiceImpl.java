@@ -6,9 +6,11 @@ import com.qgailab.model.dto.ServiceResult;
 import com.qgailab.model.po.Award;
 import com.qgailab.model.po.Feature;
 import com.qgailab.model.po.Moment;
+import com.qgailab.model.po.PageVO;
 import com.qgailab.service.FeatureService;
 import com.qgailab.service.ImageService;
 import com.qgailab.service.constants.Message;
+import com.qgailab.util.PageUtils;
 import com.qgailab.util.UUIDUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -164,17 +166,22 @@ public class FeatureServiceImpl implements FeatureService {
      */
     @Override
     public ServiceResult listFeature(int page, int pageSize) {
-        if (page < 0 ){
+        if (page <= 0 ){
             return new ServiceResult(400, Message.page_invalid);
         }
+        if (pageSize <= 0) {
+            return new ServiceResult(400, Message.pageSize_invalid);
+        }
         List<Feature> featureList;
+        int count;
         try {
             PageHelper.startPage(page, pageSize);
             featureList = featureMapper.listPage(page * pageSize, pageSize);
+            count = featureMapper.selectCount();
         }catch (Exception e) {
             e.printStackTrace();
             return new ServiceResult(500, Message.please_retry);
         }
-        return new ServiceResult(200, Message.success, featureList);
+        return new ServiceResult(200, Message.success, new PageVO(PageUtils.getPage(count, pageSize), featureList));
     }
 }
