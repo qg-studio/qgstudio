@@ -97,8 +97,8 @@
     <tx:annotation-driven/>
     <tx:advice id="txAdvice" transaction-manager="transactionManager">
         <tx:attributes>
-            <tx:method name="select*" read-only="true"/>
-            <tx:method name="*" isolation="DEFAULT"/>
+            <tx:method name="remove*" isolation="DEFAULT"/>
+            <tx:method name="update*" isolation="DEFAULT"/>
         </tx:attributes>
     </tx:advice>
     <!--配置AOP增强-->
