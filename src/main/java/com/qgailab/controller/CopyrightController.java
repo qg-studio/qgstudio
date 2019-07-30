@@ -1,14 +1,21 @@
 package com.qgailab.controller;
 
 import com.qgailab.model.dto.ServiceResult;
+import com.qgailab.model.po.Award;
 import com.qgailab.model.po.Copyright;
 import com.qgailab.service.CopyrightService;
+import com.qgailab.service.ExcelService;
+import com.qgailab.service.constants.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * @description
@@ -21,6 +28,9 @@ public class CopyrightController {
 
     @Autowired
     private CopyrightService copyrightService;
+
+    @Autowired
+    private ExcelService excelService;
 
     /**
     * @name 插入著作权信息
@@ -93,5 +103,57 @@ public class CopyrightController {
     public @ResponseBody
     ServiceResult listCopyright(int page, int pageSize) {
         return copyrightService.listCopyright(page, pageSize);
+    }
+
+    /**
+     * @name 导出数据到Excel文档
+     * @param
+     * @return ServiceResult
+     * @notice none
+     * @author < a href=" ">郭沛</ a>
+     * @date
+     */
+    @RequestMapping(value = "/export", method = RequestMethod.POST)
+    public ServiceResult exportNews(String title) {
+        return excelService.getTypeList(title,new Copyright());
+    }
+
+    /**
+     * 从Excel文件导入数据
+     * @name importCopyright
+     * @param
+     * @return ServiceResult
+     * @notice none
+     * @author < a href=" ">郭沛</ a>
+     * @date
+     */
+    @RequestMapping(value = "/import", method = RequestMethod.POST)
+    public ServiceResult importCopyright(HttpServletRequest request, @RequestParam(value = "excel") MultipartFile excel) {
+        ServiceResult rs = null;
+        if (excel == null) {
+            return new ServiceResult(400, Message.excel_not_null);
+        }
+        try {
+            String path = request.getSession().getServletContext().getRealPath("/import/");
+            String filename = excel.getOriginalFilename();
+            File dir = new File(path);
+            if(!dir.exists()){
+                dir.mkdirs();
+            }
+            File targetFile = new File(path, filename);
+            try {
+                excel.transferTo(targetFile);
+            }catch (Exception e) {
+                e.printStackTrace();
+            }
+            InputStream in = new FileInputStream(targetFile);
+            if (filename.endsWith(".xls") || filename.endsWith(".xlsx")) {
+                rs = excelService.importExcel(filename, in, new Copyright());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ServiceResult(500, Message.please_retry);
+        }
+        return rs;
     }
 }

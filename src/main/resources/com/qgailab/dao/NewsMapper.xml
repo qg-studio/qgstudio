@@ -33,6 +33,7 @@
     from news
     where id = #{id,jdbcType=BIGINT}
   </select>
+
   <select id="listPage" parameterType="java.lang.Long" resultMap="BaseResultMap">
     <!--
       WARNING - @mbg.generated

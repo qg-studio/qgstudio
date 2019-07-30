@@ -41,6 +41,7 @@ public class OperationLogger {
     public ServiceResult aroundOperate(ProceedingJoinPoint proceedingJoinPoint) {
         User user = (User) session.getAttribute("login");
         user = new User();
+        ServiceResult result = null;
         try {
             //获取正在执行的方法和返回值
             MethodSignature ms = (MethodSignature) proceedingJoinPoint.getSignature();
