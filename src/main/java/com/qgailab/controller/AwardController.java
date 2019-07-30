@@ -4,10 +4,20 @@ import com.qgailab.model.dto.ServiceResult;
 import com.qgailab.model.po.Award;
 import com.qgailab.model.po.Intro;
 import com.qgailab.service.AwardService;
+import com.qgailab.service.ExcelService;
+import com.qgailab.service.constants.Message;
+import com.qgailab.service.impl.ExcelServiceImpl;
+import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.*;
+import java.util.List;
 
 /**
  * @description
@@ -20,6 +30,9 @@ public class AwardController {
 
     @Autowired
     private AwardService awardService;
+    @Autowired
+    private ExcelService excelService;
+
 
     /**
     * @name 插入奖项
@@ -89,4 +102,56 @@ public class AwardController {
         return awardService.listAward(page, pageSize);
     }
 
+    /**
+     * @name 导出数据到Excel文档
+     * @param
+     * @return ServiceResult
+     * @notice none
+     * @author < a href=" ">郭沛</ a>
+     * @date
+     */
+    @RequestMapping(value = "/export", method = RequestMethod.POST)
+    public ServiceResult exportAward(String title) {
+        return excelService.getTypeList(title, new Award());
+    }
+
+    /**
+     * 从Excel文件导入数据
+     * @name importAward
+     * @param
+     * @return ServiceResult
+     * @notice none
+     * @author < a href=" ">郭沛</ a>
+     * @date
+     */
+    @RequestMapping(value = "/import", method = RequestMethod.POST)
+    public ServiceResult importAward(HttpServletRequest request, @RequestParam(value = "excel")MultipartFile excel) {
+        ServiceResult rs = null;
+        if (excel == null) {
+            return new ServiceResult(400, Message.excel_not_null);
+        }
+        try {
+            String path = request.getSession().getServletContext().getRealPath("/import/");
+            String filename = excel.getOriginalFilename();
+            File dir = new File(path);
+            if(!dir.exists()){
+                dir.mkdirs();
+            }
+            File targetFile = new File(path, filename);
+            try {
+                excel.transferTo(targetFile);
+            }catch (Exception e) {
+                e.printStackTrace();
+            }
+            InputStream in = new FileInputStream(targetFile);
+
+            if (filename.endsWith(".xls") || filename.endsWith(".xlsx")) {
+                rs = excelService.importExcel(filename, in, new Award());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ServiceResult(500, Message.please_retry);
+        }
+        return rs;
+    }
 }

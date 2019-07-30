@@ -251,7 +251,19 @@ public enum Message {
      */
     description_not_null,
     /**
+     * excel不能为空
+     */
+    excel_not_null,
+    /**
      * 名称不能为空
      */
-    name_not_null;
-}
+    name_not_null,
+    /**
+     * 没有对应的属性
+     */
+    attribute_not_found,
+    /**
+     * 没有相关的对象
+     */
+    object_not_found;
+    }
