@@ -39,7 +39,7 @@ public interface AwardMapper {
      */
     Award selectByPrimaryKey(Long id);
 
-    List<Award> listPage();
+    List<Award> listPageOrderByNumber();
 
     int selectCount();
 

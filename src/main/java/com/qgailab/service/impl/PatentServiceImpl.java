@@ -181,7 +181,7 @@ public class PatentServiceImpl implements PatentService {
         int count;
         try {
             PageHelper.startPage(page, pageSize);
-            patentList = patentMapper.listPage();
+            patentList = patentMapper.listPageOrderByNumber();
             count = patentMapper.selectCount();
         } catch (Exception e) {
             e.printStackTrace();

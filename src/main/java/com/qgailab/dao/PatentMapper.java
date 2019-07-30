@@ -42,7 +42,7 @@ public interface PatentMapper {
     Patent selectByPrimaryKey(Long id);
     int selectCount();
 
-    List<Patent> listPage();
+    List<Patent> listPageOrderByNumber();
 
 
     /**

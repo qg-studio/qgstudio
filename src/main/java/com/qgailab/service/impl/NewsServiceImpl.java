@@ -179,7 +179,7 @@ public class NewsServiceImpl implements NewsService {
         int count;
         try {
             PageHelper.startPage(page, pageSize);
-            newsList = newsMapper.listPage();
+            newsList = newsMapper.listPageOrderByNumber();
             count = newsMapper.selectCount();
         } catch (Exception e) {
             e.printStackTrace();

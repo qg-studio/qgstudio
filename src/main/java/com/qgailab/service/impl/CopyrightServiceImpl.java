@@ -4,7 +4,6 @@ import com.github.pagehelper.PageHelper;
 import com.qgailab.annotation.Permmision;
 import com.qgailab.dao.CopyrightMapper;
 import com.qgailab.model.dto.ServiceResult;
-import com.qgailab.model.po.Award;
 import com.qgailab.model.po.Copyright;
 import com.qgailab.model.po.PageVO;
 import com.qgailab.service.CopyrightService;
@@ -187,7 +186,7 @@ public class CopyrightServiceImpl implements CopyrightService {
         try {
             PageHelper.startPage(page, pageSize);
             count = copyrightMapper.selectCount();
-            copyrightList = copyrightMapper.listPage();
+            copyrightList = copyrightMapper.listPageOrderByNumber();
         } catch (Exception e) {
             e.printStackTrace();
             return new ServiceResult(500, Message.please_retry);

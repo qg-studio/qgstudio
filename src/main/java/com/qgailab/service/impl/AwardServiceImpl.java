@@ -181,7 +181,7 @@ public class AwardServiceImpl implements AwardService {
         List<Award> awardList;
         try {
             PageHelper.startPage(page, pageSize);
-            awardList = awardMapper.listPage();
+            awardList = awardMapper.listPageOrderByNumber();
             count = awardMapper.selectCount();
         } catch (Exception e) {
             e.printStackTrace();

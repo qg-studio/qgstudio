@@ -39,7 +39,7 @@ public interface CopyrightMapper {
      */
     Copyright selectByPrimaryKey(Long id);
 
-    List<Copyright> listPage();
+    List<Copyright> listPageOrderByNumber();
 
     int selectCount();
 
