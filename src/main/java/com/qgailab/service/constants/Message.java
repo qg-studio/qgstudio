@@ -118,6 +118,54 @@ public enum Message {
      **************************************************************
      */
     /**
+     * 标题过长
+     */
+    title_too_long,
+    /**
+     * 描述过长
+     */
+    description_too_long,
+    /**
+     * 名称过长
+     */
+    name_too_long,
+    /**
+     * 序号太长
+     */
+    number_too_long,
+    /**
+     * 登记号太长
+     */
+    rn_too_long,
+    /**
+     * 身份太长
+     */
+    position_too_long,
+    /**
+     * 年级太长
+     */
+    grade_too_long,
+    /**
+     * 研究方向太长
+     */
+    field_too_long,
+    /**
+     * url太长
+     */
+    url_too_long,
+    /**
+     * 发明专利太长
+     */
+    zl_too_long,
+    /**
+     * 发明人太长
+     */
+    inventor_too_long,
+
+    /**
+     *
+     */
+    /**
      * 图片不存在
      */
     image_not_found,
@@ -177,4 +225,4 @@ public enum Message {
      * 名称不能为空
      */
     name_not_null;
-    }
+}

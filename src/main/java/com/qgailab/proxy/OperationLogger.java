@@ -6,8 +6,6 @@ import com.qgailab.model.dto.ServiceResult;
 import com.qgailab.model.po.Log;
 import com.qgailab.model.po.User;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.log4j.Logger;
-import org.apache.log4j.lf5.viewer.LogFactor5ErrorDialog;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -41,6 +39,7 @@ public class OperationLogger {
     public ServiceResult aroundOperate(ProceedingJoinPoint proceedingJoinPoint) {
         User user = (User) session.getAttribute("login");
         user = new User();
+        ServiceResult result = null;
         try {
             //获取正在执行的方法和返回值
             MethodSignature ms = (MethodSignature) proceedingJoinPoint.getSignature();
@@ -48,7 +47,7 @@ public class OperationLogger {
             Object[] args = proceedingJoinPoint.getArgs();
             result = (ServiceResult) proceedingJoinPoint.proceed(args);
 
-            if (method.isAnnotationPresent(Permmision.class)&&result.getStatus()==200) {
+            if (method.isAnnotationPresent(Permmision.class) && result.getStatus() == 200) {
                 Permmision permmision = method.getAnnotation(Permmision.class);
                 //打印日志
                 log.warn("用户[" + user.getUsername() + "] 对[" + permmision.module().getName() + "]执行了[" + permmision.operation().getName() + "]操作");
