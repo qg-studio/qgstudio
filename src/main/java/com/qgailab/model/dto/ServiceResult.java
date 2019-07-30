@@ -26,10 +26,20 @@ public class ServiceResult {
         this.message = message.toString();
         this.data = data;
     }
+    public ServiceResult(int status, String message, Object data) {
+        this.status = status;
+        this.message = message;
+        this.data = data;
+    }
 
     public ServiceResult(int status, Message message) {
         this.status = status;
         this.message = message.toString();
+    }
+
+    public ServiceResult(int status, String message) {
+        this.status = status;
+        this.message = message;
     }
 
     public ServiceResult(int status, Object data) {
