@@ -13,8 +13,8 @@
     <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
     <script>
-        setInterval(function loadlog(page) {
-            var url = "http://localhost:8081/log/list";
+        function loadlog(page) {
+            var url = "http://localhost:8080/log/list";
             var data = {
                 page: page,
                 pageSize: 20
@@ -50,10 +50,11 @@
                     alert(exception.toString());
                 }
             });
-        },5000);
+        }
+        setInterval(loadlog(1),5000);
     </script>
 </head>
-<body>
+<body onload=loadlog(1)>
 <h1 style="text-align: center">QG官网日志系统</h1>
 <hr/>
 <div class="panel panel-default">

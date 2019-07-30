@@ -72,7 +72,7 @@
       rn, date, gmt_create, 
       gmt_modified)
     values (#{id,jdbcType=BIGINT}, #{number,jdbcType=SMALLINT}, #{name,jdbcType=VARCHAR}, 
-      #{rn,jdbcType=VARCHAR}, #{date,jdbcType=DATE}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{rn,jdbcType=VARCHAR}, #{date,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP},
       #{gmtModified,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.qgailab.model.po.Copyright">
@@ -122,7 +122,7 @@
         #{rn,jdbcType=VARCHAR},
       </if>
       <if test="date != null">
-        #{date,jdbcType=DATE},
+        #{date,jdbcType=VARCHAR},
       </if>
       <if test="gmtCreate != null">
         #{gmtCreate,jdbcType=TIMESTAMP},
@@ -150,7 +150,7 @@
         rn = #{rn,jdbcType=VARCHAR},
       </if>
       <if test="date != null">
-        date = #{date,jdbcType=DATE},
+        date = #{date,jdbcType=VARCHAR},
       </if>
       <if test="gmtCreate != null">
         gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
@@ -171,7 +171,7 @@
     set number = #{number,jdbcType=SMALLINT},
       name = #{name,jdbcType=VARCHAR},
       rn = #{rn,jdbcType=VARCHAR},
-      date = #{date,jdbcType=DATE},
+      date = #{date,jdbcType=VARCHAR},
       gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
