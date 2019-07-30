@@ -3,6 +3,7 @@ package com.qgailab.controller;
 import com.qgailab.model.dto.ServiceResult;
 import com.qgailab.model.po.Image;
 import com.qgailab.model.po.Intro;
+import com.qgailab.service.ImageService;
 import com.qgailab.service.IntroService;
 import com.qgailab.service.UploadService;
 import com.qgailab.service.constants.Message;
@@ -27,6 +28,9 @@ public class IntroController {
 
     @Autowired
     private UploadService uploadService;
+
+    @Autowired
+    private ImageService imageService;
 
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
     public @ResponseBody
@@ -72,11 +76,8 @@ public class IntroController {
             List<Image> list = uploadService.uploadFile(intro.getUuid(), uploads, path);
             //更新到intro中
             List<Image> oldList = intro.getImages();
-            if (oldList == null) {
-                intro.setImages(list);
-            } else {
-                oldList.addAll(list);
-            }
+            imageService.removeImageList(path, oldList);
+            intro.setImages(list);
             introService.updateIntro(intro);
         } catch (Exception e) {
             e.printStackTrace();

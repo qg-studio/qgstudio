@@ -41,7 +41,8 @@ public class HistoryController {
      */
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     public @ResponseBody
-    ServiceResult uploadImage(HttpServletRequest request, @RequestParam(value = "historyId") Long historyId, @RequestParam(value = "uploads") MultipartFile[] uploads) {
+    ServiceResult uploadImage(HttpServletRequest request,String description,
+                              @RequestParam(value = "historyId") Long historyId, @RequestParam(value = "uploads") MultipartFile[] uploads) {
         if (uploads == null || uploads.length == 0) {
             return new ServiceResult(400, Message.image_not_null);
         }
@@ -54,7 +55,7 @@ public class HistoryController {
             String path = request.getSession().getServletContext().getRealPath("/upload/");
             history = (History) result.getData();
             //保存图片数组
-            List<Image> list = uploadService.uploadFile(history.getUuid(), uploads, path);
+            List<Image> list = uploadService.uploadFile(history.getUuid(), uploads, path,description);
             //更新到history中
             List<Image> oldList = history.getImages();
             if (oldList == null) {

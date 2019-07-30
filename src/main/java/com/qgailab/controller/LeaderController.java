@@ -3,6 +3,7 @@ package com.qgailab.controller;
 import com.qgailab.model.dto.ServiceResult;
 import com.qgailab.model.po.Image;
 import com.qgailab.model.po.Leader;
+import com.qgailab.service.ImageService;
 import com.qgailab.service.LeaderService;
 import com.qgailab.service.UploadService;
 import com.qgailab.service.constants.Message;
@@ -27,6 +28,9 @@ public class LeaderController {
 
     @Autowired
     private UploadService uploadService;
+
+    @Autowired
+    private ImageService imageService;
 
     /**
      * @name 插入指导老师信息
@@ -110,11 +114,8 @@ public class LeaderController {
             List<Image> list = uploadService.uploadFile(leader.getUuid(), uploads, path);
             //更新到leader中
             List<Image> oldList = leader.getImages();
-            if (oldList == null) {
-                leader.setImages(list);
-            } else {
-                oldList.addAll(list);
-            }
+            imageService.removeImageList(path,oldList);
+            leader.setImages(list);
             leaderService.updateLeader(leader);
         } catch (Exception e) {
             e.printStackTrace();

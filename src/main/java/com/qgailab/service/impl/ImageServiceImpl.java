@@ -26,6 +26,8 @@ public class ImageServiceImpl implements ImageService {
     @Autowired
     private ImageMapper imageMapper;
 
+
+
     /**
      * 负责移除一张图片
      *
@@ -92,4 +94,37 @@ public class ImageServiceImpl implements ImageService {
         return new ServiceResult(200, Message.success, images);
     }
 
+    /**
+     * 用于更新图片描述
+     *
+     * @param image
+     * @return
+     * @name updateImage
+     * @notice none
+     * @author <a href="mailto:kobe524348@gmail.com">黄钰朝</a>
+     * @date 2019-07-29
+     */
+    @Override
+    public ServiceResult updateImage(Image image) {
+        if(image==null||image.getId()==null){
+            return new ServiceResult(400,Message.parameter_not_enough);
+        }
+
+        try {
+            //描述不可为空
+            if(image.getDescription()==null||image.getDescription().trim().isEmpty()){
+                return new ServiceResult(401,Message.description_not_null);
+            }
+            if(imageMapper.selectByPrimaryKey(image.getId())==null){
+                return new ServiceResult(402,Message.image_not_found);
+            }
+            if(imageMapper.updateByPrimaryKeySelective(image)!=1){
+                return new ServiceResult(403, Message.database_exception);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ServiceResult(500,Message.please_retry);
+        }
+        return new ServiceResult(200,Message.success,image);
+    }
 }

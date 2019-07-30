@@ -37,7 +37,8 @@ public class FeatureController {
      */
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     public @ResponseBody
-    ServiceResult uploadImage(HttpServletRequest request, @RequestParam(value = "featureId") Long featureId, @RequestParam(value = "uploads") MultipartFile[] uploads) {
+    ServiceResult uploadImage(HttpServletRequest request,String description,
+                              @RequestParam(value = "featureId") Long featureId, @RequestParam(value = "uploads") MultipartFile[] uploads) {
         if (uploads == null || uploads.length == 0) {
             return new ServiceResult(400, Message.image_not_null);
         }
@@ -50,7 +51,7 @@ public class FeatureController {
             String path = request.getSession().getServletContext().getRealPath("/upload/");
             feature = (Feature) result.getData();
             //保存图片数组
-            List<Image> list = uploadService.uploadFile(feature.getUuid(), uploads, path);
+            List<Image> list = uploadService.uploadFile(feature.getUuid(), uploads, path,description);
             //更新到feature中
             List<Image> oldList = feature.getImages();
             if (oldList == null) {

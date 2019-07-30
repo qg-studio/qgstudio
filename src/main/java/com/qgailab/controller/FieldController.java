@@ -5,6 +5,7 @@ import com.qgailab.model.po.Field;
 import com.qgailab.model.po.Image;
 import com.qgailab.model.po.Field;
 import com.qgailab.service.FieldService;
+import com.qgailab.service.ImageService;
 import com.qgailab.service.UploadService;
 import com.qgailab.service.constants.Message;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,8 @@ public class FieldController {
 
     @Autowired
     private UploadService uploadService;
+    @Autowired
+    private ImageService imageService;
 
     /**
      * 负责上传图片
@@ -54,11 +57,8 @@ public class FieldController {
             List<Image> list = uploadService.uploadFile(field.getUuid(), uploads, path);
             //更新到field中
             List<Image> oldList = field.getImages();
-            if (oldList == null) {
-                field.setImages(list);
-            } else {
-                oldList.addAll(list);
-            }
+            imageService.removeImageList(path, oldList);
+            field.setImages(list);
             fieldService.updateField(field);
         } catch (Exception e) {
             e.printStackTrace();

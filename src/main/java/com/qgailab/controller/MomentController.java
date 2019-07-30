@@ -109,7 +109,8 @@ public class MomentController {
      */
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     public @ResponseBody
-    ServiceResult uploadImage(HttpServletRequest request, @RequestParam(value = "momentId") Long momentId, @RequestParam(value = "uploads") MultipartFile[] uploads) {
+    ServiceResult uploadImage(HttpServletRequest request,String description,
+                              @RequestParam(value = "momentId") Long momentId, @RequestParam(value = "uploads") MultipartFile[] uploads) {
         if (uploads == null || uploads.length == 0) {
             return new ServiceResult(400, Message.image_not_null);
         }
@@ -122,7 +123,7 @@ public class MomentController {
             String path = request.getSession().getServletContext().getRealPath("/upload/");
             moment = (Moment) result.getData();
             //保存图片数组
-            List<Image> list = uploadService.uploadFile(moment.getUuid(), uploads, path);
+            List<Image> list = uploadService.uploadFile(moment.getUuid(), uploads, path,description);
             //更新到moment中
             List<Image> oldList = moment.getImages();
             if (oldList == null) {
