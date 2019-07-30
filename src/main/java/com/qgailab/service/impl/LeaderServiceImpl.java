@@ -1,13 +1,18 @@
 package com.qgailab.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.qgailab.annotation.Permmision;
 import com.qgailab.dao.LeaderMapper;
 import com.qgailab.model.dto.ServiceResult;
+import com.qgailab.model.po.Field;
 import com.qgailab.model.po.Leader;
 import com.qgailab.model.po.Moment;
 import com.qgailab.service.LeaderService;
 import com.qgailab.service.constants.Message;
+import com.qgailab.service.constants.Module;
+import com.qgailab.service.constants.Operation;
 import com.qgailab.util.UUIDUtils;
+import com.qgailab.util.ValidationUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,20 +39,25 @@ public class LeaderServiceImpl implements LeaderService {
      * @date 2019-07-26
      */
     @Override
+    @Permmision(module = Module.leader,operation = Operation.INSERT)
     public ServiceResult insertLeader(Leader leader) {
         if (leader == null) {
             return new ServiceResult(400, Message.parameter_not_enough);
         }
         try {
             if (leader.getName() == null || leader.getName().trim().isEmpty()) {
-                return new ServiceResult(400, Message.name_not_null);
+                return new ServiceResult(401, Message.name_not_null);
             }
             if (leader.getDescription() == null || leader.getDescription().trim().isEmpty()) {
                 leader.setDescription("");
             }
+            String message = validate(leader);
+            if(message!=null){
+                return new ServiceResult(402,message,leader);
+            }
             leader.setUuid(UUIDUtils.getUUID());
             if (leaderMapper.insertSelective(leader) != 1) {
-                return new ServiceResult(402, Message.database_exception);
+                return new ServiceResult(403, Message.database_exception);
             }
         }catch (Exception e) {
             e.printStackTrace();
@@ -66,6 +76,7 @@ public class LeaderServiceImpl implements LeaderService {
      * @date 2019-07-26
      */
     @Override
+    @Permmision(module = Module.leader,operation = Operation.REMOVE)
     public ServiceResult deleteLeader(Long id) {
         if (id == null) {
             return new ServiceResult(400, Message.parameter_not_enough);
@@ -96,6 +107,7 @@ public class LeaderServiceImpl implements LeaderService {
      * @date 2019-07-26
      */
     @Override
+    @Permmision(module = Module.leader,operation = Operation.UPDATE)
     public ServiceResult updateLeader(Leader leader) {
         if (leader == null) {
             return new ServiceResult(400, Message.parameter_not_enough);
@@ -105,16 +117,20 @@ public class LeaderServiceImpl implements LeaderService {
                 return new ServiceResult(401, Message.parameter_not_enough);
             }
             if (leader.getName() == null || leader.getName().trim().isEmpty()) {
-                return new ServiceResult(400, Message.name_not_null);
+                return new ServiceResult(402, Message.name_not_null);
             }
             if (leader.getDescription() == null || leader.getDescription().trim().isEmpty()) {
                 leader.setDescription("");
             }
+            String message = validate(leader);
+            if(message!=null){
+                return new ServiceResult(403,message,leader);
+            }
             if (leaderMapper.selectByPrimaryKey(leader.getId()) == null) {
-                return new ServiceResult(401, Message.leader_not_found);
+                return new ServiceResult(404, Message.leader_not_found);
             }
             if (leaderMapper.updateByPrimaryKeySelective(leader) != 1) {
-                return new ServiceResult(402, Message.database_exception);
+                return new ServiceResult(405, Message.database_exception);
             }
         }catch (Exception e) {
             e.printStackTrace();
@@ -175,5 +191,27 @@ public class LeaderServiceImpl implements LeaderService {
             return new ServiceResult(500, Message.please_retry);
         }
         return new ServiceResult(200, Message.success, leaderList);
+    }
+
+    /**
+     * 用于校验数据
+     *
+     * @return
+     * @name validate
+     * @notice none
+     * @author <a href="mailto:kobe524348@gmail.com">黄钰朝</a>
+     * @date 2019-07-30
+     */
+    private String validate(Leader leader) {
+        if (!ValidationUtils.inMaxVarcharSize(leader.getName())) {
+            return Message.title_too_long.name();
+        }if(!ValidationUtils.inMaxTextSize(leader.getDescription())){
+            return Message.description_too_long.name();
+        }
+        if (!ValidationUtils.inMaxVarcharSize(leader.getPosition())) {
+            return Message.position_too_long.name();
+        } else {
+            return null;
+        }
     }
 }

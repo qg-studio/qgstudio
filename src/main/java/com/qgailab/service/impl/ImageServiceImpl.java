@@ -1,12 +1,17 @@
 package com.qgailab.service.impl;
 
+import com.qgailab.annotation.Permmision;
 import com.qgailab.dao.ImageMapper;
 import com.qgailab.exception.PathNotExistException;
 import com.qgailab.exception.UploadException;
 import com.qgailab.model.dto.ServiceResult;
+import com.qgailab.model.po.Honor;
 import com.qgailab.model.po.Image;
 import com.qgailab.service.ImageService;
 import com.qgailab.service.constants.Message;
+import com.qgailab.service.constants.Module;
+import com.qgailab.service.constants.Operation;
+import com.qgailab.util.ValidationUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +43,7 @@ public class ImageServiceImpl implements ImageService {
      * @date 2019-07-27
      */
     @Override
+    @Permmision(module = Module.image,operation = Operation.REMOVE)
     public ServiceResult removeImage(String path, Long id) {
         Image image;
 
@@ -80,6 +86,7 @@ public class ImageServiceImpl implements ImageService {
      * @date 2019-07-28
      */
     @Override
+    @Permmision(module = Module.image,operation = Operation.REMOVE)
     public ServiceResult removeImageList(String path, List<Image> images) {
         if (images == null) {
            return new ServiceResult(400, Message.parameter_not_enough);
@@ -105,6 +112,7 @@ public class ImageServiceImpl implements ImageService {
      * @date 2019-07-29
      */
     @Override
+    @Permmision(module = Module.image,operation = Operation.UPDATE)
     public ServiceResult updateImage(Image image) {
         if(image==null||image.getId()==null){
             return new ServiceResult(400,Message.parameter_not_enough);
@@ -115,16 +123,37 @@ public class ImageServiceImpl implements ImageService {
             if(image.getDescription()==null||image.getDescription().trim().isEmpty()){
                 return new ServiceResult(401,Message.description_not_null);
             }
+            String message = validate(image);
+            if(message!=null){
+                return new ServiceResult(402,message,image);
+            }
             if(imageMapper.selectByPrimaryKey(image.getId())==null){
-                return new ServiceResult(402,Message.image_not_found);
+                return new ServiceResult(403,Message.image_not_found);
             }
             if(imageMapper.updateByPrimaryKeySelective(image)!=1){
-                return new ServiceResult(403, Message.database_exception);
+                return new ServiceResult(404, Message.database_exception);
             }
         } catch (Exception e) {
             e.printStackTrace();
             return new ServiceResult(500,Message.please_retry);
         }
         return new ServiceResult(200,Message.success,image);
+    }
+
+    /**
+     * 用于校验数据
+     *
+     * @return
+     * @name validate
+     * @notice none
+     * @author <a href="mailto:kobe524348@gmail.com">黄钰朝</a>
+     * @date 2019-07-30
+     */
+    private String validate(Image image) {
+        if(!ValidationUtils.inMaxVarcharSize(image.getDescription())){
+            return Message.description_too_long.name();
+        } else {
+            return null;
+        }
     }
 }

@@ -1,14 +1,19 @@
 package com.qgailab.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.qgailab.annotation.Permmision;
 import com.qgailab.dao.IntroMapper;
 import com.qgailab.model.dto.ServiceResult;
+import com.qgailab.model.po.History;
 import com.qgailab.model.po.Intro;
 import com.qgailab.model.po.PageVO;
 import com.qgailab.service.IntroService;
 import com.qgailab.service.constants.Message;
+import com.qgailab.service.constants.Module;
+import com.qgailab.service.constants.Operation;
 import com.qgailab.util.PageUtils;
 import com.qgailab.util.UUIDUtils;
+import com.qgailab.util.ValidationUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,6 +42,7 @@ public class IntroServiceImpl implements IntroService {
      * @date 2019-07-26
      */
     @Override
+    @Permmision(module = Module.intro,operation = Operation.INSERT)
     public ServiceResult insertIntro(Intro intro) {
         if (intro == null) {
             return new ServiceResult(400, Message.parameter_not_enough);
@@ -49,11 +55,14 @@ public class IntroServiceImpl implements IntroService {
             if(intro.getDescription()==null||intro.getDescription().trim().isEmpty()){
                 intro.setDescription("");
             }
-
+            String message = validate(intro);
+            if(message!=null){
+                return new ServiceResult(402,message,intro);
+            }
             intro.setUuid(UUIDUtils.getUUID());
 
             if(introMapper.insertSelective(intro)!=1){
-                return new ServiceResult(402,Message.database_exception);
+                return new ServiceResult(403,Message.database_exception);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -72,6 +81,7 @@ public class IntroServiceImpl implements IntroService {
      * @date 2019-07-26
      */
     @Override
+    @Permmision(module = Module.intro,operation = Operation.UPDATE)
     public ServiceResult updateIntro(Intro intro) {
         if (intro == null) {
             return new ServiceResult(400, Message.parameter_not_enough);
@@ -83,11 +93,15 @@ public class IntroServiceImpl implements IntroService {
             if (intro.getDescription() == null || intro.getDescription().trim().isEmpty()) {
                 intro.setDescription("");
             }
+            String message = validate(intro);
+            if(message!=null){
+                return new ServiceResult(402,message,intro);
+            }
             if (introMapper.selectByPrimaryKey(intro.getId()) == null) {
-                return new ServiceResult(401, Message.intro_not_found);
+                return new ServiceResult(403, Message.intro_not_found);
             }
             if (introMapper.updateByPrimaryKeySelective(intro) != 1) {
-                return new ServiceResult(402, Message.database_exception);
+                return new ServiceResult(404, Message.database_exception);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -106,6 +120,7 @@ public class IntroServiceImpl implements IntroService {
      * @date 2019-07-26
      */
     @Override
+    @Permmision(module = Module.intro,operation = Operation.REMOVE)
     public ServiceResult removeIntro(Long introId) {
         if (introId == null) {
             return new ServiceResult(400, Message.parameter_not_enough);
@@ -114,10 +129,10 @@ public class IntroServiceImpl implements IntroService {
         try {
             intro = introMapper.selectByPrimaryKey(introId);
             if(intro==null){
-                return new ServiceResult(402,Message.intro_not_found);
+                return new ServiceResult(401,Message.intro_not_found);
             }
             if(introMapper.deleteByPrimaryKey(introId)!=1){
-                return new ServiceResult(401,Message.database_exception);
+                return new ServiceResult(402,Message.database_exception);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -183,4 +198,23 @@ public class IntroServiceImpl implements IntroService {
         }
         return new ServiceResult(200, Message.success, new PageVO(PageUtils.getPage(count, pageSize), introList));
     }
+    /**
+     * 用于校验数据
+     *
+     * @return
+     * @name validate
+     * @notice none
+     * @author <a href="mailto:kobe524348@gmail.com">黄钰朝</a>
+     * @date 2019-07-30
+     */
+    private String validate(Intro intro) {
+        if (!ValidationUtils.inMaxVarcharSize(intro.getTitle())) {
+            return Message.title_too_long.name();
+        }if(!ValidationUtils.inMaxTextSize(intro.getDescription())){
+            return Message.description_too_long.name();
+        } else {
+            return null;
+        }
+    }
+
 }

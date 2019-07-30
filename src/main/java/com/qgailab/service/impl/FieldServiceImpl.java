@@ -1,14 +1,16 @@
 package com.qgailab.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.qgailab.annotation.Permmision;
 import com.qgailab.dao.FieldMapper;
 import com.qgailab.model.dto.ServiceResult;
-import com.qgailab.model.po.Feature;
 import com.qgailab.model.po.Field;
-import com.qgailab.model.po.Moment;
 import com.qgailab.service.FieldService;
 import com.qgailab.service.constants.Message;
+import com.qgailab.service.constants.Module;
+import com.qgailab.service.constants.Operation;
 import com.qgailab.util.UUIDUtils;
+import com.qgailab.util.ValidationUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,20 +37,25 @@ public class FieldServiceImpl implements FieldService {
      * @date
      */
     @Override
+    @Permmision(module = Module.field,operation = Operation.INSERT)
     public ServiceResult insertField(Field field) {
         if (field == null) {
             return new ServiceResult(400, Message.parameter_not_enough);
         }
         try {
             if (field.getName() == null) {
-                return new ServiceResult(400,Message.name_not_null);
+                return new ServiceResult(401,Message.name_not_null);
             }
             if (field.getDescription() == null || field.getDescription().trim().isEmpty()) {
                 field.setDescription("");
             }
+            String message = validate(field);
+            if(message!=null){
+                return new ServiceResult(402,message,field);
+            }
             field.setUuid(UUIDUtils.getUUID());
             if (fieldMapper.insertSelective(field) != 1) {
-                return new ServiceResult(402, Message.database_exception);
+                return new ServiceResult(403, Message.database_exception);
             }
         }catch (Exception e) {
             e.printStackTrace();
@@ -67,6 +74,7 @@ public class FieldServiceImpl implements FieldService {
      * @date
      */
     @Override
+    @Permmision(module = Module.field,operation = Operation.REMOVE)
     public ServiceResult removeField(Long id) {
         if (id == null) {
             return new ServiceResult(400, Message.parameter_not_enough);
@@ -125,22 +133,27 @@ public class FieldServiceImpl implements FieldService {
      * @date
      */
     @Override
+    @Permmision(module = Module.field,operation = Operation.UPDATE)
     public ServiceResult updateField(Field field) {
         if (field == null) {
             return new ServiceResult(400, Message.parameter_not_enough);
         }
         try {
             if (field.getId() == null) {
-                return new ServiceResult(400, Message.parameter_not_enough);
+                return new ServiceResult(401, Message.parameter_not_enough);
+            }
+            String message = validate(field);
+            if(message!=null){
+                return new ServiceResult(402,message,field);
             }
             if (fieldMapper.selectByPrimaryKey(field.getId()) == null) {
-                return new ServiceResult(401, Message.field_not_found);
+                return new ServiceResult(403, Message.field_not_found);
             }
             if (field.getDescription() == null || field.getDescription().trim().isEmpty()) {
                 field.setDescription("");
             }
             if (fieldMapper.updateByPrimaryKeySelective(field) != 1) {
-                return new ServiceResult(402, Message.database_exception);
+                return new ServiceResult(404, Message.database_exception);
             }
         }catch (Exception e) {
             e.printStackTrace();
@@ -174,5 +187,23 @@ public class FieldServiceImpl implements FieldService {
             return new ServiceResult(500, Message.please_retry);
         }
         return new ServiceResult(200, Message.success,fieldList);
+    }
+    /**
+     * 用于校验数据
+     *
+     * @return
+     * @name validate
+     * @notice none
+     * @author <a href="mailto:kobe524348@gmail.com">黄钰朝</a>
+     * @date 2019-07-30
+     */
+    private String validate(Field field) {
+        if (!ValidationUtils.inMaxVarcharSize(field.getName())) {
+            return Message.title_too_long.name();
+        }if(!ValidationUtils.inMaxTextSize(field.getDescription())){
+            return Message.description_too_long.name();
+        } else {
+            return null;
+        }
     }
 }

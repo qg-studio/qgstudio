@@ -1,12 +1,17 @@
 package com.qgailab.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.qgailab.annotation.Permmision;
 import com.qgailab.dao.MomentMapper;
 import com.qgailab.model.dto.ServiceResult;
+import com.qgailab.model.po.Member;
 import com.qgailab.model.po.Moment;
 import com.qgailab.service.MomentService;
 import com.qgailab.service.constants.Message;
+import com.qgailab.service.constants.Module;
+import com.qgailab.service.constants.Operation;
 import com.qgailab.util.UUIDUtils;
+import com.qgailab.util.ValidationUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +38,7 @@ public class MomentServiceImpl implements MomentService {
      * @date 2019-07-26
      */
     @Override
+    @Permmision(module = Module.moment,operation = Operation.INSERT)
     public ServiceResult insertMoment(Moment moment) {
         if (moment == null) {
             return new ServiceResult(400, Message.parameter_not_enough);
@@ -41,9 +47,13 @@ public class MomentServiceImpl implements MomentService {
             if (moment.getTitle() == null || moment.getTitle().trim().isEmpty()) {
                 return new ServiceResult(401, Message.title_not_null);
             }
+            String message = validate(moment);
+            if(message!=null){
+                return new ServiceResult(402,message,moment);
+            }
             moment.setUuid(UUIDUtils.getUUID());
             if (momentMapper.insertSelective(moment) != 1) {
-                return new ServiceResult(402, Message.database_exception);
+                return new ServiceResult(403, Message.database_exception);
             }
         }catch (Exception e) {
             e.printStackTrace();
@@ -62,6 +72,8 @@ public class MomentServiceImpl implements MomentService {
      * @date 2019-07-26
      */
     @Override
+    @Permmision(module = Module.moment,operation = Operation.REMOVE)
+
     public ServiceResult removeMoment(Long id) {
         if (id == null) {
             return new ServiceResult(400, Message.parameter_not_enough);
@@ -90,22 +102,27 @@ public class MomentServiceImpl implements MomentService {
      * @date 2019-07-26
      */
     @Override
+    @Permmision(module = Module.moment,operation = Operation.UPDATE)
     public ServiceResult updateMoment(Moment moment) {
         if (moment == null) {
             return new ServiceResult(400, Message.parameter_not_enough);
         }
         try {
             if (moment.getId() == null) {
-                return new ServiceResult(400, Message.parameter_not_enough);
+                return new ServiceResult(401, Message.parameter_not_enough);
             }
             if (moment.getTitle() == null || moment.getTitle().trim().isEmpty()) {
-                return new ServiceResult(401, Message.title_not_null);
+                return new ServiceResult(402, Message.title_not_null);
+            }
+            String message = validate(moment);
+            if(message!=null){
+                return new ServiceResult(403,message,moment);
             }
             if (momentMapper.selectByPrimaryKey(moment.getId()) == null) {
-                return new ServiceResult(401, Message.moment_not_found);
+                return new ServiceResult(404, Message.moment_not_found);
             }
             if (momentMapper.updateByPrimaryKeySelective(moment) != 1) {
-                return new ServiceResult(402, Message.database_exception);
+                return new ServiceResult(405, Message.database_exception);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -155,7 +172,7 @@ public class MomentServiceImpl implements MomentService {
             return new ServiceResult(400, Message.page_invalid);
         }
         if (pageSize <= 0) {
-            return new ServiceResult(400, Message.pageSize_invalid);
+            return new ServiceResult(401, Message.pageSize_invalid);
         }
         List<Moment> momentList;
         try {
@@ -166,5 +183,23 @@ public class MomentServiceImpl implements MomentService {
             return new ServiceResult(500, Message.please_retry);
         }
         return new ServiceResult(200, Message.success, momentList);
+    }
+
+
+    /**
+     * 用于校验数据
+     *
+     * @return
+     * @name validate
+     * @notice none
+     * @author <a href="mailto:kobe524348@gmail.com">黄钰朝</a>
+     * @date 2019-07-30
+     */
+    private String validate(Moment moment) {
+        if (!ValidationUtils.inMaxVarcharSize(moment.getTitle())) {
+            return Message.title_too_long.name();
+        } else {
+            return null;
+        }
     }
 }

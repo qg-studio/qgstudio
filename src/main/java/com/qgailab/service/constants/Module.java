@@ -8,9 +8,10 @@ package com.qgailab.service.constants;
 public enum Module {
 
     award("奖项"),
+    intro("关于QG"),
     copyright("软著"),
     feature("QG特色"),
-    filed("研究方向"),
+    field("研究方向"),
     history("QG大事记"),
     honor("最近的荣誉"),
     image("首页信息"),

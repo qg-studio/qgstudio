@@ -1,13 +1,18 @@
 package com.qgailab.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.qgailab.annotation.Permmision;
 import com.qgailab.dao.HonorMapper;
 import com.qgailab.model.dto.ServiceResult;
+import com.qgailab.model.po.History;
 import com.qgailab.model.po.Honor;
 import com.qgailab.model.po.Moment;
 import com.qgailab.service.HonorService;
 import com.qgailab.service.constants.Message;
+import com.qgailab.service.constants.Module;
+import com.qgailab.service.constants.Operation;
 import com.qgailab.util.UUIDUtils;
+import com.qgailab.util.ValidationUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +39,7 @@ public class HonorServiceImpl implements HonorService {
      * @date 2019-07-26
      */
     @Override
+    @Permmision(module = Module.honor,operation = Operation.INSERT)
     public ServiceResult insertHonor(Honor honor) {
         if (honor == null) {
             return new ServiceResult(400, Message.parameter_not_enough);
@@ -45,13 +51,17 @@ public class HonorServiceImpl implements HonorService {
             if (honor.getDescription() == null || honor.getDescription().trim().isEmpty()) {
                 honor.setDescription("");
             }
+            String message = validate(honor);
+            if(message!=null){
+                return new ServiceResult(402,message,honor);
+            }
             honor.setUuid(UUIDUtils.getUUID());
             if (honorMapper.insertSelective(honor) != 1) {
-                return new ServiceResult(401, Message.database_exception);
+                return new ServiceResult(403, Message.database_exception);
             }
         }catch (Exception e) {
             e.printStackTrace();
-            return new ServiceResult(402, Message.please_retry);
+            return new ServiceResult(500, Message.please_retry);
         }
         return new ServiceResult(200, Message.success, honor);
     }
@@ -93,6 +103,7 @@ public class HonorServiceImpl implements HonorService {
      * @date 2019-07-26
      */
     @Override
+    @Permmision(module = Module.honor,operation = Operation.REMOVE)
     public ServiceResult removeHonor(Long id) {
         if (id == null) {
             return new ServiceResult(400, Message.parameter_not_enough);
@@ -123,6 +134,7 @@ public class HonorServiceImpl implements HonorService {
      * @date 2019-07-26
      */
     @Override
+    @Permmision(module = Module.honor,operation = Operation.UPDATE)
     public ServiceResult updateHonor(Honor honor) {
         if (honor == null) {
             return new ServiceResult(400, Message.parameter_not_enough);
@@ -132,16 +144,20 @@ public class HonorServiceImpl implements HonorService {
                 return new ServiceResult(401, Message.parameter_not_enough);
             }
             if (honor.getTitle() == null || honor.getTitle().trim().isEmpty()) {
-                return new ServiceResult(401, Message.title_not_null);
+                return new ServiceResult(402, Message.title_not_null);
             }
             if (honor.getDescription() == null || honor.getDescription().trim().isEmpty()) {
                 honor.setDescription("");
             }
+            String message = validate(honor);
+            if(message!=null){
+                return new ServiceResult(403,message,honor);
+            }
             if(honorMapper.selectByPrimaryKey(honor.getId())==null){
-                return new ServiceResult(402,Message.honor_not_found);
+                return new ServiceResult(404,Message.honor_not_found);
             }
             if (honorMapper.updateByPrimaryKeySelective(honor) != 1) {
-                return new ServiceResult(403, Message.database_exception);
+                return new ServiceResult(405, Message.database_exception);
             }
         }catch (Exception e) {
             e.printStackTrace();
@@ -175,5 +191,24 @@ public class HonorServiceImpl implements HonorService {
             return new ServiceResult(500, Message.please_retry);
         }
         return new ServiceResult(200, Message.success, honorList);
+    }
+
+    /**
+     * 用于校验数据
+     *
+     * @return
+     * @name validate
+     * @notice none
+     * @author <a href="mailto:kobe524348@gmail.com">黄钰朝</a>
+     * @date 2019-07-30
+     */
+    private String validate(Honor honor) {
+        if (!ValidationUtils.inMaxVarcharSize(honor.getTitle())) {
+            return Message.title_too_long.name();
+        }if(!ValidationUtils.inMaxTextSize(honor.getDescription())){
+            return Message.description_too_long.name();
+        } else {
+            return null;
+        }
     }
 }

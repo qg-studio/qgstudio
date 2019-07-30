@@ -1,14 +1,17 @@
 package com.qgailab.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.qgailab.annotation.Permmision;
 import com.qgailab.dao.PatentMapper;
 import com.qgailab.model.dto.ServiceResult;
-import com.qgailab.model.po.Intro;
 import com.qgailab.model.po.PageVO;
 import com.qgailab.model.po.Patent;
 import com.qgailab.service.PatentService;
 import com.qgailab.service.constants.Message;
+import com.qgailab.service.constants.Module;
+import com.qgailab.service.constants.Operation;
 import com.qgailab.util.PageUtils;
+import com.qgailab.util.ValidationUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,24 +36,28 @@ public class PatentServiceImpl implements PatentService {
      * @date 2019-07-26
      */
     @Override
+    @Permmision(module = Module.patent, operation = Operation.INSERT)
     public ServiceResult insertPatent(Patent patent) {
 
-        if (patent == null ) {
+        if (patent == null) {
             return new ServiceResult(400, Message.parameter_not_enough);
         }
         try {
             if (patent.getName() == null || patent.getName().trim().isEmpty()) {
                 return new ServiceResult(401, Message.name_not_null);
             }
-
-            if (patentMapper.insertSelective(patent) !=1) {
-                return new ServiceResult(402, Message.database_exception);
+            String message = validate(patent);
+            if (message != null) {
+                return new ServiceResult(402, message, patent);
+            }
+            if (patentMapper.insertSelective(patent) != 1) {
+                return new ServiceResult(403, Message.database_exception);
             }
         } catch (Exception e) {
             e.printStackTrace();
             return new ServiceResult(500, Message.please_retry);
         }
-        return new ServiceResult(200, Message.success,patent);
+        return new ServiceResult(200, Message.success, patent);
     }
 
 
@@ -64,24 +71,26 @@ public class PatentServiceImpl implements PatentService {
      * @date 2019-07-26
      */
     @Override
+    @Permmision(module = Module.patent, operation = Operation.REMOVE)
+
     public ServiceResult removePatent(Long id) {
         if (id == null) {
             return new ServiceResult(400, Message.parameter_not_enough);
         }
-        Patent patent ;
+        Patent patent;
         try {
             patent = patentMapper.selectByPrimaryKey(id);
             if (patent == null) {
-                return new ServiceResult(401,Message.patent_not_found);
+                return new ServiceResult(401, Message.patent_not_found);
             }
             if (patentMapper.deleteByPrimaryKey(id) != 1) {
                 return new ServiceResult(402, Message.database_exception);
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return new ServiceResult(500,Message.please_retry);
+            return new ServiceResult(500, Message.please_retry);
         }
-        return new ServiceResult(200,Message.success, patent);
+        return new ServiceResult(200, Message.success, patent);
     }
 
     /**
@@ -94,9 +103,11 @@ public class PatentServiceImpl implements PatentService {
      * @date 2019-07-26
      */
     @Override
+    @Permmision(module = Module.patent, operation = Operation.UPDATE)
+
     public ServiceResult updatePatent(Patent patent) {
 
-        if (patent == null||patent.getId()==null) {
+        if (patent == null || patent.getId() == null) {
             return new ServiceResult(400, Message.parameter_not_enough);
         }
         try {
@@ -104,17 +115,21 @@ public class PatentServiceImpl implements PatentService {
             if (patent.getName() == null || patent.getName().trim().isEmpty()) {
                 return new ServiceResult(401, Message.name_not_null);
             }
+            String message = validate(patent);
+            if (message != null) {
+                return new ServiceResult(402, message, patent);
+            }
             if (patentMapper.selectByPrimaryKey(patent.getId()) == null) {
-                return new ServiceResult(401, Message.patent_not_found);
+                return new ServiceResult(403, Message.patent_not_found);
             }
             if (patentMapper.updateByPrimaryKeySelective(patent) != 1) {
-                return new ServiceResult(402, Message.database_exception);
+                return new ServiceResult(404, Message.database_exception);
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return new ServiceResult(500,Message.please_retry);
+            return new ServiceResult(500, Message.please_retry);
         }
-        return new ServiceResult(200, Message.success,patent);
+        return new ServiceResult(200, Message.success, patent);
     }
 
     /**
@@ -137,9 +152,9 @@ public class PatentServiceImpl implements PatentService {
             if (patent == null) {
                 return new ServiceResult(401, Message.patent_not_found);
             }
-            return new ServiceResult(200, Message.success, patent);
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            return new ServiceResult(500,Message.please_retry);
         }
         return new ServiceResult(200, Message.success, patent);
     }
@@ -147,7 +162,8 @@ public class PatentServiceImpl implements PatentService {
 
     /**
      * 负责查询专利信息
-     * @param page  页数
+     *
+     * @param page     页数
      * @param pageSize 一页最大记录数
      * @return: ServiceResult
      * @Author: gp
@@ -172,6 +188,27 @@ public class PatentServiceImpl implements PatentService {
             return new ServiceResult(500, Message.please_retry);
         }
         return new ServiceResult(200, Message.success, new PageVO(PageUtils.getPage(count, pageSize), patentList));
+    }
+
+    /**
+     * 用于校验数据
+     *
+     * @return
+     * @name validate
+     * @notice none
+     * @author <a href="mailto:kobe524348@gmail.com">黄钰朝</a>
+     * @date 2019-07-30
+     */
+    private String validate(Patent patent) {
+        if (!ValidationUtils.inMaxVarcharSize(patent.getName())) {
+            return Message.name_too_long.name();
+        } else if (!ValidationUtils.inMaxVarcharSize(patent.getZl())) {
+            return Message.zl_too_long.name();
+        } else if (!ValidationUtils.inMaxVarcharSize(patent.getInventor())) {
+            return Message.inventor_too_long.name();
+        } else {
+            return null;
+        }
     }
 }
 

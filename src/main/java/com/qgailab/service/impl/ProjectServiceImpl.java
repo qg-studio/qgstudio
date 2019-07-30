@@ -1,13 +1,18 @@
 package com.qgailab.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.qgailab.annotation.Permmision;
 import com.qgailab.dao.ProjectMapper;
 import com.qgailab.model.dto.ServiceResult;
+import com.qgailab.model.po.Intro;
 import com.qgailab.model.po.Patent;
 import com.qgailab.model.po.Project;
 import com.qgailab.service.ProjectService;
 import com.qgailab.service.constants.Message;
+import com.qgailab.service.constants.Module;
+import com.qgailab.service.constants.Operation;
 import com.qgailab.util.UUIDUtils;
+import com.qgailab.util.ValidationUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,20 +38,26 @@ public class ProjectServiceImpl implements ProjectService {
      * @date 2019-07-26
      */
     @Override
+    @Permmision(module = Module.project, operation = Operation.INSERT)
+
     public ServiceResult insertProject(Project project) {
         if (project == null) {
             return new ServiceResult(400, Message.parameter_not_enough);
         }
         try {
             if (project.getTitle() == null || project.getTitle().trim().isEmpty()) {
-                return new ServiceResult(400, Message.title_not_null);
+                return new ServiceResult(401, Message.title_not_null);
             }
             if (project.getDescription() == null || project.getDescription().trim().isEmpty()) {
                 project.setDescription("");
             }
+            String message = validate(project);
+            if (message != null) {
+                return new ServiceResult(402, message, project);
+            }
             project.setUuid(UUIDUtils.getUUID());
             if (projectMapper.insertSelective(project) != 1) {
-                return new ServiceResult(402, Message.database_exception);
+                return new ServiceResult(403, Message.database_exception);
             }
         }catch (Exception e) {
             e.printStackTrace();
@@ -65,6 +76,8 @@ public class ProjectServiceImpl implements ProjectService {
      * @date 2019-07-26
      */
     @Override
+    @Permmision(module = Module.project, operation = Operation.REMOVE)
+
     public ServiceResult removeProject(Long id) {
         if (id == null) {
             return new ServiceResult(400, Message.parameter_not_enough);
@@ -73,7 +86,7 @@ public class ProjectServiceImpl implements ProjectService {
         try {
             project = projectMapper.selectByPrimaryKey(id);
             if (project == null) {
-                return new ServiceResult(400, Message.project_not_found);
+                return new ServiceResult(401, Message.project_not_found);
             }
             if (projectMapper.deleteByPrimaryKey(id) != 1) {
                 return new ServiceResult(402, Message.database_exception);
@@ -95,25 +108,31 @@ public class ProjectServiceImpl implements ProjectService {
      * @date 2019-07-26
      */
     @Override
+    @Permmision(module = Module.project, operation = Operation.UPDATE)
+
     public ServiceResult updateProject(Project project) {
         if (project == null) {
             return new ServiceResult(400, Message.parameter_not_enough);
         }
         try {
             if (project.getId() == null) {
-                return new ServiceResult(400, Message.parameter_not_enough);
+                return new ServiceResult(401, Message.parameter_not_enough);
             }
             if (project.getTitle() == null || project.getTitle().trim().isEmpty()) {
-                return new ServiceResult(400, Message.title_not_null);
+                return new ServiceResult(402, Message.title_not_null);
             }
             if (project.getDescription() == null || project.getDescription().trim().isEmpty()) {
                 project.setDescription("");
             }
+            String message = validate(project);
+            if (message != null) {
+                return new ServiceResult(403, message, project);
+            }
             if (projectMapper.selectByPrimaryKey(project.getId()) == null) {
-                return new ServiceResult(401, Message.project_not_found);
+                return new ServiceResult(404, Message.project_not_found);
             }
             if (projectMapper.updateByPrimaryKeySelective(project) != 1) {
-                return new ServiceResult(402, Message.database_exception);
+                return new ServiceResult(405, Message.database_exception);
             }
         }catch (Exception e) {
             e.printStackTrace();
@@ -140,7 +159,7 @@ public class ProjectServiceImpl implements ProjectService {
         try {
             project= projectMapper.selectByPrimaryKey(id);
             if (project == null) {
-                return new ServiceResult(400, Message.project_not_found);
+                return new ServiceResult(401, Message.project_not_found);
             }
         }catch (Exception e) {
             e.printStackTrace();
@@ -165,7 +184,7 @@ public class ProjectServiceImpl implements ProjectService {
             return new ServiceResult(400, Message.page_invalid);
         }
         if (pageSize <= 0) {
-            return new ServiceResult(400, Message.pageSize_invalid);
+            return new ServiceResult(401, Message.pageSize_invalid);
         }
         List<Project> projectList;
         try {
@@ -176,5 +195,24 @@ public class ProjectServiceImpl implements ProjectService {
             return new ServiceResult(500, Message.please_retry);
         }
         return new ServiceResult(200, Message.success, projectList);
+    }
+
+    /**
+     * 用于校验数据
+     *
+     * @return
+     * @name validate
+     * @notice none
+     * @author <a href="mailto:kobe524348@gmail.com">黄钰朝</a>
+     * @date 2019-07-30
+     */
+    private String validate(Project project) {
+        if (!ValidationUtils.inMaxVarcharSize(project.getTitle())) {
+            return Message.title_too_long.name();
+        }if(!ValidationUtils.inMaxTextSize(project.getDescription())){
+            return Message.description_too_long.name();
+        } else {
+            return null;
+        }
     }
 }

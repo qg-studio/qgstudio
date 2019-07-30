@@ -1,16 +1,21 @@
 package com.qgailab.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.qgailab.annotation.Permmision;
 import com.qgailab.dao.ImageMapper;
 import com.qgailab.dao.MemberMapper;
 import com.qgailab.model.dto.ServiceResult;
 import com.qgailab.model.po.Image;
+import com.qgailab.model.po.Leader;
 import com.qgailab.model.po.Member;
 import com.qgailab.model.po.PageVO;
 import com.qgailab.service.MemberService;
 import com.qgailab.service.constants.Message;
+import com.qgailab.service.constants.Module;
+import com.qgailab.service.constants.Operation;
 import com.qgailab.util.PageUtils;
 import com.qgailab.util.UUIDUtils;
+import com.qgailab.util.ValidationUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -44,6 +49,7 @@ public class MemberServiceImpl implements MemberService {
      * @date 2019-07-26
      */
     @Override
+    @Permmision(module = Module.member,operation = Operation.INSERT)
     public ServiceResult insertMember(Member member) {
         if (member == null) {
             return new ServiceResult(400, Message.parameter_not_enough);
@@ -51,6 +57,10 @@ public class MemberServiceImpl implements MemberService {
         try {
             if (member.getName() == null || member.getName().trim().isEmpty()) {
                 return new ServiceResult(401, Message.name_not_null);
+            }
+            String message = validate(member);
+            if(message!=null){
+                return new ServiceResult(402,message,member);
             }
             member.setUuid(UUIDUtils.getUUID());
             //没有图片的插入默认图片
@@ -62,7 +72,7 @@ public class MemberServiceImpl implements MemberService {
             }
 
             if (memberMapper.insertSelective(member) != 1) {
-                return new ServiceResult(402, Message.database_exception);
+                return new ServiceResult(403, Message.database_exception);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -82,6 +92,7 @@ public class MemberServiceImpl implements MemberService {
      * @date 2019-07-26
      */
     @Override
+    @Permmision(module = Module.member,operation = Operation.REMOVE)
     public ServiceResult removeMember(Long id) {
         if (id == null) {
             return new ServiceResult(400, Message.parameter_not_enough);
@@ -139,22 +150,27 @@ public class MemberServiceImpl implements MemberService {
      * @date 2019-07-26
      */
     @Override
+    @Permmision(module = Module.member,operation = Operation.UPDATE)
     public ServiceResult updateMember(Member member) {
         if (member == null) {
             return new ServiceResult(400, Message.parameter_not_enough);
         }
         try {
             if (member.getId() == null) {
-                return new ServiceResult(400, Message.parameter_not_enough);
+                return new ServiceResult(401, Message.parameter_not_enough);
             }
             if (member.getName() == null || member.getName().trim().isEmpty()) {
-                return new ServiceResult(401, Message.name_not_null);
+                return new ServiceResult(402, Message.name_not_null);
+            }
+            String message = validate(member);
+            if(message!=null){
+                return new ServiceResult(403,message,member);
             }
             if(memberMapper.selectByPrimaryKey(member.getId())==null){
-                return new ServiceResult(402,Message.member_not_found);
+                return new ServiceResult(404,Message.member_not_found);
             }
             if (memberMapper.updateByPrimaryKeySelective(member) != 1) {
-                return new ServiceResult(403, Message.database_exception);
+                return new ServiceResult(405, Message.database_exception);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -213,4 +229,27 @@ public class MemberServiceImpl implements MemberService {
         }
         return new ServiceResult(200, Message.success, new PageVO(PageUtils.getPage(count, pageSize), memberList));
     }
+
+    /**
+     * 用于校验数据
+     *
+     * @return
+     * @name validate
+     * @notice none
+     * @author <a href="mailto:kobe524348@gmail.com">黄钰朝</a>
+     * @date 2019-07-30
+     */
+    private String validate(Member member) {
+        if (!ValidationUtils.inMaxVarcharSize(member.getName())) {
+            return Message.name_too_long.name();
+        }if(!ValidationUtils.inMaxVarcharSize(member.getGrade())){
+            return Message.grade_too_long.name();
+        }
+        if (!ValidationUtils.inMaxVarcharSize(member.getField())) {
+            return Message.field_too_long.name();
+        } else {
+            return null;
+        }
+    }
+
 }

@@ -6,12 +6,8 @@ import com.qgailab.model.po.User;
 import com.qgailab.service.UserService;
 import com.qgailab.service.constants.Message;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.sql.SQLException;
 
 /**
  * @author <a href="mailto:kobe524348@gmail.com">黄钰朝</a>

@@ -161,6 +161,35 @@ public enum Message {
      * 发明人太长
      */
     inventor_too_long,
+    /**
+     * 项目太长
+     */
+    project_too_long,
+    /**
+     * 比赛太长
+     */
+    game_too_long,
+    /**
+     * 比赛等级太长
+     */
+    level_too_long,
+    /**
+     * 指导老师太长
+     */
+    leader_too_long,
+    /**
+     * 颁奖机构过长
+     */
+    institution_too_long,
+    /**
+     * 奖项太长
+     */
+    prize_too_long,
+    /**
+     * 获奖学生太长
+     */
+    winner_too_long,
+
 
     /**
      *

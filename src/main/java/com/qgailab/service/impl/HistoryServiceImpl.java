@@ -1,13 +1,18 @@
 package com.qgailab.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.qgailab.annotation.Permmision;
 import com.qgailab.dao.HistoryMapper;
 import com.qgailab.model.dto.ServiceResult;
+import com.qgailab.model.po.Feature;
 import com.qgailab.model.po.History;
 import com.qgailab.model.po.Moment;
 import com.qgailab.service.HistoryService;
 import com.qgailab.service.constants.Message;
+import com.qgailab.service.constants.Module;
+import com.qgailab.service.constants.Operation;
 import com.qgailab.util.UUIDUtils;
+import com.qgailab.util.ValidationUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,20 +38,25 @@ public class HistoryServiceImpl implements HistoryService {
      * @date
      */
     @Override
+    @Permmision(module = Module.history,operation = Operation.INSERT)
     public ServiceResult insertHistory(History history) {
         if (history == null) {
             return new ServiceResult(400, Message.parameter_not_enough);
         }
         try {
             if (history.getTitle() == null || history.getTitle().trim().isEmpty()) {
-                return new ServiceResult(400, Message.parameter_not_enough);
+                return new ServiceResult(401, Message.parameter_not_enough);
             }
             if (history.getDescription() == null || history.getDescription().trim().isEmpty()) {
                 history.setDescription("");
             }
+            String message = validate(history);
+            if(message!=null){
+                return new ServiceResult(402,message,history);
+            }
             history.setUuid(UUIDUtils.getUUID());
             if (historyMapper.insertSelective(history) != 1) {
-                return new ServiceResult(402, Message.database_exception);
+                return new ServiceResult(403, Message.database_exception);
             }
         }catch (Exception e) {
             e.printStackTrace();
@@ -65,6 +75,7 @@ public class HistoryServiceImpl implements HistoryService {
      * @date
      */
     @Override
+    @Permmision(module = Module.history,operation = Operation.REMOVE)
     public ServiceResult removeHistory(Long id) {
         if (id == null) {
             return new ServiceResult(400, Message.parameter_not_enough);
@@ -95,25 +106,30 @@ public class HistoryServiceImpl implements HistoryService {
      * @date
      */
     @Override
+    @Permmision(module = Module.history,operation = Operation.UPDATE)
     public ServiceResult updateHistory(History history) {
         if (history == null ) {
             return new ServiceResult(400, Message.parameter_not_enough);
         }
         try {
             if (history.getId() == null) {
-                return new ServiceResult(400, Message.parameter_not_enough);
-            }
-            if (historyMapper.selectByPrimaryKey(history.getId()) == null) {
-                return new ServiceResult(401, Message.history_not_found);
+                return new ServiceResult(401, Message.parameter_not_enough);
             }
             if (history.getDescription() == null || history.getDescription().trim().isEmpty()) {
                 history.setDescription("");
             }
             if (history.getTitle() == null) {
-                return new ServiceResult(401, Message.title_not_null);
+                return new ServiceResult(402, Message.title_not_null);
+            }
+            String message = validate(history);
+            if(message!=null){
+                return new ServiceResult(403,message,history);
+            }
+            if (historyMapper.selectByPrimaryKey(history.getId()) == null) {
+                return new ServiceResult(404, Message.history_not_found);
             }
             if (historyMapper.updateByPrimaryKeySelective(history) != 1) {
-                return new ServiceResult(402, Message.database_exception);
+                return new ServiceResult(404, Message.database_exception);
             }
         }catch (Exception e) {
             e.printStackTrace();
@@ -175,5 +191,24 @@ public class HistoryServiceImpl implements HistoryService {
             return new ServiceResult(500, Message.please_retry);
         }
         return new ServiceResult(200, Message.success, historyList);
+    }
+
+    /**
+     * 用于校验数据
+     *
+     * @return
+     * @name validate
+     * @notice none
+     * @author <a href="mailto:kobe524348@gmail.com">黄钰朝</a>
+     * @date 2019-07-30
+     */
+    private String validate(History history) {
+        if (!ValidationUtils.inMaxVarcharSize(history.getTitle())) {
+            return Message.title_too_long.name();
+        }if(!ValidationUtils.inMaxTextSize(history.getDescription())){
+            return Message.description_too_long.name();
+        } else {
+            return null;
+        }
     }
 }
