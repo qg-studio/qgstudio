@@ -93,18 +93,12 @@ public class NewsServiceImpl implements NewsService {
      */
     @Override
     public ServiceResult updateNews(News news) {
-        if (news == null) {
+        if (news == null||news.getId()==null) {
             return new ServiceResult(400, Message.parameter_not_enough);
         }
         try {
-            if (news.getId() == null) {
-                return new ServiceResult(400, Message.parameter_not_enough);
-            }
             if (news.getTitle() == null || news.getTitle().trim().isEmpty()) {
                 return new ServiceResult(401, Message.title_not_null);
-            }
-            if (news.getUrl() == null || news.getUrl().trim().isEmpty()) {
-                return new ServiceResult(401, Message.url_not_null);
             }
             if (newsMapper.selectByPrimaryKey(news.getId()) == null) {
                 return new ServiceResult(401, Message.news_not_found);

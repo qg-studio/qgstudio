@@ -96,13 +96,10 @@ public class PatentServiceImpl implements PatentService {
     @Override
     public ServiceResult updatePatent(Patent patent) {
 
-        if (patent == null) {
+        if (patent == null||patent.getId()==null) {
             return new ServiceResult(400, Message.parameter_not_enough);
         }
         try {
-            if (patent.getId() == null) {
-                return new ServiceResult(400, Message.parameter_not_enough);
-            }
             //专利名不能为空
             if (patent.getName() == null || patent.getName().trim().isEmpty()) {
                 return new ServiceResult(401, Message.name_not_null);

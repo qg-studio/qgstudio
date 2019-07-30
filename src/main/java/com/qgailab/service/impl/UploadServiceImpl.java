@@ -38,11 +38,31 @@ public class UploadServiceImpl implements UploadService {
      */
     @Override
     public List<Image> uploadFile(String fuuid, MultipartFile[] uploads, String path) {
+        return uploadFile(fuuid, uploads, path, null);
+    }
 
+    /**
+     * 负责将上传的图片数组保存到指定路径，并且插入数据库，返回image对象集合
+     *
+     * @param fuuid       图片所属的对象的uuid
+     * @param uploads     上传的文件数组
+     * @param path        文件上传路径
+     * @param description
+     * @return
+     * @name uploadFile
+     * @notice none
+     * @author <a href="mailto:kobe524348@gmail.com">黄钰朝</a>
+     * @date 2019-07-26
+     */
+    @Override
+    public List<Image> uploadFile(String fuuid, MultipartFile[] uploads, String path, String description) {
         List<Image> imageList = new LinkedList<>();
         MultipartFile upload;
         for (int i = 0; i < uploads.length; i++) {
             Image image = new Image();
+            if (description != null && !description.trim().isEmpty()) {
+                image.setDescription(description);
+            }
             upload = uploads[i];
             if (upload == null || upload.isEmpty()) {
                 throw new UploadException(Message.image_not_null.toString());

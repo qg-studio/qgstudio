@@ -133,18 +133,13 @@ public class AwardServiceImpl implements AwardService {
             if (award.getId() == null) {
                 return new ServiceResult(400, Message.parameter_not_enough);
             }
-            if (awardMapper.selectByPrimaryKey(award.getId()) == null) {
-                return new ServiceResult(401, Message.award_not_found);
-            }
             if (award.getProject() == null || award.getProject().trim().isEmpty()) {
                 return new ServiceResult(401, Message.parameter_not_enough);
             }
-            if (award.getGame() == null || award.getGame().trim().isEmpty()) {
-                return new ServiceResult(401, Message.parameter_not_enough);
+            if (awardMapper.selectByPrimaryKey(award.getId()) == null) {
+                return new ServiceResult(401, Message.award_not_found);
             }
-            if (award.getPrize() == null || award.getPrize().trim().isEmpty()) {
-                return new ServiceResult(401, Message.parameter_not_enough);
-            }
+
             if (awardMapper.updateByPrimaryKeySelective(award) != 1) {
                 return new ServiceResult(402,Message.database_exception);
             }
