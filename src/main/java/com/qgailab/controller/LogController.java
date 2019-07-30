@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author <a href="mailto:kobe524348@gmail.com">黄钰朝</a>
@@ -22,14 +21,30 @@ public class LogController {
 
     /**
      * 查询日志
+     *
      * @return
      * @name listLog
      * @notice none
      * @author <a href="mailto:kobe524348@gmail.com">黄钰朝</a>
      * @date 2019-07-29
      */
-    @RequestMapping(value = "/list" ,method = {RequestMethod.POST, RequestMethod.GET})
-    public @ResponseBody ServiceResult listLog(Integer page, Integer pageSize) {
+    @RequestMapping(value = "/list", method = {RequestMethod.POST, RequestMethod.GET})
+    public @ResponseBody
+    ServiceResult listLog(Integer page, Integer pageSize) {
         return logService.listLog(page, pageSize);
+    }
+
+    /**
+     * 跳转日志页面
+     *
+     * @return
+     * @name showLog
+     * @notice none
+     * @author <a href="mailto:kobe524348@gmail.com">黄钰朝</a>
+     * @date 2019-07-29
+     */
+    @RequestMapping(value = "/show", method = {RequestMethod.POST, RequestMethod.GET})
+    public String showLog() {
+        return "log";
     }
 }
