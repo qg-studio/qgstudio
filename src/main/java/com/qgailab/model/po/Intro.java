@@ -3,10 +3,11 @@ package com.qgailab.model.po;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 @Data
-public class Intro {
+public class Intro implements Serializable {
 
 
 

@@ -2,13 +2,15 @@ package com.qgailab.model.po;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * @author <a href="mailto:kobe524348@gmail.com">黄钰朝</a>
  * @description 一页数据
  * @date 2019-07-28 16:49
  */
 @Data
-public class PageVO {
+public class PageVO implements Serializable {
     private int page;
     private Object data;
 
