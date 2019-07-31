@@ -150,128 +150,125 @@ public enum Message {
     /**
      * url太长
      */
-    url_too_long,
+    url_too_long("您填写的url过长！"),
     /**
      * 发明专利太长
      */
-    zl_too_long,
+    zl_too_long("您填写的专利号不符合专利规范！"),
     /**
      * 发明人太长
      */
-    inventor_too_long,
+    inventor_too_long("您填写的发明人不符合规范！"),
     /**
      * 项目太长
      */
-    project_too_long,
+    project_too_long("您填写的项目名过长！"),
     /**
      * 比赛太长
      */
-    game_too_long,
+    game_too_long("您填写的比赛名过长！"),
     /**
      * 比赛等级太长
      */
-    level_too_long,
+    level_too_long("您填写的比赛等级过长！"),
     /**
      * 指导老师太长
      */
-    leader_too_long,
+    leader_too_long("您填写的指导老师名过长！"),
     /**
      * 颁奖机构过长
      */
-    institution_too_long,
+    institution_too_long("您填写的颁奖机构名过长！"),
     /**
      * 奖项太长
      */
-    prize_too_long,
+    prize_too_long("您填写的奖项名过长！"),
     /**
      * 获奖学生太长
      */
-    winner_too_long,
-
-
-    /**
+    winner_too_long("您填写的获奖学生人数过多！"),
+   /**
      *
      */
     /**
      * 图片不存在
      */
-    image_not_found,
+    image_not_found("您查看的图片不存在！"),
     /**
      * 图片已丢失
      */
-    image_has_lost,
+    image_has_lost("您查看的图片已丢失！"),
     /**
      * 页的大小不能小于零
      */
-    pageSize_invalid,
+    pageSize_invalid("您填写的数据量不能小于0！"),
 
     /**
      * 页数不合法
      */
-    page_invalid,
+    page_invalid("您填写的页数不符合规范！"),
 
     /**
      * 图片不可为空
      */
-
-    image_not_null,
+    image_not_null("您上传的图片不能为空！"),
     /**
      * 文件名不可为空
      */
-    filename_not_null,
+    filename_not_null("您的文件名不能为空！"),
 
     /**
      * 标题不可为空
      */
-    title_not_null,
+    title_not_null("您的标题不能为空！"),
     /**
      * 成功
      */
-    success,
+    success("您的请求成功！"),
     /**
      * 未知错误，请重试
      */
-    please_retry,
+    please_retry("未知错误，请重试！"),
     /**
      * 数据库出错
      */
-    database_exception,
+    database_exception("数据库出现错误！"),
     /**
      * 参数不足
      */
-    parameter_not_enough,
+    parameter_not_enough("您填写的参数不足！"),
     /**
      * url不能为空
      */
-    url_not_null,
+    url_not_null("您填写的url不能为空！"),
     /**
      * 描述不能为空
      */
-    description_not_null,
+    description_not_null("您的描述不能为空！"),
     /**
      * excel不能为空
      */
-    excel_not_null,
+    excel_not_null("您要导入的文件不能为空！"),
     /**
      * 不支持的格式
      */
-    type_not_support,
+    type_not_support("不支持的格式错误！"),
     /**
      * 名称不能为空
      */
-    name_not_null,
+    name_not_null("您的名称不能为空！"),
     /**
      * 没有对应的属性
      */
-    attribute_not_found,
+    attribute_not_found("没有找到对应的属性！"),
     /**
      * 某些格式不支持
      */
-    something_unsupported,
+    something_unsupported("某些格式不支持！"),
     /**
      * 没有相关的对象
      */
-    object_not_found;
+    object_not_found("没有找到相关的对象！");
 
     String message;
 
