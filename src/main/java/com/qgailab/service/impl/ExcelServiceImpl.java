@@ -58,22 +58,22 @@ public class ExcelServiceImpl implements ExcelService {
         List list = null;
         Field[] fields = object.getClass().getDeclaredFields();
         String[] fieldNames = new String[fields.length];
-        for (int i = 0; i < fieldNames.length - 2; i++) {
+        for (int i = 2; i < fieldNames.length - 2; i++) {
             System.out.println(fields[i].getName());
             listName.add(fields[i].getName());
             listId.add(fields[i].getName());
         }
         if (object instanceof Award) {
-            list = awardMapper.listPage();
+            list = awardMapper.listPageOrderByNumber();
         }
         if (object instanceof News) {
-            list = newsMapper.listPage();
+            list = newsMapper.listPageOrderByNumber();
         }
         if (object instanceof Patent) {
-            list = patentMapper.listPage();
+            list = patentMapper.listPageOrderByNumber();
         }
         if (object instanceof Copyright) {
-            list = copyrightMapper.listPage();
+            list = copyrightMapper.listPageOrderByNumber();
         }
         ServiceResult sr = exportExcel("荣誉数据导出EXCEL文档", listName, listId, list);
         return sr;

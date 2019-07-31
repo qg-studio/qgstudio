@@ -110,7 +110,7 @@ public class AwardController {
      * @author < a href=" ">郭沛</ a>
      * @date
      */
-    @RequestMapping(value = "/export", method = RequestMethod.POST)
+    @RequestMapping(value = "/export", method = {RequestMethod.POST,RequestMethod.GET})
     public ServiceResult exportAward(String title) {
         return excelService.getTypeList(title, new Award());
     }
@@ -125,28 +125,30 @@ public class AwardController {
      * @date
      */
     @RequestMapping(value = "/import", method = RequestMethod.POST)
-    public ServiceResult importAward(HttpServletRequest request, @RequestParam(value = "excel")MultipartFile excel) {
-        ServiceResult rs = null;
-        if (excel == null) {
+    public ServiceResult importAward(HttpServletRequest request, @RequestParam(value = "excel")MultipartFile[] excel) {
+        ServiceResult result = null;
+        if (excel == null || excel.length == 0) {
             return new ServiceResult(400, Message.excel_not_null);
         }
         try {
             String path = request.getSession().getServletContext().getRealPath("/import/");
-            String filename = excel.getOriginalFilename();
-            File dir = new File(path);
-            if(!dir.exists()){
-                dir.mkdirs();
-            }
-            File targetFile = new File(path, filename);
-            try {
-                excel.transferTo(targetFile);
-            }catch (Exception e) {
-                e.printStackTrace();
-            }
-            InputStream in = new FileInputStream(targetFile);
-
-            if (filename.endsWith(".xls") || filename.endsWith(".xlsx")) {
-                rs = excelService.importExcel(filename, in, new Award());
+            for (int i = 0; i < excel.length; i++) {
+                String filename = excel[i].getOriginalFilename();
+                File dir = new File(path);
+                if(!dir.exists()){
+                    dir.mkdirs();
+                }
+                File targetFile = new File(path, filename);
+                try {
+                    excel[i].transferTo(targetFile);
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
+                InputStream in = new FileInputStream(targetFile);
+                if (filename.endsWith(".xls") || filename.endsWith(".xlsx")) {
+                    result = excelService.importExcel(filename, in, new Award());
+                }
+                targetFile.delete();
             }
         } catch (IOException e) {
             e.printStackTrace();

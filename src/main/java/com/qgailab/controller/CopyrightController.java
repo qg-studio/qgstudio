@@ -128,13 +128,14 @@ public class CopyrightController {
      * @date
      */
     @RequestMapping(value = "/import", method = RequestMethod.POST)
-    public ServiceResult importCopyright(HttpServletRequest request, @RequestParam(value = "excel") MultipartFile excel) {
+    public ServiceResult importCopyright(HttpServletRequest request, @RequestParam(value = "excel") MultipartFile[] excel) {
         ServiceResult rs = null;
-        if (excel == null) {
+        if (excel == null || excel.length == 0) {
             return new ServiceResult(400, Message.excel_not_null);
         }
         try {
             String path = request.getSession().getServletContext().getRealPath("/import/");
+
             String filename = excel.getOriginalFilename();
             File dir = new File(path);
             if(!dir.exists()){
