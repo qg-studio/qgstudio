@@ -105,9 +105,6 @@ public class AwardServiceImpl implements AwardService {
             return new ServiceResult(400, Message.parameter_not_enough);
         }
         try {
-            if (award.getId() == null) {
-                return new ServiceResult(401, Message.parameter_not_enough);
-            }
             if (award.getProject() == null || award.getProject().trim().isEmpty()) {
                 return new ServiceResult(402, Message.parameter_not_enough);
             }

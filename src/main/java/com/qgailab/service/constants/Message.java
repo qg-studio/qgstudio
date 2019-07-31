@@ -21,7 +21,6 @@ public enum Message {
      */
     account_not_found,
 
-
     /*
      **************************************************************
      *              荣誉
@@ -36,7 +35,6 @@ public enum Message {
      * 著作权不存在
      */
     copyright_not_found,
-
     /**
      * 最近荣誉不存在
      */
