@@ -105,12 +105,18 @@ public class AwardServiceImpl implements AwardService {
             return new ServiceResult(400, Message.parameter_not_enough);
         }
         try {
+            if (award.getId() == null) {
+                return new ServiceResult(401, Message.parameter_not_enough);
+            }
+            if (award.getProject() == null || award.getProject().trim().isEmpty()) {
+                return new ServiceResult(402, Message.parameter_not_enough);
+            }
             String message = validate(award);
             if(message!=null){
-                return new ServiceResult(402,message,award);
+                return new ServiceResult(403,message,award);
             }
             if (awardMapper.insertSelective(award) != 1) {
-                return new ServiceResult(403, Message.database_exception);
+                return new ServiceResult(404, Message.database_exception);
             }
         } catch (Exception e) {
             e.printStackTrace();

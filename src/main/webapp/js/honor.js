@@ -7,7 +7,7 @@ var serverUrl = "http://www.cxkball.club:2333",
     patentPage = 1,
     copyrightData = [],
     copyrightPage = 1,
-    PageSize = 1;
+    PageSize = 10;
 //奖项
 // 请求数据
 function getAward() { 

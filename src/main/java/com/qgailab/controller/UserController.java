@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * @author <a href="mailto:kobe524348@gmail.com">黄钰朝</a>
  * @description
@@ -23,7 +26,13 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public @ResponseBody ServiceResult login(@RequestBody User user){
-       return userService.login(user);
-   }
+    public @ResponseBody
+    ServiceResult login(@RequestBody User user, HttpServletRequest request) {
+        ServiceResult result = userService.login(user);
+        if(result.getStatus()==200){
+            User login= (User) result.getData();
+            request.getSession().setAttribute("login",login);
+        }
+        return result;
+    }
 }

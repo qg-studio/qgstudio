@@ -1,6 +1,6 @@
 define(['require', 'tools'], function(require) {
     var tools = require('tools');
-    var serverUrl = "http://www.cxkball.club:2333",
+    var serverUrl = "http://www.cxkball.club:2333";
     $(function() {
         $("button:eq(0)").click(function() {
             var data ={
