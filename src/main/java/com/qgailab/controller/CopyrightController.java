@@ -5,6 +5,7 @@ import com.qgailab.model.po.Award;
 import com.qgailab.model.po.Copyright;
 import com.qgailab.service.CopyrightService;
 import com.qgailab.service.ExcelService;
+import com.qgailab.service.UploadService;
 import com.qgailab.service.constants.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,6 +32,9 @@ public class CopyrightController {
 
     @Autowired
     private ExcelService excelService;
+
+    @Autowired
+    private UploadService uploadService;
 
     /**
     * @name 插入著作权信息
@@ -128,32 +132,31 @@ public class CopyrightController {
      * @date
      */
     @RequestMapping(value = "/import", method = RequestMethod.POST)
-    public ServiceResult importCopyright(HttpServletRequest request, @RequestParam(value = "excel") MultipartFile excel) {
-        ServiceResult rs = null;
-        if (excel == null) {
+    public ServiceResult importCopyright(HttpServletRequest request, @RequestParam(value = "file") MultipartFile[] file) {
+        ServiceResult result = null;
+        if (file == null || file.length == 0) {
             return new ServiceResult(400, Message.excel_not_null);
         }
         try {
             String path = request.getSession().getServletContext().getRealPath("/import/");
-            String filename = excel.getOriginalFilename();
-            File dir = new File(path);
-            if(!dir.exists()){
-                dir.mkdirs();
-            }
-            File targetFile = new File(path, filename);
-            try {
-                excel.transferTo(targetFile);
-            }catch (Exception e) {
-                e.printStackTrace();
-            }
-            InputStream in = new FileInputStream(targetFile);
-            if (filename.endsWith(".xls") || filename.endsWith(".xlsx")) {
-                rs = excelService.importExcel(filename, in, new Copyright());
+            for (int i = 0; i < file.length; i++) {
+                String filename = file[i].getOriginalFilename();
+                File targetFile = uploadService.uploadFile(file[i],path);
+                InputStream in = new FileInputStream(targetFile);
+                if (filename.endsWith(".xls") || filename.endsWith(".xlsx")) {
+                    result = excelService.importExcel(filename, in, new Copyright());
+                    if (result.getStatus() != 200) {
+                        return result;
+                    }
+                }else {
+                    return new ServiceResult(401,Message.type_not_support);
+                }
+                targetFile.delete();
             }
         } catch (IOException e) {
             e.printStackTrace();
             return new ServiceResult(500, Message.please_retry);
         }
-        return rs;
+        return result;
     }
 }

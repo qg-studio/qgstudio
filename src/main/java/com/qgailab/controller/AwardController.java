@@ -143,19 +143,26 @@ public class AwardController {
      * @date
      */
     @RequestMapping(value = "/import", method = RequestMethod.POST)
-    public ServiceResult importAward(HttpServletRequest request, @RequestParam(value = "file") MultipartFile file) {
-        ServiceResult result;
-        if (file == null) {
+    public ServiceResult importAward(HttpServletRequest request, @RequestParam(value = "file") MultipartFile[] file) {
+        ServiceResult result = null;
+        if (file == null || file.length == 0) {
             return new ServiceResult(400, Message.excel_not_null);
         }
         try {
             String path = request.getSession().getServletContext().getRealPath("/import/");
-            String filename = file.getOriginalFilename();
-            InputStream in = new FileInputStream(uploadService.uploadFile(file,path));
-            if (filename.endsWith(".xls") || filename.endsWith(".xlsx")) {
-                result = excelService.importExcel(filename, in, new Award());
-            }else {
-                return new ServiceResult(401,Message.type_not_support);
+            for (int i = 0; i < file.length; i++) {
+                String filename = file[i].getOriginalFilename();
+                File targetFile = uploadService.uploadFile(file[i],path);
+                InputStream in = new FileInputStream(targetFile);
+                if (filename.endsWith(".xls") || filename.endsWith(".xlsx")) {
+                    result = excelService.importExcel(filename, in, new Award());
+                    if (result.getStatus() != 200) {
+                        return result;
+                    }
+                }else {
+                    return new ServiceResult(401,Message.type_not_support);
+                }
+                targetFile.delete();
             }
         } catch (IOException e) {
             e.printStackTrace();
