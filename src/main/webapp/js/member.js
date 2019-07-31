@@ -312,12 +312,19 @@ function upFiles() {
   var photo = self.parentNode.getElementsByClassName("photo")[0];
     
   var file = self.files[0];
+  console.log(file.size);
+  if (file.size > 5 * 1024 * 1024) {
+    alert("图片文件过大");
+    return;
+  }
   var fileRead = new FileReader();
   fileRead.readAsDataURL(file);
+
   fileRead.onload = function() {
+    console.log(this);
     photo.style.backgroundImage = "url(" + this.result + ")";
   }
-  console.log(self.files);
+  console.log(fileRead);
 }
 // 单个节点字符串
 function modelStr(j) {
@@ -386,14 +393,5 @@ function judegInput(obj) {
 function isNotNullTrim(source){
   if(source != null && source != undefined && source != 'undefined' && $.trim(source) != "")
     return true;
-    return false;
+    return false; 
 }
-
-
-
-
-
-
-
-
-

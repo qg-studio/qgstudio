@@ -1,6 +1,6 @@
 define(['require', 'tools'], function(require) {
     var tools = require('tools');
-
+    var serverUrl = "http://www.cxkball.club:2333",
     $(function() {
         $("button:eq(0)").click(function() {
             var data ={
@@ -12,9 +12,9 @@ define(['require', 'tools'], function(require) {
             } else {
                 $.ajax({
         			type: "POST",
-        			url: "http://www.cxkball.club:2333/user/login",
-        			dataType: "json"，
-        			contentType: "application/json"，
+        			url: serverUrl + "/user/login",
+        			dataType: "json",
+        			contentType: "application/json",
         			data: JSON.stringify(data),
         			success: function(data) {
         				if (data.message == "account_not_found") {
