@@ -15,7 +15,7 @@ public enum Message {
     /**
      * 密码错误
      */
-    password_incorrect,
+    password_incorrect(""),
     /**
      * 用户不存在
      */
@@ -272,4 +272,23 @@ public enum Message {
      * 没有相关的对象
      */
     object_not_found;
+
+    String message;
+
+    Message(String message) {
+        this.message = message;
+    }
+
+    /**
+     * Returns the name of this enum constant, as contained in the
+     * declaration.  This method may be overridden, though it typically
+     * isn't necessary or desirable.  An enum type should override this
+     * method when a more "programmer-friendly" string form exists.
+     *
+     * @return the name of this enum constant
+     */
+    @Override
+    public String toString() {
+        return this.message;
+    }
 }
