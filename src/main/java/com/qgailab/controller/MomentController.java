@@ -123,7 +123,7 @@ public class MomentController {
             String path = request.getSession().getServletContext().getRealPath("/upload/");
             moment = (Moment) result.getData();
             //保存图片数组
-            List<Image> list = uploadService.uploadFile(moment.getUuid(), uploads, path,description);
+            List<Image> list = uploadService.uploadImage(moment.getUuid(), uploads, path,description);
             //更新到moment中
             List<Image> oldList = moment.getImages();
             if (oldList == null) {

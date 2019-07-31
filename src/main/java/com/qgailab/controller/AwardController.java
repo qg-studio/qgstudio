@@ -2,26 +2,22 @@ package com.qgailab.controller;
 
 import com.qgailab.model.dto.ServiceResult;
 import com.qgailab.model.po.Award;
-import com.qgailab.model.po.Intro;
 import com.qgailab.service.AwardService;
 import com.qgailab.service.ExcelService;
+import com.qgailab.service.UploadService;
 import com.qgailab.service.constants.Message;
-import com.qgailab.service.impl.ExcelServiceImpl;
-import org.apache.poi.ss.formula.functions.T;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
-import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.util.List;
 
 /**
- * @description
  * @author < a href=" ">郭沛</ a>
+ * @description
  * @date 2019-07-27 08:29
  */
 @RestController
@@ -32,25 +28,27 @@ public class AwardController {
     private AwardService awardService;
     @Autowired
     private ExcelService excelService;
+    @Autowired
+    private UploadService uploadService;
 
 
     /**
-    * @name 插入奖项
-    * @param
-    * @return ServiceResult
-    * @notice none
-    * @author < a href=" ">郭沛</ a>
-    * @date
-    */
+     * @param
+     * @return ServiceResult
+     * @name 插入奖项
+     * @notice none
+     * @author < a href=" ">郭沛</ a>
+     * @date
+     */
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
     public ServiceResult insertAward(@RequestBody Award award) {
         return awardService.insertAward(award);
     }
 
     /**
-     * @name 更新奖项
      * @param
      * @return ServiceResult
+     * @name 更新奖项
      * @notice none
      * @author < a href=" ">郭沛</ a>
      * @date
@@ -61,9 +59,9 @@ public class AwardController {
     }
 
     /**
-     * @name 删除奖项
      * @param
      * @return ServiceResult
+     * @name 删除奖项
      * @notice none
      * @author < a href=" ">郭沛</ a>
      * @date
@@ -74,9 +72,9 @@ public class AwardController {
     }
 
     /**
-     * @name 查询奖项
      * @param
      * @return ServiceResult
+     * @name 查询奖项
      * @notice none
      * @author < a href=" ">郭沛</ a>
      * @date
@@ -97,61 +95,74 @@ public class AwardController {
      * @author <a href="">郭沛</a>
      * @date 2019-07-27
      */
-    @RequestMapping(value = "/list",method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value = "/list", method = {RequestMethod.POST, RequestMethod.GET})
     public ServiceResult listAward(int page, int pageSize) {
         return awardService.listAward(page, pageSize);
     }
 
     /**
-     * @name 导出数据到Excel文档
      * @param
      * @return ServiceResult
+     * @name 导出数据到Excel文档
      * @notice none
      * @author < a href=" ">郭沛</ a>
      * @date
      */
-    @RequestMapping(value = "/export", method = RequestMethod.POST)
-    public ServiceResult exportAward(String title) {
-        return excelService.getTypeList(title, new Award());
+    @RequestMapping(value = "/export", method = {RequestMethod.POST, RequestMethod.GET})
+    public ServiceResult exportAward(String title, HttpServletResponse resp, HttpServletRequest request) {
+        ServiceResult result = excelService.getTypeList(title, new Award());
+        OutputStream os = null;
+        try {
+            if (result.getStatus() == 200) {
+                HSSFWorkbook workbook = (HSSFWorkbook) result.getData();
+                resp.setHeader("content-disposition", "attachment;filename=" + "award_export.xls");
+                os = resp.getOutputStream();
+                workbook.write(os);
+                return null;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                os.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
     }
 
     /**
      * 从Excel文件导入数据
-     * @name importAward
+     *
      * @param
      * @return ServiceResult
+     * @name importAward
      * @notice none
      * @author < a href=" ">郭沛</ a>
      * @date
      */
     @RequestMapping(value = "/import", method = RequestMethod.POST)
-    public ServiceResult importAward(HttpServletRequest request, @RequestParam(value = "excel")MultipartFile excel) {
-        ServiceResult rs = null;
-        if (excel == null) {
+    public ServiceResult importAward(HttpServletRequest request, @RequestParam(value = "file") MultipartFile file) {
+        ServiceResult result;
+        if (file == null) {
             return new ServiceResult(400, Message.excel_not_null);
         }
         try {
             String path = request.getSession().getServletContext().getRealPath("/import/");
-            String filename = excel.getOriginalFilename();
-            File dir = new File(path);
-            if(!dir.exists()){
-                dir.mkdirs();
-            }
-            File targetFile = new File(path, filename);
-            try {
-                excel.transferTo(targetFile);
-            }catch (Exception e) {
-                e.printStackTrace();
-            }
-            InputStream in = new FileInputStream(targetFile);
-
+            String filename = file.getOriginalFilename();
+            InputStream in = new FileInputStream(uploadService.uploadFile(file,path));
             if (filename.endsWith(".xls") || filename.endsWith(".xlsx")) {
-                rs = excelService.importExcel(filename, in, new Award());
+                result = excelService.importExcel(filename, in, new Award());
+            }else {
+                return new ServiceResult(401,Message.type_not_support);
             }
         } catch (IOException e) {
             e.printStackTrace();
             return new ServiceResult(500, Message.please_retry);
         }
-        return rs;
+        return result;
     }
+
 }
+

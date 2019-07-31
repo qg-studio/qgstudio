@@ -3,7 +3,6 @@ package com.qgailab.controller;
 import com.qgailab.model.dto.ServiceResult;
 import com.qgailab.model.po.Field;
 import com.qgailab.model.po.Image;
-import com.qgailab.model.po.Field;
 import com.qgailab.service.FieldService;
 import com.qgailab.service.ImageService;
 import com.qgailab.service.UploadService;
@@ -54,7 +53,7 @@ public class FieldController {
             String path = request.getSession().getServletContext().getRealPath("/upload/");
             field = (Field) result.getData();
             //保存图片数组
-            List<Image> list = uploadService.uploadFile(field.getUuid(), uploads, path);
+            List<Image> list = uploadService.uploadImage(field.getUuid(), uploads, path);
             //更新到field中
             List<Image> oldList = field.getImages();
             imageService.removeImageList(path, oldList);

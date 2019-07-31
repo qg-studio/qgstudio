@@ -3,12 +3,10 @@ package com.qgailab.controller;
 import com.qgailab.model.dto.ServiceResult;
 import com.qgailab.model.po.Feature;
 import com.qgailab.model.po.Image;
-import com.qgailab.model.po.Feature;
 import com.qgailab.service.FeatureService;
 import com.qgailab.service.UploadService;
 import com.qgailab.service.constants.Message;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -51,7 +49,7 @@ public class FeatureController {
             String path = request.getSession().getServletContext().getRealPath("/upload/");
             feature = (Feature) result.getData();
             //保存图片数组
-            List<Image> list = uploadService.uploadFile(feature.getUuid(), uploads, path,description);
+            List<Image> list = uploadService.uploadImage(feature.getUuid(), uploads, path,description);
             //更新到feature中
             List<Image> oldList = feature.getImages();
             if (oldList == null) {

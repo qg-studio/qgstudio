@@ -123,7 +123,7 @@ public class ProjectController {
             String path = request.getSession().getServletContext().getRealPath("/upload/");
             project = (Project) result.getData();
             //保存图片数组
-            List<Image> list = uploadService.uploadFile(project.getUuid(), uploads, path);
+            List<Image> list = uploadService.uploadImage(project.getUuid(), uploads, path);
             //更新到moment中
             List<Image> oldList = project.getImages();
             if (oldList == null) {

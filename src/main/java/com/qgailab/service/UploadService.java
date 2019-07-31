@@ -23,12 +23,12 @@ public interface UploadService {
      * @param uploads 上传的文件数组
      * @param path    文件上传路径
      * @return
-     * @name uploadFile
+     * @name uploadImage
      * @notice none
      * @author <a href="mailto:kobe524348@gmail.com">黄钰朝</a>
      * @date 2019-07-26
      */
-    List<Image> uploadFile(String fuuid, MultipartFile[] uploads, String path);
+    List<Image> uploadImage(String fuuid, MultipartFile[] uploads, String path);
 
 
     /**
@@ -38,12 +38,15 @@ public interface UploadService {
      * @param uploads 上传的文件数组
      * @param path    文件上传路径
      * @return
-     * @name uploadFile
+     * @name uploadImage
      * @notice none
      * @author <a href="mailto:kobe524348@gmail.com">黄钰朝</a>
      * @date 2019-07-26
      */
-    List<Image> uploadFile(String fuuid, MultipartFile[] uploads, String path,String description);
+    List<Image> uploadImage(String fuuid, MultipartFile[] uploads, String path, String description);
+
+
+    File uploadFile(MultipartFile file, String path);
 }
 
 

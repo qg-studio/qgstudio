@@ -31,14 +31,14 @@ public class UploadServiceImpl implements UploadService {
      * @param uploads 上传的文件数组
      * @param path    文件上传路径
      * @return
-     * @name uploadFile
+     * @name uploadImage
      * @notice none
      * @author <a href="mailto:kobe524348@gmail.com">黄钰朝</a>
      * @date 2019-07-26
      */
     @Override
-    public List<Image> uploadFile(String fuuid, MultipartFile[] uploads, String path) {
-        return uploadFile(fuuid, uploads, path, null);
+    public List<Image> uploadImage(String fuuid, MultipartFile[] uploads, String path) {
+        return uploadImage(fuuid, uploads, path, null);
     }
 
     /**
@@ -49,13 +49,13 @@ public class UploadServiceImpl implements UploadService {
      * @param path        文件上传路径
      * @param description
      * @return
-     * @name uploadFile
+     * @name uploadImage
      * @notice none
      * @author <a href="mailto:kobe524348@gmail.com">黄钰朝</a>
      * @date 2019-07-26
      */
     @Override
-    public List<Image> uploadFile(String fuuid, MultipartFile[] uploads, String path, String description) {
+    public List<Image> uploadImage(String fuuid, MultipartFile[] uploads, String path, String description) {
         List<Image> imageList = new LinkedList<>();
         MultipartFile upload;
         for (int i = 0; i < uploads.length; i++) {
@@ -95,5 +95,21 @@ public class UploadServiceImpl implements UploadService {
             }
         }
         return imageList;
+    }
+
+    @Override
+    public File uploadFile(MultipartFile file, String path){
+        String filename = file.getOriginalFilename();
+        File dir = new File(path);
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+        File targetFile = new File(path, filename);
+        try {
+            file.transferTo(targetFile);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return targetFile;
     }
 }

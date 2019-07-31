@@ -255,6 +255,10 @@ public enum Message {
      */
     excel_not_null,
     /**
+     * 不支持的格式
+     */
+    type_not_support,
+    /**
      * 名称不能为空
      */
     name_not_null,
@@ -263,7 +267,11 @@ public enum Message {
      */
     attribute_not_found,
     /**
+     * 某些格式不支持
+     */
+    something_unsupported,
+    /**
      * 没有相关的对象
      */
     object_not_found;
-    }
+}
