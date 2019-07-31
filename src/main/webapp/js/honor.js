@@ -32,6 +32,8 @@ function getAward() {
         awardData.push({});
         updataAward();
         creatPage(response.data.page, "award");
+      } else {
+        alert(response.message);
       }
     })
     .fail(function(jqXHR) {
@@ -107,7 +109,7 @@ function awardModify(getFun) {
       if (response.status == 200) {
         alert("修改成功");
       } else {
-        alert("修改失败");
+        alert(response.message);
       }
      })
      .fail(function(jqXHR){
@@ -150,7 +152,7 @@ function awardDelete() {
       if (response.status == 200) {
         alert("删除成功");
       } else {
-        alert("删除失败")
+        alert(response.message);
       }
      })
      .fail(function(jqXHR){
@@ -209,8 +211,8 @@ function awardAddCommit() {
       console.log("添加",response)
       if (response.status == 200) {
         alert("添加成功");
-      } else {
-        alert("添加失败");
+      }else {
+        alert(response.message);
       }
     })
     .fail(function(jqXHR){
@@ -250,6 +252,8 @@ function getNews() {
         newsData.push({});
         updataNews();
         creatPage(response.data.page,"news");
+      }else {
+        alert(response.message);
       }
     })
     .fail(function(jqXHR) {
@@ -311,8 +315,8 @@ function newsModify(getFun) {
      .done(function(response){
       if (response.status == 200) {
         alert("修改成功");
-      } else {
-        alert("修改失败");
+      }else {
+        alert(response.message);
       }
      })
      .fail(function(jqXHR){
@@ -354,8 +358,8 @@ function newsDelete() {
       console.log("删除",response);
       if (response.status == 200) {
         alert("删除成功");
-      } else {
-        alert("删除失败")
+      }else {
+        alert(response.message);
       }
      })
      .fail(function(jqXHR){
@@ -409,7 +413,7 @@ function newsAddCommit() {
       if (response.status == 200) {
         alert("添加成功");
       } else {
-        alert("添加失败");
+        alert(response.message);
       }
     })
     .fail(function(jqXHR){
@@ -449,6 +453,8 @@ function getPatent() {
         patentData.push({});
         updataPatent();
         creatPage(response.data.page,"patent");
+      }else {
+        alert(response.message);
       }
     })
     .fail(function(jqXHR) {
@@ -515,7 +521,7 @@ function patentModify(getFun) {
       if (response.status == 200) {
         alert("修改成功");
       } else {
-        alert("修改失败");
+        alert(response.message);
       }
      })
      .fail(function(jqXHR){
@@ -559,7 +565,7 @@ function patentDelete() {
       if (response.status == 200) {
         alert("删除成功");
       } else {
-        alert("删除失败")
+        alert(response.message);
       }
      })
      .fail(function(jqXHR){
@@ -615,7 +621,7 @@ function patentAddCommit() {
       if (response.status == 200) {
         alert("添加成功");
       } else {
-        alert("添加失败");
+        alert(response.message);
       }
     })
     .fail(function(jqXHR){
@@ -658,6 +664,8 @@ function getCopyright() {
         copyrightData.push({});
         updataCopyright();
         creatPage(response.data.page,"copyright");
+      }else {
+        alert(response.message);
       }
     })
     .fail(function(jqXHR) {
@@ -722,7 +730,7 @@ function copyrightModify(getFun) {
       if (response.status == 200) {
         alert("修改成功");
       } else {
-        alert("修改失败");
+        alert(response.message);
       }
      })
      .fail(function(jqXHR){
@@ -766,7 +774,7 @@ function copyrightDelete() {
       if (response.status == 200) {
         alert("删除成功");
       } else {
-        alert("删除失败")
+        alert(response.message);
       }
      })
      .fail(function(jqXHR){
@@ -821,7 +829,7 @@ function copyrightAddCommit() {
       if (response.status == 200) {
         alert("添加成功");
       } else {
-        alert("添加失败");
+        alert(response.message);
       }
     })
     .fail(function(jqXHR){
