@@ -567,6 +567,7 @@ function patentDelete() {
       "crossDomain": true
       })
      .done(function(response){
+
       console.log("删除",response);
       if (response.status == 200) {
         if (patentData.length == 2) {
