@@ -7,7 +7,7 @@ var serverUrl = "http://www.cxkball.club:2333",
     patentPage = 1,
     copyrightData = [],
     copyrightPage = 1,
-    PageSize = 10;
+    PageSize = 3;
 //奖项
 // 请求数据
 function getAward() { 
@@ -150,6 +150,9 @@ function awardDelete() {
      .done(function(response){
       console.log("删除",response);
       if (response.status == 200) {
+        if (awardData.length == 2) {
+          awardPage--;
+        }
         alert("删除成功");
       } else {
         alert(response.message);
@@ -357,6 +360,9 @@ function newsDelete() {
      .done(function(response){
       console.log("删除",response);
       if (response.status == 200) {
+        if (newsData.length == 2) {
+          newsPage--;
+        }
         alert("删除成功");
       }else {
         alert(response.message);
@@ -563,6 +569,9 @@ function patentDelete() {
      .done(function(response){
       console.log("删除",response);
       if (response.status == 200) {
+        if (patentData.length == 2) {
+          patentPage--;
+        }
         alert("删除成功");
       } else {
         alert(response.message);
@@ -589,8 +598,8 @@ function patentAddCommit() {
   var list = event.target.parentNode;
   var textareas = list.getElementsByTagName('textarea');
   var data = {
-    name: textareas[1].value,
-    type: textareas[2].value,
+    type: textareas[1].value,
+    name: textareas[2].value,
     zl: textareas[3].value,
     inventor: textareas[4].value,
   }
@@ -772,6 +781,9 @@ function copyrightDelete() {
      .done(function(response){
       console.log("删除",response);
       if (response.status == 200) {
+        if (copyrightData.length == 2) {
+          copyrightPage--;
+        }
         alert("删除成功");
       } else {
         alert(response.message);
