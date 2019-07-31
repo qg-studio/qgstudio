@@ -30,9 +30,6 @@ public class EncodingFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
         try {
-//            httpServletRequest.setCharacterEncoding(ENCODING);
-//            httpServletResponse.setContentType("text/html;charset=utf-8");
-//            httpServletResponse.setCharacterEncoding(ENCODING);
             httpServletResponse.addHeader("Access-Control-Allow-Origin", "*");
             httpServletResponse.addHeader("Access-Control-Allow-Headers",
                     "origin, content-type, accept, x-requested-with, sid, mycustom, smuser");

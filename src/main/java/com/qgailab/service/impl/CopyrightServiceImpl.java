@@ -185,8 +185,8 @@ public class CopyrightServiceImpl implements CopyrightService {
         List<Copyright> copyrightList;
         try {
             PageHelper.startPage(page, pageSize);
-            count = copyrightMapper.selectCount();
             copyrightList = copyrightMapper.listPageOrderByNumber();
+            count = copyrightMapper.selectCount();
         } catch (Exception e) {
             e.printStackTrace();
             return new ServiceResult(500, Message.please_retry);

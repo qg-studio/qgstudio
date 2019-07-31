@@ -4,61 +4,20 @@
 	<title>test</title>
 	<meta charset="utf-8" name="referrer" content="no-referrer">
 	<style type="text/css">
-		div {
-			position: absolute;
-			left: 40%;
-			top: 20%;
-
-			display: block;
-			width: 100px;
-			height: 100px;
-			color: #5b08c3;
-			font-weight: bold;
-			font-size: 25px;
-			line-height: 100px;
-			text-align: center;
-			letter-spacing: 2px;
-			border: 1px solid #000;
-			border-radius: 50%;
-			background-size: auto 100px;
-			background-position: center;
+		* {
+			padding: 0;
+			margin: 0;
 		}
-
-		input {
-			position: absolute;
-			left: 0;
-			top: 0;
-
-			z-index: 100;
+		img {
 			display: block;
-			width: 100px;
-			height: 100px;
-			opacity: 0;
-			cursor: pointer;
+			width: 100%;
 		}
 	</style>
 </head>
 <body>
-	<div>
-		<input  type="file" name="" >
-
-	</div>
-
-
-
-
-<div class="a b"></div>	
+	<img src="../image/荣誉页面标注.png">
 </body>
 <script type="text/javascript">
-	var input = document.getElementsByTagName('input')[0];
-	var div = document.getElementsByTagName('div')[0];
-	input.onchange = function () {
-		var file = input.files[0];
-		var fileRead = new FileReader();
-		fileRead.readAsDataURL(file);
-		fileRead.onload = function() {
-			div.style.backgroundImage = "url(" + this.result + ")";
-		}
-	}
+
 </script>
 </html>
