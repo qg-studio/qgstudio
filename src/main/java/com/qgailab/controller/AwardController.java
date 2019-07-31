@@ -10,7 +10,6 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
@@ -109,7 +108,7 @@ public class AwardController {
      * @date
      */
     @RequestMapping(value = "/export", method = {RequestMethod.POST, RequestMethod.GET})
-    public ServiceResult exportAward(String title, HttpServletResponse resp, HttpServletRequest request) {
+    public ServiceResult exportAward(String title, HttpServletResponse resp) {
         ServiceResult result = excelService.getTypeList(title, new Award());
         OutputStream os = null;
         try {
@@ -170,6 +169,5 @@ public class AwardController {
         }
         return result;
     }
-
 }
 

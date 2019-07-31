@@ -7,16 +7,17 @@ import com.qgailab.service.ExcelService;
 import com.qgailab.service.NewsService;
 import com.qgailab.service.UploadService;
 import com.qgailab.service.constants.Message;
+import com.sun.deploy.net.HttpResponse;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 
 /**
  * @description
@@ -118,8 +119,27 @@ public class NewsController {
      * @date
      */
     @RequestMapping(value = "/export", method = RequestMethod.POST)
-    public ServiceResult exportNews(String title) {
-        return excelService.getTypeList(title,new News());
+    public ServiceResult exportNews(String title, HttpServletResponse resp) {
+        ServiceResult result = excelService.getTypeList(title, new News());
+        OutputStream os = null;
+        try {
+            if (result.getStatus() == 200) {
+                HSSFWorkbook workbook = (HSSFWorkbook) result.getData();
+                resp.setHeader("content-disposition", "attachment;filename=" + "news_export.xls");
+                os = resp.getOutputStream();
+                workbook.write(os);
+                return null;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                os.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
     }
 
     /**
