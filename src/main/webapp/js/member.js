@@ -148,11 +148,11 @@ function deleteFun() {
               alert("删除成功。");
             }, 520);
           } else if (response.status == 401) {
-            alert("删除失败。");
+            alert(response.message);
           }
         })
         .fail(function(jqXHR) {
-          alert("删除失败。")
+          alert(response.message)
         })
         break;
       }
@@ -271,10 +271,10 @@ function addCommit() {
       if (updateImg(img, response.data.id)) {
         alert("添加成功");
       } else {
-        alert("图片上传失败");
+        alert(response.message);
       }
     } else {
-      alert("添加失败");
+      alert(response.message);
     }
     upDate();
     inputChange(self);
