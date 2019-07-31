@@ -15,7 +15,6 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
 import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -99,8 +98,7 @@ public class ExcelServiceImpl implements ExcelService {
         //表头--标题栏
         Map<Integer, String> headersNameMap = new HashMap<>();
         Map<Integer, String> titleFieldMap = new HashMap<>();
-        int key = 0;
-        int value = 0;
+        int key = 0, value = 0;
         for (int i = 0; i < headersName.size(); i++) {
             if (headersName.get(i)!=null) {
                 headersNameMap.put(key, (String) headersName.get(i));
@@ -112,66 +110,69 @@ public class ExcelServiceImpl implements ExcelService {
             }
         }
         //声明一个工作簿，包括创建，表格，样式
-        HSSFWorkbook wb = new HSSFWorkbook();
-        HSSFSheet sheet = wb.createSheet(title);
+        HSSFWorkbook hssfWorkbook = new HSSFWorkbook();
+        HSSFSheet sheet = hssfWorkbook.createSheet(title);
         sheet.setDefaultColumnWidth((short) 15);
         //生成一个样式
-        HSSFCellStyle style = wb.createCellStyle();
+        HSSFCellStyle style = hssfWorkbook.createCellStyle();
         HSSFRow row = sheet.createRow(0);
         style.setAlignment(HSSFCellStyle.ALIGN_CENTER);
         HSSFCell cell;
         //取出表格所有标题的value的集合
-        Collection c = headersNameMap.values();
+        Collection collection = headersNameMap.values();
         //表格标题的迭代器
-        Iterator<String> it = c.iterator();
+        Iterator<String> iterator = collection.iterator();
         //导出数据：包括导出标题栏以及内容栏
         //根据选择的字段生成表头
         short size = 0;
-        while (it.hasNext()) {
+        while (iterator.hasNext()) {
             cell = row.createCell(size);
-            cell.setCellValue(it.next().toString());
+            cell.setCellValue(iterator.next().toString());
             cell.setCellStyle(style);
             size++;
         }
         //表格标题一行的字段的集合
-        Collection zdC = titleFieldMap.values();
+        Collection fieldCollection = titleFieldMap.values();
         //总记录的迭代器
-        Iterator labIt = dtoList.iterator();
+        Iterator totalIterator = dtoList.iterator();
         //列序号
-        int zdRow = 0;
-        while (labIt.hasNext()) {
+        int column = 0;
+        while (totalIterator.hasNext()) {
             //记录的迭代器，遍历总记录
-            int zdCell = 0;
-            zdRow++;
-            row = sheet.createRow(zdRow);
-            Object l = labIt.next();
+            int fieldCell = 0;
+            column++;
+            row = sheet.createRow(column);
+            Object object = totalIterator.next();
             // 利用反射，根据javabean属性的先后顺序，动态调用getXxx()方法得到属性值
             //获得JavaBean全部属性
-            Field[] fields = l.getClass().getDeclaredFields();
+            Field[] fields = object.getClass().getDeclaredFields();
             for (short i = 0; i < fields.length; i++) {
                 //遍历属性，比对
                 Field field = fields[i];
                 //属性名
                 String fieldName = field.getName();
-                Iterator<String> zdIt = zdC.iterator();//一条字段的集合的迭代器
-                while (zdIt.hasNext()) {//遍历要导出的字段集合
-                    if (zdIt.next().equals(fieldName)) {//比对JavaBean的属性名，一致就写入，不一致就丢弃
+                //一条字段的集合的迭代器
+                Iterator<String> fieldIterator = fieldCollection.iterator();
+                //遍历要导出的字段集合
+                while (fieldIterator.hasNext()) {
+                    //比对JavaBean的属性名，一致就写入，不一致就丢弃
+                    if (fieldIterator.next().equals(fieldName)) {
                         String getMethodName = "get"
                                 + fieldName.substring(0, 1).toUpperCase()
-                                + fieldName.substring(1);//拿到属性的get方法
-                        Class tCls = l.getClass();//拿到JavaBean对象
+                                + fieldName.substring(1);
+                        Class tCls = object.getClass();
                         try {
                             Method getMethod = tCls.getMethod(getMethodName,
-                                    new Class[]{});//通过JavaBean对象拿到该属性的get方法，从而进行操控
-                            Object val = getMethod.invoke(l, new Object[]{});//操控该对象属性的get方法，从而拿到属性值
+                                    new Class[]{});
+                            Object val = getMethod.invoke(object, new Object[]{});
                             String textVal = null;
                             if (val != null) {
-                                textVal = String.valueOf(val);//转化成String
+                                textVal = String.valueOf(val);
                             } else {
                                 textVal = null;
                             }
-                            row.createCell((short) zdCell).setCellValue(textVal);//写进excel对象
-                            zdCell++;
+                            row.createCell((short) fieldCell).setCellValue(textVal);
+                            fieldCell++;
                         } catch (SecurityException | NoSuchMethodException |
                                 IllegalAccessException | InvocationTargetException e) {
                             e.printStackTrace();
@@ -180,7 +181,7 @@ public class ExcelServiceImpl implements ExcelService {
                 }
             }
         }
-        return new ServiceResult(200, Message.success,wb);
+        return new ServiceResult(200, Message.success,hssfWorkbook);
     }
 
 
@@ -239,6 +240,7 @@ public class ExcelServiceImpl implements ExcelService {
                 }
                 //遍历每一行并将数据插入数据库
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -259,11 +261,11 @@ public class ExcelServiceImpl implements ExcelService {
         Award award = new Award();
         while (cells.hasNext()) {
             //在每一行基础上去遍历每一列
-            Cell cell = cells.next();//指向下一列
-            int i = cell.getColumnIndex();//拿到列的标记
+            Cell cell = cells.next();
+            int i = cell.getColumnIndex();
             cell.setCellType(CellType.STRING);
             if (award != null) {
-                switch (i) {//针对列去获取解析，放进我们的java对象
+                switch (i) {
                     case 0:
                         award.setProject(String.valueOf(cell.getStringCellValue()));
                         break;
@@ -312,15 +314,13 @@ public class ExcelServiceImpl implements ExcelService {
      */
     private ServiceResult parsePatent(Iterator<Cell> cells) {
         Patent patent = new Patent();
-
-
         while (cells.hasNext()) {
             //在每一行基础上去遍历每一列
-            Cell cell = cells.next();//指向下一列
-            int i = cell.getColumnIndex();//拿到列的标记
+            Cell cell = cells.next();
+            int i = cell.getColumnIndex();
             cell.setCellType(CellType.STRING);
             if (patent != null) {
-                switch (i) {//针对列去获取解析，放进我们的java对象
+                switch (i) {
                     case 0:
                         patent.setType(String.valueOf(cell.getStringCellValue()));
                         break;
@@ -360,11 +360,11 @@ public class ExcelServiceImpl implements ExcelService {
         News news = new News();
         while (cells.hasNext()) {
             //在每一行基础上去遍历每一列
-            Cell cell = cells.next();//指向下一列
-            int i = cell.getColumnIndex();//拿到列的标记
+            Cell cell = cells.next();
+            int i = cell.getColumnIndex();
             cell.setCellType(CellType.STRING);
             if (news != null) {
-                switch (i) {//针对列去获取解析，放进我们的java对象
+                switch (i) {
                     case 0:
                         news.setTitle(String.valueOf(cell.getStringCellValue()));
                         break;
@@ -399,11 +399,11 @@ public class ExcelServiceImpl implements ExcelService {
         Copyright copyright = new Copyright();
         while (cells.hasNext()) {
             //在每一行基础上去遍历每一列
-            Cell cell = cells.next();//指向下一列
-            int i = cell.getColumnIndex();//拿到列的标记
+            Cell cell = cells.next();
+            int i = cell.getColumnIndex();
             cell.setCellType(CellType.STRING);
             if (copyright != null) {
-                switch (i) {//针对列去获取解析，放进我们的java对象
+                switch (i) {
                     case 0:
                         copyright.setName(String.valueOf(cell.getStringCellValue()));
                         break;

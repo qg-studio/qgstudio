@@ -10,7 +10,6 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
@@ -109,7 +108,7 @@ public class AwardController {
      * @date
      */
     @RequestMapping(value = "/export", method = {RequestMethod.POST, RequestMethod.GET})
-    public ServiceResult exportAward(String title, HttpServletResponse resp, HttpServletRequest request) {
+    public ServiceResult exportAward(String title, HttpServletResponse resp) {
         ServiceResult result = excelService.getTypeList(title, new Award());
         OutputStream os = null;
         try {
@@ -143,19 +142,26 @@ public class AwardController {
      * @date
      */
     @RequestMapping(value = "/import", method = RequestMethod.POST)
-    public ServiceResult importAward(HttpServletRequest request, @RequestParam(value = "file") MultipartFile file) {
-        ServiceResult result;
-        if (file == null) {
+    public ServiceResult importAward(HttpServletRequest request, @RequestParam(value = "file") MultipartFile[] file) {
+        ServiceResult result = null;
+        if (file == null || file.length == 0) {
             return new ServiceResult(400, Message.excel_not_null);
         }
         try {
             String path = request.getSession().getServletContext().getRealPath("/import/");
-            String filename = file.getOriginalFilename();
-            InputStream in = new FileInputStream(uploadService.uploadFile(file,path));
-            if (filename.endsWith(".xls") || filename.endsWith(".xlsx")) {
-                result = excelService.importExcel(filename, in, new Award());
-            }else {
-                return new ServiceResult(401,Message.type_not_support);
+            for (int i = 0; i < file.length; i++) {
+                String filename = file[i].getOriginalFilename();
+                File targetFile = uploadService.uploadFile(file[i],path);
+                InputStream in = new FileInputStream(targetFile);
+                if (filename.endsWith(".xls") || filename.endsWith(".xlsx")) {
+                    result = excelService.importExcel(filename, in, new Award());
+                    if (result.getStatus() != 200) {
+                        return result;
+                    }
+                }else {
+                    return new ServiceResult(401,Message.type_not_support);
+                }
+                targetFile.delete();
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -163,6 +169,5 @@ public class AwardController {
         }
         return result;
     }
-
 }
 
