@@ -15,11 +15,11 @@ public enum Message {
     /**
      * 密码错误
      */
-    password_incorrect(""),
+    password_incorrect("密码错误"),
     /**
      * 用户不存在
      */
-    account_not_found,
+    account_not_found("该账户不存在"),
 
     /*
      **************************************************************
@@ -29,20 +29,20 @@ public enum Message {
     /**
      * 专利不存在
      */
-    patent_not_found,
+    patent_not_found("该专利不存在"),
 
     /**
      * 著作权不存在
      */
-    copyright_not_found,
+    copyright_not_found("该软件著作权不存在"),
     /**
      * 最近荣誉不存在
      */
-    honor_not_found,
+    honor_not_found("该最近的荣誉不存在"),
     /**
      * 新闻链接不存在
      */
-    news_not_found,
+    news_not_found("该新闻链接不存在"),
 
     /*
      **************************************************************
@@ -50,11 +50,11 @@ public enum Message {
      **************************************************************
      */
 
-    intro_not_found,
+    intro_not_found("该首页信息不存在"),
     /**
      * QG历史不存在
      */
-    history_not_found,
+    history_not_found("该QG大事记不存在"),
 
     /*
      **************************************************************
@@ -65,20 +65,20 @@ public enum Message {
     /**
      * 指导老师不存在
      */
-    leader_not_found,
+    leader_not_found("该指导老师不存在"),
 
     /**
      * 重要时刻不存在
      */
-    moment_not_found,
+    moment_not_found("该重要时刻不存在"),
     /**
      * 奖项不存在
      */
-    award_not_found,
+    award_not_found("该奖项不存在"),
     /**
      * 特色不存在
      */
-    feature_not_found,
+    feature_not_found("该QG特色不存在"),
     /*
      **************************************************************
      *              成员
@@ -87,7 +87,7 @@ public enum Message {
     /**
      * 成员不存在
      */
-    member_not_found,
+    member_not_found("该成员不存在"),
 
     /*
      **************************************************************
@@ -97,7 +97,7 @@ public enum Message {
     /**
      * 项目不存在
      */
-    project_not_found,
+    project_not_found("该项目不存在"),
 
 
     /*
@@ -108,7 +108,7 @@ public enum Message {
     /**
      * 领域不存在
      */
-    field_not_found,
+    field_not_found("该研究方向不存在"),
 
     /*
      **************************************************************
@@ -118,35 +118,35 @@ public enum Message {
     /**
      * 标题过长
      */
-    title_too_long,
+    title_too_long("您输入的标题过长"),
     /**
      * 描述过长
      */
-    description_too_long,
+    description_too_long("您输入的描述过长"),
     /**
      * 名称过长
      */
-    name_too_long,
+    name_too_long("您输入的名称过长"),
     /**
      * 序号太长
      */
-    number_too_long,
+    number_too_long("您输入的序号过长"),
     /**
      * 登记号太长
      */
-    rn_too_long,
+    rn_too_long("您输入的登记号过长"),
     /**
      * 身份太长
      */
-    position_too_long,
+    position_too_long("您输入的身份信息过长"),
     /**
      * 年级太长
      */
-    grade_too_long,
+    grade_too_long("您输入的年级过长"),
     /**
      * 研究方向太长
      */
-    field_too_long,
+    field_too_long("您输入的研究方向过长"),
     /**
      * url太长
      */
