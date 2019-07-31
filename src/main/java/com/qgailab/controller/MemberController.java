@@ -129,7 +129,7 @@ public class MemberController {
             String path = request.getSession().getServletContext().getRealPath("/upload/");
             member = (Member) result.getData();
             //保存图片数组
-            List<Image> list = uploadService.uploadFile(member.getUuid(), uploads, path);
+            List<Image> list = uploadService.uploadImage(member.getUuid(), uploads, path);
             //更新到leader中
             List<Image> oldList = member.getImages();
             //删除之前的图片

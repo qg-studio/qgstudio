@@ -1,15 +1,12 @@
 package com.qgailab.controller;
 
 import com.qgailab.model.dto.ServiceResult;
-import com.qgailab.model.po.Field;
 import com.qgailab.model.po.History;
 import com.qgailab.model.po.Image;
-import com.qgailab.model.po.History;
 import com.qgailab.service.HistoryService;
 import com.qgailab.service.UploadService;
 import com.qgailab.service.constants.Message;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -55,7 +52,7 @@ public class HistoryController {
             String path = request.getSession().getServletContext().getRealPath("/upload/");
             history = (History) result.getData();
             //保存图片数组
-            List<Image> list = uploadService.uploadFile(history.getUuid(), uploads, path,description);
+            List<Image> list = uploadService.uploadImage(history.getUuid(), uploads, path,description);
             //更新到history中
             List<Image> oldList = history.getImages();
             if (oldList == null) {

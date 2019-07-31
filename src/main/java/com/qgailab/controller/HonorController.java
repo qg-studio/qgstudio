@@ -3,7 +3,6 @@ package com.qgailab.controller;
 import com.qgailab.model.dto.ServiceResult;
 import com.qgailab.model.po.Honor;
 import com.qgailab.model.po.Image;
-import com.qgailab.model.po.Honor;
 import com.qgailab.service.HonorService;
 import com.qgailab.service.UploadService;
 import com.qgailab.service.constants.Message;
@@ -51,7 +50,7 @@ public class HonorController {
             String path = request.getSession().getServletContext().getRealPath("/upload/");
             honor = (Honor) result.getData();
             //保存图片数组
-            List<Image> list = uploadService.uploadFile(honor.getUuid(), uploads, path);
+            List<Image> list = uploadService.uploadImage(honor.getUuid(), uploads, path);
             //更新到honor中
             List<Image> oldList = honor.getImages();
             if (oldList == null) {

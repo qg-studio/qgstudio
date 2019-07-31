@@ -32,22 +32,32 @@ public class TestUtil {
         AwardMapper awardMapper = sqlSession.getMapper(AwardMapper.class);
         FeatureMapper featureMapper = sqlSession.getMapper(FeatureMapper.class);
 
-        User user = new User();
-        user.setUsername("test3");
-        user.setPassword("1234");
-        user.setType("USER");
+        for (int i = 0; i < 300000; i++) {
+            Award award = new Award();
+            award.setGame("挑战杯");
+            award.setInstitution("中科院");
+            award.setProject("矿工帽项目");
+            award.setWinner("曾华琛");
+            award.setLevel("国家级");
+            award.setPrize("特等奖");
+            awardMapper.insertSelective(award);
+        }
 
-        Award award = awardMapper.selectByPrimaryKey(1L);
-        Feature feature = featureMapper.selectByPrimaryKey(1L);
-        imageMapper.selectByPrimaryKey(10L);
-        List<Image> image = imageMapper.listByFuuid("5c071e13afa54897b485378aae8410a2");
-
-
-        System.out.println(feature);
-        System.out.println(award);
-        System.out.println(image.get(1));
-        System.out.println("id = " + user.getId());
-
+//        User user = new User();
+//        user.setUsername("test3");
+//        user.setPassword("1234");
+//        user.setType("USER");
+//
+//        Award award = awardMapper.selectByPrimaryKey(1L);
+//        Feature feature = featureMapper.selectByPrimaryKey(1L);
+//        imageMapper.selectByPrimaryKey(10L);
+//        List<Image> image = imageMapper.listByFuuid("5c071e13afa54897b485378aae8410a2");
+//
+//
+//        System.out.println(feature);
+//        System.out.println(award);
+//        System.out.println(image.get(1));
+//        System.out.println("id = " + user.getId());
 
     }
 

@@ -73,7 +73,7 @@ public class IntroController {
             String path = request.getSession().getServletContext().getRealPath("/upload/");
             intro = (Intro) result.getData();
             //保存图片数组
-            List<Image> list = uploadService.uploadFile(intro.getUuid(), uploads, path);
+            List<Image> list = uploadService.uploadImage(intro.getUuid(), uploads, path);
             //更新到intro中
             List<Image> oldList = intro.getImages();
             imageService.removeImageList(path, oldList);

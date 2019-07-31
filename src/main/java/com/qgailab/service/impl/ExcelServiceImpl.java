@@ -1,5 +1,6 @@
 package com.qgailab.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.qgailab.dao.*;
 import com.qgailab.model.dto.ServiceResult;
 import com.qgailab.model.po.Award;
@@ -12,6 +13,7 @@ import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
@@ -41,6 +43,9 @@ public class ExcelServiceImpl implements ExcelService {
     @Autowired
     private CopyrightMapper copyrightMapper;
 
+    @Value(value = "#{conf.export}")
+    private String path;
+
     /**
      * 从Mapper中获取一个类的数据
      *
@@ -59,11 +64,11 @@ public class ExcelServiceImpl implements ExcelService {
         Field[] fields = object.getClass().getDeclaredFields();
         String[] fieldNames = new String[fields.length];
         for (int i = 2; i < fieldNames.length - 2; i++) {
-            System.out.println(fields[i].getName());
             listName.add(fields[i].getName());
             listId.add(fields[i].getName());
         }
         if (object instanceof Award) {
+            PageHelper.startPage(1,60000);
             list = awardMapper.listPageOrderByNumber();
         }
         if (object instanceof News) {
@@ -93,18 +98,15 @@ public class ExcelServiceImpl implements ExcelService {
     public ServiceResult exportExcel(String title, List headersName, List headersId, List dtoList) {
         //表头--标题栏
         Map<Integer, String> headersNameMap = new HashMap<>();
+        Map<Integer, String> titleFieldMap = new HashMap<>();
         int key = 0;
+        int value = 0;
         for (int i = 0; i < headersName.size(); i++) {
-            if (!headersName.get(i).equals(null)) {
+            if (headersName.get(i)!=null) {
                 headersNameMap.put(key, (String) headersName.get(i));
                 key++;
             }
-        }
-        //字段
-        Map<Integer, String> titleFieldMap = new HashMap<>();
-        int value = 0;
-        for (int i = 0; i < headersId.size(); i++) {
-            if (!headersId.get(i).equals(null)) {
+            if (headersId.get(i) != null) {
                 titleFieldMap.put(value, (String) headersId.get(i));
                 value++;
             }
@@ -170,23 +172,15 @@ public class ExcelServiceImpl implements ExcelService {
                             }
                             row.createCell((short) zdCell).setCellValue(textVal);//写进excel对象
                             zdCell++;
-                        } catch (SecurityException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+                        } catch (SecurityException | NoSuchMethodException |
+                                IllegalAccessException | InvocationTargetException e) {
                             e.printStackTrace();
                         }
                     }
                 }
             }
         }
-        try {
-            FileOutputStream exportXls = new FileOutputStream("E://荣誉信息表.xls");
-            wb.write(exportXls);
-            exportXls.close();
-            System.out.println("导出成功!");
-        } catch (IOException e) {
-            System.out.println("导出失败!");
-            e.printStackTrace();
-        }
-        return new ServiceResult(200, Message.success);
+        return new ServiceResult(200, Message.success,wb);
     }
 
 
@@ -202,7 +196,7 @@ public class ExcelServiceImpl implements ExcelService {
      */
     @Override
     public ServiceResult importExcel(String filename, InputStream in, Object object) {
-        ServiceResult sr = null;
+        ServiceResult result = null;
         //判断是否是excel2007格式
         boolean isxlsx = false;
         if (filename.endsWith("xlsx")) {
@@ -230,16 +224,16 @@ public class ExcelServiceImpl implements ExcelService {
                 //判断所要打印的数据类型（4中类型）
                 if (object instanceof Award) {
                     //Award类型
-                    sr = parseAward(cells);
+                    result = parseAward(cells);
                 } else if (object instanceof Copyright) {
                     //Copyright类型
-                    sr = parseCopyright(cells);
+                    result = parseCopyright(cells);
                 } else if (object instanceof News) {
                     //News类型
-                    sr = parseNews(cells);
+                    result = parseNews(cells);
                 } else if (object instanceof Patent) {
                     //Patent类型
-                    sr = parsePatent(cells);
+                    result = parsePatent(cells);
                 } else {
                     return new ServiceResult(401, Message.object_not_found);
                 }
@@ -248,7 +242,7 @@ public class ExcelServiceImpl implements ExcelService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return sr;
+        return result;
     }
 
     /**
@@ -295,14 +289,14 @@ public class ExcelServiceImpl implements ExcelService {
                         award.setLeader(String.valueOf(cell.getStringCellValue()));
                         break;
                     default:
-                        System.out.println("unsuported sell type");
-                        break;
+                        return new ServiceResult(402,Message.type_not_support);
                 }
             }
         }
         if (awardMapper.insertSelective(award) != 1) {
-            return new ServiceResult(402, Message.database_exception);
+            return new ServiceResult(403, Message.database_exception);
         }
+
         return new ServiceResult(200, Message.success);
     }
 
@@ -318,6 +312,8 @@ public class ExcelServiceImpl implements ExcelService {
      */
     private ServiceResult parsePatent(Iterator<Cell> cells) {
         Patent patent = new Patent();
+
+
         while (cells.hasNext()) {
             //在每一行基础上去遍历每一列
             Cell cell = cells.next();//指向下一列
@@ -338,9 +334,13 @@ public class ExcelServiceImpl implements ExcelService {
                         patent.setInventor(String.valueOf(cell.getStringCellValue()));
                         break;
                     default:
-                        return new ServiceResult(406, Message.attribute_not_found);
+                        return new ServiceResult(402,Message.type_not_support);
+
                 }
             }
+        }
+        if (patentMapper.insertSelective(patent) != 1) {
+            return new ServiceResult(403, Message.database_exception);
         }
         return new ServiceResult(200, Message.success);
     }
@@ -372,9 +372,13 @@ public class ExcelServiceImpl implements ExcelService {
                         news.setUrl(String.valueOf(cell.getStringCellValue()));
                         break;
                     default:
-                        return new ServiceResult(406, Message.attribute_not_found);
+                        return new ServiceResult(402,Message.type_not_support);
+
                 }
             }
+        }
+        if (newsMapper.insertSelective(news) != 1) {
+            return new ServiceResult(403, Message.database_exception);
         }
         return new ServiceResult(200, Message.success);
     }
@@ -410,9 +414,13 @@ public class ExcelServiceImpl implements ExcelService {
                         copyright.setDate(String.valueOf(cell.getStringCellValue()));
                         break;
                     default:
-                        return new ServiceResult(406, Message.attribute_not_found);
+                        return new ServiceResult(402,Message.type_not_support);
+
                 }
             }
+        }
+        if (copyrightMapper.insertSelective(copyright) != 1) {
+            return new ServiceResult(403, Message.database_exception);
         }
         return new ServiceResult(200, Message.success);
     }

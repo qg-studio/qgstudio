@@ -24,6 +24,14 @@ import java.util.UUID;
  * @date 2019-04-16 20:51
  */
 public class UUIDUtils {
+    /**
+     * 用于提供一个uuid，并去除其中的横线
+     * @name getUUID
+     * @return
+     * @notice none
+     * @author <a href="mailto:kobe524348@gmail.com">黄钰朝</a>
+     * @date 2019-07-30
+     */
     public static String getUUID(){
         String uuid = UUID.randomUUID().toString();
         return uuid.replace("-","");

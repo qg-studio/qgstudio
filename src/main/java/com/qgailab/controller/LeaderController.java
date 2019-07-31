@@ -111,7 +111,7 @@ public class LeaderController {
             String path = request.getSession().getServletContext().getRealPath("/upload/");
             leader = (Leader) result.getData();
             //保存图片数组
-            List<Image> list = uploadService.uploadFile(leader.getUuid(), uploads, path);
+            List<Image> list = uploadService.uploadImage(leader.getUuid(), uploads, path);
             //更新到leader中
             List<Image> oldList = leader.getImages();
             imageService.removeImageList(path,oldList);
