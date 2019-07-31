@@ -209,9 +209,9 @@ public class IntroServiceImpl implements IntroService {
      */
     private String validate(Intro intro) {
         if (!ValidationUtils.inMaxVarcharSize(intro.getTitle())) {
-            return Message.title_too_long.name();
+            return Message.title_too_long.toString();
         }if(!ValidationUtils.inMaxTextSize(intro.getDescription())){
-            return Message.description_too_long.name();
+            return Message.description_too_long.toString();
         } else {
             return null;
         }

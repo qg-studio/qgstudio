@@ -204,12 +204,12 @@ public class LeaderServiceImpl implements LeaderService {
      */
     private String validate(Leader leader) {
         if (!ValidationUtils.inMaxVarcharSize(leader.getName())) {
-            return Message.title_too_long.name();
+            return Message.title_too_long.toString();
         }if(!ValidationUtils.inMaxTextSize(leader.getDescription())){
-            return Message.description_too_long.name();
+            return Message.description_too_long.toString();
         }
         if (!ValidationUtils.inMaxVarcharSize(leader.getPosition())) {
-            return Message.position_too_long.name();
+            return Message.position_too_long.toString();
         } else {
             return null;
         }

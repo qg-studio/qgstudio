@@ -199,9 +199,9 @@ public class FieldServiceImpl implements FieldService {
      */
     private String validate(Field field) {
         if (!ValidationUtils.inMaxVarcharSize(field.getName())) {
-            return Message.title_too_long.name();
+            return Message.title_too_long.toString();
         }if(!ValidationUtils.inMaxTextSize(field.getDescription())){
-            return Message.description_too_long.name();
+            return Message.description_too_long.toString();
         } else {
             return null;
         }

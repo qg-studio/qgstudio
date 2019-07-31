@@ -199,9 +199,9 @@ public class NewsServiceImpl implements NewsService {
      */
     private String validate(News news) {
         if (!ValidationUtils.inMaxVarcharSize(news.getTitle())) {
-            return Message.title_too_long.name();
+            return Message.title_too_long.toString();
         } else if (!ValidationUtils.inMaxVarcharSize(news.getUrl())) {
-            return Message.url_too_long.name();
+            return Message.url_too_long.toString();
         } else {
             return null;
         }

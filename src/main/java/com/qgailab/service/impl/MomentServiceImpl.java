@@ -197,7 +197,7 @@ public class MomentServiceImpl implements MomentService {
      */
     private String validate(Moment moment) {
         if (!ValidationUtils.inMaxVarcharSize(moment.getTitle())) {
-            return Message.title_too_long.name();
+            return Message.title_too_long.toString();
         } else {
             return null;
         }

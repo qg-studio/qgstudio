@@ -241,12 +241,12 @@ public class MemberServiceImpl implements MemberService {
      */
     private String validate(Member member) {
         if (!ValidationUtils.inMaxVarcharSize(member.getName())) {
-            return Message.name_too_long.name();
+            return Message.name_too_long.toString();
         }if(!ValidationUtils.inMaxVarcharSize(member.getGrade())){
-            return Message.grade_too_long.name();
+            return Message.grade_too_long.toString();
         }
         if (!ValidationUtils.inMaxVarcharSize(member.getField())) {
-            return Message.field_too_long.name();
+            return Message.field_too_long.toString();
         } else {
             return null;
         }

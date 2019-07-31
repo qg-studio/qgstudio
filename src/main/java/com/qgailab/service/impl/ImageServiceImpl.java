@@ -151,7 +151,7 @@ public class ImageServiceImpl implements ImageService {
      */
     private String validate(Image image) {
         if(!ValidationUtils.inMaxVarcharSize(image.getDescription())){
-            return Message.description_too_long.name();
+            return Message.description_too_long.toString();
         } else {
             return null;
         }

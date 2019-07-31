@@ -109,8 +109,8 @@ public class AwardServiceImpl implements AwardService {
                 return new ServiceResult(402, Message.parameter_not_enough);
             }
             String message = validate(award);
-            if(message!=null){
-                return new ServiceResult(403,message,award);
+            if (message != null) {
+                return new ServiceResult(403, message, award);
             }
             if (awardMapper.insertSelective(award) != 1) {
                 return new ServiceResult(404, Message.database_exception);
@@ -146,8 +146,8 @@ public class AwardServiceImpl implements AwardService {
                 return new ServiceResult(402, Message.parameter_not_enough);
             }
             String message = validate(award);
-            if(message!=null){
-                return new ServiceResult(403,message,award);
+            if (message != null) {
+                return new ServiceResult(403, message, award);
             }
             if (awardMapper.selectByPrimaryKey(award.getId()) == null) {
                 return new ServiceResult(404, Message.award_not_found);
@@ -204,19 +204,21 @@ public class AwardServiceImpl implements AwardService {
      */
     private String validate(Award award) {
         if (!ValidationUtils.inMaxVarcharSize(award.getProject())) {
-            return Message.project_too_long.name();
-        }  else if (!ValidationUtils.inMaxVarcharSize(award.getGame())) {
-            return Message.game_too_long.name();
+            return Message.project_too_long.toString();
+        } else if (!ValidationUtils.inMaxVarcharSize(award.getDate())) {
+            return Message.date_too_long.toString();
+        } else if (!ValidationUtils.inMaxVarcharSize(award.getGame())) {
+            return Message.game_too_long.toString();
         } else if (!ValidationUtils.inMaxVarcharSize(award.getLevel())) {
-            return Message.level_too_long.name();
+            return Message.level_too_long.toString();
         } else if (!ValidationUtils.inMaxVarcharSize(award.getLeader())) {
-            return Message.leader_too_long.name();
+            return Message.leader_too_long.toString();
         } else if (!ValidationUtils.inMaxVarcharSize(award.getInstitution())) {
-            return Message.institution_too_long.name();
+            return Message.institution_too_long.toString();
         } else if (!ValidationUtils.inMaxVarcharSize(award.getPrize())) {
-            return Message.prize_too_long.name();
+            return Message.prize_too_long.toString();
         } else if (!ValidationUtils.inMaxVarcharSize(award.getWinner())) {
-            return Message.winner_too_long.name();
+            return Message.winner_too_long.toString();
         } else {
             return null;
         }

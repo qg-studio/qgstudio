@@ -205,9 +205,9 @@ public class CopyrightServiceImpl implements CopyrightService {
      */
     private String validate(Copyright copyright) {
         if (!ValidationUtils.inMaxVarcharSize(copyright.getName())) {
-            return Message.name_too_long.name();
+            return Message.name_too_long.toString();
         }if(!ValidationUtils.inMaxVarcharSize(copyright.getRn())){
-            return Message.rn_too_long.name();
+            return Message.rn_too_long.toString();
         } else {
             return null;
         }

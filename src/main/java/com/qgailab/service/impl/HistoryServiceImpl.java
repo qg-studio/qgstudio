@@ -204,9 +204,9 @@ public class HistoryServiceImpl implements HistoryService {
      */
     private String validate(History history) {
         if (!ValidationUtils.inMaxVarcharSize(history.getTitle())) {
-            return Message.title_too_long.name();
+            return Message.title_too_long.toString();
         }if(!ValidationUtils.inMaxTextSize(history.getDescription())){
-            return Message.description_too_long.name();
+            return Message.description_too_long.toString();
         } else {
             return null;
         }

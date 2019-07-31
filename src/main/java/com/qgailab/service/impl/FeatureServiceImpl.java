@@ -210,9 +210,9 @@ public class FeatureServiceImpl implements FeatureService {
      */
     private String validate(Feature feature) {
         if (!ValidationUtils.inMaxVarcharSize(feature.getTitle())) {
-            return Message.title_too_long.name();
+            return Message.title_too_long.toString();
         }if(!ValidationUtils.inMaxTextSize(feature.getDescription())){
-            return Message.description_too_long.name();
+            return Message.description_too_long.toString();
         } else {
             return null;
         }

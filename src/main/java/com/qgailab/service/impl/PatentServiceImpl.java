@@ -201,11 +201,11 @@ public class PatentServiceImpl implements PatentService {
      */
     private String validate(Patent patent) {
         if (!ValidationUtils.inMaxVarcharSize(patent.getName())) {
-            return Message.name_too_long.name();
+            return Message.name_too_long.toString();
         } else if (!ValidationUtils.inMaxVarcharSize(patent.getZl())) {
-            return Message.zl_too_long.name();
+            return Message.zl_too_long.toString();
         } else if (!ValidationUtils.inMaxVarcharSize(patent.getInventor())) {
-            return Message.inventor_too_long.name();
+            return Message.inventor_too_long.toString();
         } else {
             return null;
         }

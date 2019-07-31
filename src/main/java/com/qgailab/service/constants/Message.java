@@ -7,6 +7,7 @@ package com.qgailab.service.constants;
  */
 public enum Message {
 
+
     /*
      **************************************************************
      *              用户
@@ -119,6 +120,10 @@ public enum Message {
      * 标题过长
      */
     title_too_long("您输入的标题过长"),
+    /**
+     * 日期过长
+     */
+    date_too_long("您输入的日期过长"),
     /**
      * 描述过长
      */
@@ -276,6 +281,7 @@ public enum Message {
         this.message = message;
     }
 
+
     /**
      * Returns the name of this enum constant, as contained in the
      * declaration.  This method may be overridden, though it typically
@@ -288,4 +294,6 @@ public enum Message {
     public String toString() {
         return this.message;
     }
+
+
 }

@@ -204,9 +204,9 @@ public class HonorServiceImpl implements HonorService {
      */
     private String validate(Honor honor) {
         if (!ValidationUtils.inMaxVarcharSize(honor.getTitle())) {
-            return Message.title_too_long.name();
+            return Message.title_too_long.toString();
         }if(!ValidationUtils.inMaxTextSize(honor.getDescription())){
-            return Message.description_too_long.name();
+            return Message.description_too_long.toString();
         } else {
             return null;
         }

@@ -208,9 +208,9 @@ public class ProjectServiceImpl implements ProjectService {
      */
     private String validate(Project project) {
         if (!ValidationUtils.inMaxVarcharSize(project.getTitle())) {
-            return Message.title_too_long.name();
+            return Message.title_too_long.toString();
         }if(!ValidationUtils.inMaxTextSize(project.getDescription())){
-            return Message.description_too_long.name();
+            return Message.description_too_long.toString();
         } else {
             return null;
         }
