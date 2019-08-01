@@ -38,7 +38,9 @@ public class OperationLogger {
             "||execution(* com.qgailab.service.impl.*ServiceImpl.insert*(..))")
     public ServiceResult aroundOperate(ProceedingJoinPoint proceedingJoinPoint) {
         User user = (User) session.getAttribute("login");
-        user = new User();
+        if(user==null){
+            user = new User();
+        }
         ServiceResult result = null;
         try {
             //获取正在执行的方法和返回值
@@ -53,7 +55,6 @@ public class OperationLogger {
                 log.warn("用户[" + user.getUsername() + "] 对[" + permmision.module().getName() + "]执行了[" + permmision.operation().getName() + "]操作");
 
                 Log log = new Log();
-                log.setTime(new Date());
                 log.setNote("用户[" + user.getUsername() + "] 对[" + permmision.module().getName() + "]执行了[" + permmision.operation().getName() + "]操作");
                 logMapper.insertSelective(log);
             }
