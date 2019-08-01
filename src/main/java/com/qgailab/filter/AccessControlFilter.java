@@ -17,14 +17,14 @@ import java.io.IOException;
  * @date 2019-07-26 14:56
  */
 @WebFilter(
-        filterName = "EncodingFilter",
+        filterName = "AccessControlFilter",
         urlPatterns = {"/*"}, servletNames = {"/*"},
         initParams = {
                 @WebInitParam(name = "ENCODING", value = "UTF-8")
         }
 )
 @Slf4j
-public class EncodingFilter extends OncePerRequestFilter {
+public class AccessControlFilter extends OncePerRequestFilter {
     private final String ENCODING = "UTF-8";
 
     @Override
@@ -35,7 +35,10 @@ public class EncodingFilter extends OncePerRequestFilter {
                     "origin, content-type, accept, x-requested-with, sid, mycustom, smuser");
             httpServletResponse.addHeader("Access-Control-Allow-Methods", "*");
             httpServletResponse.addHeader("Access-Control-Max-Age", "100");
-            httpServletResponse.addHeader("Access-Control-Allow-Credentials", "false");
+            httpServletResponse.addHeader("Access-Control-Allow-Credentials","true");
+
+
+
 
             filterChain.doFilter(httpServletRequest, httpServletResponse);
         } catch (IOException | ServletException e) {
