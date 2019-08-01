@@ -85,7 +85,7 @@
   </resultMap>
   <select id="selectByFuuid" parameterType="java.lang.String" resultMap="ImageResultMap" resultType="java.util.List">
     select
-     image.id as imageId , image.fuuid , image.filename ,image.gmt_create , image.gmt_modified
+     image.id as imageId , image.fuuid , image.filename ,image.description,image.gmt_create , image.gmt_modified
     from image as image
     where fuuid = #{uuid,jdbcType=BIGINT}
   </select>

@@ -72,7 +72,7 @@ function upDate() {
     form.innerHTML = modelStr(data.data.length - 1); // 首节点是添加
     form.children[0].children[0].style.display = "none"; // 去掉首节点的删除按钮
     form.children[0].getElementsByClassName("click")[1].setAttribute("onclick", "addCommit()");
-    for (var j = data.data.length - 2; j > 0; j--) {
+    for (var j = data.data.length - 2; j >= 0; j--) {
         let model = modelStr(j);
         form.innerHTML += model;
     }
@@ -84,7 +84,7 @@ function getDate() {
         "grade": grade,
         "field": field,
         "page": page,
-        "pageSize": 4
+        "pageSize": 11
     }
     $.ajax({
         "url": serverUrl + "/member/list",
@@ -151,11 +151,11 @@ function deleteFun() {
                                 alert("删除成功。");
                             }, 520);
                         } else if (response.status == 401) {
-                            alert(response.message);
+                            alert("删除失败。");
                         }
                     })
                     .fail(function (jqXHR) {
-                        alert(response.message)
+                        alert("删除失败。")
                     })
                 break;
             }
@@ -275,10 +275,10 @@ function addCommit() {
                 if (updateImg(img, response.data.id)) {
                     alert("添加成功");
                 } else {
-                    alert(response.message);
+                    alert("图片上传失败");
                 }
             } else {
-                alert(response.message);
+                alert("添加失败");
             }
             upDate();
             inputChange(self);
@@ -378,6 +378,8 @@ function inputChange(parentNode) {
 function judegInput(obj) {
     var date = new Date();
     var nowYear = date.getFullYear();
+
+    console.log(obj.grade < 2005, obj.field);
 
     for (var i = 1; i < groupList.length; i++) {
         console.log(obj.field, groupList[i].innerText);

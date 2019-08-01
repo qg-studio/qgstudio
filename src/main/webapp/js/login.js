@@ -24,7 +24,7 @@ define(['require', 'tools'], function (require) {
                         } else if (data.message == "success") {
                             alert("登录成功！");
                         } else {
-                            alert(response.message);
+                            alert(data.message);
                         }
                     }
                 })
