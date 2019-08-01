@@ -45,6 +45,6 @@ public class LogController {
      */
     @RequestMapping(value = "/show", method = {RequestMethod.POST, RequestMethod.GET})
     public String showLog() {
-        return "log";
+        return "redirect:/html/log.html";
     }
 }
