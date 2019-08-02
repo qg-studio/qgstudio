@@ -117,7 +117,7 @@ public class CopyrightController {
      * @author < a href=" ">郭沛</ a>
      * @date
      */
-    @RequestMapping(value = "/export", method = RequestMethod.POST)
+    @RequestMapping(value = "/export", method = {RequestMethod.POST,RequestMethod.GET})
     public ServiceResult exportNews(String title, HttpServletResponse resp) {
         ServiceResult result = excelService.getTypeList(title, new Copyright());
         OutputStream os = null;
