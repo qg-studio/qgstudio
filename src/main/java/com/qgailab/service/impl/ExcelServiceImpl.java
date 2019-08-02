@@ -240,9 +240,9 @@ public class ExcelServiceImpl implements ExcelService {
                 }
                 //遍历每一行并将数据插入数据库
             }
-
         } catch (IOException e) {
             e.printStackTrace();
+            return new ServiceResult(500,Message.please_retry);
         }
         return result;
     }
