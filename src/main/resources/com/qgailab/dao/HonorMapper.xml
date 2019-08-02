@@ -10,7 +10,7 @@
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="uuid" jdbcType="VARCHAR" property="uuid" />
     <result column="title" jdbcType="VARCHAR" property="title" />
-    <result column="date" jdbcType="DATE" property="date" />
+    <result column="date" jdbcType="VARCHAR" property="date" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
     <!--    映射图片结果集-->
@@ -106,7 +106,7 @@
       date, gmt_create, gmt_modified, 
       description)
     values (#{id,jdbcType=BIGINT}, #{uuid,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
-      #{date,jdbcType=DATE}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{date,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP},
       #{description,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.qgailab.model.po.Honor">
@@ -153,7 +153,7 @@
         #{title,jdbcType=VARCHAR},
       </if>
       <if test="date != null">
-        #{date,jdbcType=DATE},
+        #{date,jdbcType=VARCHAR},
       </if>
       <if test="gmtCreate != null">
         #{gmtCreate,jdbcType=TIMESTAMP},
@@ -181,7 +181,7 @@
         title = #{title,jdbcType=VARCHAR},
       </if>
       <if test="date != null">
-        date = #{date,jdbcType=DATE},
+        date = #{date,jdbcType=VARCHAR},
       </if>
       <if test="gmtCreate != null">
         gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
@@ -204,7 +204,7 @@
     update honor
     set uuid = #{uuid,jdbcType=VARCHAR},
       title = #{title,jdbcType=VARCHAR},
-      date = #{date,jdbcType=DATE},
+      date = #{date,jdbcType=VARCHAR},
       gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
       description = #{description,jdbcType=LONGVARCHAR}
@@ -219,7 +219,7 @@
     update honor
     set uuid = #{uuid,jdbcType=VARCHAR},
       title = #{title,jdbcType=VARCHAR},
-      date = #{date,jdbcType=DATE},
+      date = #{date,jdbcType=VARCHAR},
       gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}

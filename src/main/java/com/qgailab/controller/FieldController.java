@@ -1,5 +1,6 @@
 package com.qgailab.controller;
 
+import com.qgailab.dao.FieldMapper;
 import com.qgailab.model.dto.ServiceResult;
 import com.qgailab.model.po.Field;
 import com.qgailab.model.po.Image;
@@ -29,6 +30,9 @@ public class FieldController {
     private UploadService uploadService;
     @Autowired
     private ImageService imageService;
+    @Autowired
+    private FieldMapper fieldMapper;
+
 
     /**
      * 负责上传图片
@@ -57,7 +61,11 @@ public class FieldController {
             //更新到field中
             List<Image> oldList = field.getImages();
             imageService.removeImageList(path, oldList);
-            field.setImages(list);
+            if (oldList != null) {
+                oldList.addAll(list);
+            } else {
+                field.setImages(list);
+            }
             fieldService.updateField(field);
         } catch (Exception e) {
             e.printStackTrace();
@@ -94,10 +102,34 @@ public class FieldController {
      */
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public @ResponseBody
-    ServiceResult updateField(@RequestBody Field field) {
+    ServiceResult updateField(Long id, String name, String description, @RequestParam(value = "front", required = false) MultipartFile front,
+                              @RequestParam(value = "end", required = false) MultipartFile end, HttpServletRequest request) {
+
+        Field field = new Field(id,null,name,null,null,null,null,null,description);
+
+        String path = request.getSession().getServletContext().getRealPath("/upload/");
+
+        ServiceResult result;
+
+        Field realField = fieldMapper.selectByPrimaryKey(field.getId());
+        if (front != null && !front.isEmpty()) {
+            result = imageService.updateImage(front, path, realField.getImages().get(0).getId());
+            if (result.getStatus() != 200) {
+                return result;
+            }
+            Image frontImage = (Image) result.getData();
+            field.setFront(frontImage.getFilename());
+        }
+        if (end != null && !end.isEmpty()) {
+            result = imageService.updateImage(end, path, realField.getImages().get(1).getId());
+            if (result.getStatus() != 200) {
+                return result;
+            }
+            Image endImage = (Image) result.getData();
+            field.setEnd(endImage.getFilename());
+        }
         return fieldService.updateField(field);
     }
-
 
 
     /**
@@ -115,9 +147,6 @@ public class FieldController {
     }
 
 
-
-
-
     /**
      * 分页查询首页信息
      *
@@ -132,7 +161,19 @@ public class FieldController {
     @RequestMapping(value = "/list", method = {RequestMethod.POST, RequestMethod.GET})
     public @ResponseBody
     ServiceResult listField(int page, int pageSize) {
-        return fieldService.listField(page, pageSize);
+
+        ServiceResult result = fieldService.listField(page, pageSize);
+        if (result.getStatus() != 200) {
+            return result;
+        }
+        List<Field> list = (List) result.getData();
+        for (int i = 0; i < list.size(); i++) {
+            Field field = list.get(i);
+            field.setFront(field.getImages().get(0).getFilename());
+            field.setEnd(field.getImages().get(1).getFilename());
+        }
+        result.setData(list);
+        return result;
     }
 
 }

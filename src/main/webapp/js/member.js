@@ -72,7 +72,7 @@ function upDate() {
     form.innerHTML = modelStr(data.data.length - 1); // 首节点是添加
     form.children[0].children[0].style.display = "none"; // 去掉首节点的删除按钮
     form.children[0].getElementsByClassName("click")[1].setAttribute("onclick", "addCommit()");
-    for (var j = data.data.length - 2; j > 0; j--) {
+    for (var j = data.data.length - 2; j >= 0; j--) {
         let model = modelStr(j);
         form.innerHTML += model;
     }
@@ -84,7 +84,7 @@ function getDate() {
         "grade": grade,
         "field": field,
         "page": page,
-        "pageSize": 4
+        "pageSize": 11
     }
     $.ajax({
         "url": serverUrl + "/member/list",
@@ -102,7 +102,7 @@ function getDate() {
             console.log(data);
         })
         .fail(function (jqXHR) {
-            alert("服务器请求失败。");
+            alert(jqXHR.message);
         })
 }
 
@@ -151,11 +151,11 @@ function deleteFun() {
                                 alert("删除成功。");
                             }, 520);
                         } else if (response.status == 401) {
-                            alert(response.message);
+                            alert("删除失败。");
                         }
                     })
                     .fail(function (jqXHR) {
-                        alert(response.message)
+                        alert(jqXHR.message);
                     })
                 break;
             }
@@ -216,13 +216,13 @@ function changeCommit() {
                         alert("修改成功");
                     }
                 } else {
-                    alert("服务器请求失败");
+                    alert(response.message);
                 }
                 inputChange(self);
                 upDate();
             })
             .fail(function (jqXHR) {
-                alert("!修改失败");
+                alert(jqXHR.message);
                 inputChange(self);
                 upDate();
             })
@@ -275,16 +275,16 @@ function addCommit() {
                 if (updateImg(img, response.data.id)) {
                     alert("添加成功");
                 } else {
-                    alert(response.message);
+                    alert("图片上传失败");
                 }
             } else {
-                alert(response.message);
+                alert("添加失败");
             }
             upDate();
             inputChange(self);
         })
         .fail(function (jqXHR) {
-            alert("访问服务器失败。")
+            alert(jqXHR.message);
             upDate();
             inputChange(self);
         })
@@ -336,14 +336,14 @@ function upFiles() {
 // 单个节点字符串
 function modelStr(j) {
     let model = `<li title="${data.data[j].id}">
-                 <img class="delete" src="../image/×.png" onclick="deleteFun()">
+                 <img class="delete" src="image/×.png" onclick="deleteFun()">
                  <div class="photo" style="background-image:url(${serverUrl}/upload/${data.data[j].images[0].filename})"></div>
                  <input class="upFile inputBan" type="file" name="" disabled="disabled" onchange="upFiles()">
                  <input type="text" placeholder="姓名" value="${data.data[j].name}" disabled="disabled" class="inputBan">
                  <input type="text" placeholder="组别" value="${data.data[j].field}" disabled="disabled" class="inputBan">
                  <input type="texe" placeholder="年份" value="${data.data[j].grade}" disabled="disabled" class="inputBan">
-                 <img class="click" src="../image/修改.png" title="修改" onclick="ableChange()"></img>
-                 <img class="click" src="../image/确定.png" title="确定" style="display:none" onclick="changeCommit()"></img>
+                 <img class="click" src="image/修改.png" title="修改" onclick="ableChange()"></img>
+                 <img class="click" src="image/确定.png" title="确定" style="display:none" onclick="changeCommit()"></img>
                </li>`;
     return model;
 }
@@ -378,6 +378,8 @@ function inputChange(parentNode) {
 function judegInput(obj) {
     var date = new Date();
     var nowYear = date.getFullYear();
+
+    console.log(obj.grade < 2005, obj.field);
 
     for (var i = 1; i < groupList.length; i++) {
         console.log(obj.field, groupList[i].innerText);

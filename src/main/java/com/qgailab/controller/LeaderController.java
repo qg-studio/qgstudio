@@ -1,6 +1,8 @@
 package com.qgailab.controller;
 
+import com.qgailab.dao.LeaderMapper;
 import com.qgailab.model.dto.ServiceResult;
+import com.qgailab.model.po.Field;
 import com.qgailab.model.po.Image;
 import com.qgailab.model.po.Leader;
 import com.qgailab.service.ImageService;
@@ -31,6 +33,8 @@ public class LeaderController {
 
     @Autowired
     private ImageService imageService;
+    @Autowired
+    private LeaderMapper leaderMapper;
 
     /**
      * @name 插入指导老师信息
@@ -48,7 +52,6 @@ public class LeaderController {
 
     /**
      * @name 更新指导老师信息
-     * @param leader
      * @return ServiceResult
      * @notice none
      * @author < a href=" ">郭沛</ a>
@@ -56,7 +59,22 @@ public class LeaderController {
      */
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public @ResponseBody
-    ServiceResult updateLeader(@RequestBody Leader leader) {
+    ServiceResult updateLeader(Long id,String name,String position,String description ,MultipartFile image,HttpServletRequest request) {
+        Leader leader = new Leader(id,null,name,position,null,null,null,null,description);
+
+        String path = request.getSession().getServletContext().getRealPath("/upload/");
+
+        ServiceResult result;
+
+        Leader realLeader = leaderMapper.selectByPrimaryKey(leader.getId());
+        if (image != null && !image.isEmpty()) {
+            result = imageService.updateImage(image, path, realLeader.getImages().get(0).getId());
+            if (result.getStatus() != 200) {
+                return result;
+            }
+            Image leaderImage = (Image) result.getData();
+            leader.setImage(leaderImage.getFilename());
+        }
         return leaderService.updateLeader(leader);
     }
 

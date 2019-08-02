@@ -27,8 +27,13 @@
 //        String path = uri.substring(contextPath.length());
 //        HttpSession sess;
 //
+//
 //        sess = req.getSession();
 //        //放行登陆注册
+//        if(path.endsWith("login.html")||path.endsWith("image/login.html")){
+//            filterChain.doFilter(req,resp);
+//            return;
+//        }
 //        if (sess == null || sess.getAttribute("login") == null) {
 //            if ("".equalsIgnoreCase(path) || "".equalsIgnoreCase(path) ||
 //                    path.endsWith("logo.png") || path.endsWith(".js") || path.endsWith("css")) {

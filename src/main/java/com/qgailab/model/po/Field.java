@@ -1,12 +1,18 @@
 package com.qgailab.model.po;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Field implements Serializable {
     /**
      *
@@ -37,6 +43,9 @@ public class Field implements Serializable {
      */
     private String name;
     private List<Image> images;
+
+    private String front;
+    private String end;
 
     /**
      *

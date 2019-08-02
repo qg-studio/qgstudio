@@ -19,7 +19,7 @@
 
     <util:properties id="conf" location="classpath:qgConfig.properties"/>
 
-    <bean id="cors" class="com.qgailab.filter.EncodingFilter"/>
+    <bean id="cors" class="com.qgailab.filter.AccessControlFilter"/>
     <!--Spring整合MyBatis框架-->
     <!--配置连接池-->
     <!-- Druid数据源  -->

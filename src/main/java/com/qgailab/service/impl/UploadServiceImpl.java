@@ -105,6 +105,9 @@ public class UploadServiceImpl implements UploadService {
             dir.mkdirs();
         }
         File targetFile = new File(path, filename);
+        if(targetFile.exists()){
+            targetFile.delete();
+        }
         try {
             file.transferTo(targetFile);
         } catch (Exception e) {

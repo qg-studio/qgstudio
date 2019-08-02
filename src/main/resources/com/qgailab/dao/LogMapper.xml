@@ -8,7 +8,7 @@
       This element was generated on Mon Jul 29 09:49:52 CST 2019.
     -->
     <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="time" jdbcType="DATE" property="time" />
+    <result column="time" jdbcType="TIMESTAMP" property="time" />
     <result column="note" jdbcType="VARCHAR" property="note" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />

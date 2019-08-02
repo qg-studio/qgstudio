@@ -19,8 +19,8 @@
 
 <!--    试图解析器-->
 <bean id="internalResourceViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-    <property name="prefix" value="/WEB-INF/pages/"/>
-    <property name="suffix" value=".jsp"/>
+<!--    <property name="prefix" value="/WEB-INF/pages/"/>-->
+<!--    <property name="suffix" value=".jsp"/>-->
 </bean>
 <!--    不过滤前端静态资源-->
     <mvc:resources mapping="/js/**" location="/js/"/>
