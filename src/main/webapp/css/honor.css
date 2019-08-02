@@ -2,6 +2,27 @@
 #honor input {
 	background-color: #5b08c3;
 }
+h1 {
+    position: relative;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 15px 20px;
+}
+h1:after {
+    background: none repeat scroll 0 0 transparent;
+    bottom: 0;
+    content: "";
+    display: block;
+    height: 2px;
+
+    position: absolute;
+    background: black;
+    transition: width .3s ease 0s;
+    width: 0
+}
+h1:hover:after {
+    width: 97%;
+}
 .container {
 	width: 60rem;
 }
@@ -15,7 +36,7 @@
 .news, 
 .patent, 
 .copyright {
-	width: 58rem;
+	width: 60rem;
 	margin: 10px auto;
 }
 .rule {
@@ -30,12 +51,21 @@
 	text-align: center;
 	font-size: 1.6rem;
 }
-.subtitle img {
+.subtitle img,
+.subtitle input,
+.subtitle a{
 	display: block;
 	position: absolute;
-	height: 80%;
-	top: 12%;
+	height: 1.6rem;
+	width: 1.6rem;
+	top: 0.2rem;
 	cursor: pointer;
+} 
+.subtitle input{
+	opacity: 0;
+	width: 0;
+	height: 0;
+	padding: 0.9rem;
 }
 .header {
 	margin: 1rem 0;
@@ -52,6 +82,9 @@
 }
 .list {
 	position: relative;
+	margin: 0.6rem auto;
+	box-shadow: 0 0px 5px #d2d2d2;
+	border-radius: 5px;
 }
 .award-list {
 	height: 6rem;
@@ -105,7 +138,6 @@
 }
 .page {
 	margin: 0 auto;
-	height: 2rem;
 	text-align: center;
 }
 .page li {
