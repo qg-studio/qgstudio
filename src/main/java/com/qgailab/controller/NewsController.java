@@ -24,7 +24,7 @@ import java.io.*;
  * @author < a href=" ">郭沛</ a>
  * @date 2019-07-27 09:34
  */
-@Controller
+@RestController
 @RequestMapping(value = "/news")
 public class NewsController {
 
