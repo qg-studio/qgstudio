@@ -22,7 +22,7 @@ import java.io.*;
  * @author < a href=" ">郭沛</ a>
  * @date 2019-07-27 09:43
  */
-@Controller
+@RestController
 @RequestMapping(value = "/patent")
 public class PatentController {
 
