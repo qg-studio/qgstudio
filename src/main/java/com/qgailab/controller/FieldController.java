@@ -121,7 +121,7 @@ public class FieldController {
             field.setFront(frontImage.getFilename());
         }
         if (end != null && !end.isEmpty()) {
-            result = imageService.updateImage(end, path, realField.getImages().get(0).getId());
+            result = imageService.updateImage(end, path, realField.getImages().get(1).getId());
             if (result.getStatus() != 200) {
                 return result;
             }
