@@ -22,7 +22,7 @@ import java.io.*;
  * @author < a href=" ">郭沛</ a>
  * @date 2019-07-27 09:43
  */
-@Controller
+@RestController
 @RequestMapping(value = "/patent")
 public class PatentController {
 
@@ -167,10 +167,10 @@ public class PatentController {
                         return result;
                     }
                 }else {
-                    return new ServiceResult(401,Message.type_not_support);
+                    return new ServiceResult(402,Message.type_not_support);
                 }
                 targetFile.delete();
-            }
+        }
         } catch (IOException e) {
             e.printStackTrace();
             return new ServiceResult(500, Message.please_retry);

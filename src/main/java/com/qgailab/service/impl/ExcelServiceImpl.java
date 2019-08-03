@@ -9,6 +9,7 @@ import com.qgailab.model.po.News;
 import com.qgailab.model.po.Patent;
 import com.qgailab.service.ExcelService;
 import com.qgailab.service.constants.Message;
+import com.qgailab.util.ValidationUtils;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -71,12 +72,15 @@ public class ExcelServiceImpl implements ExcelService {
             list = awardMapper.listPageOrderByNumber();
         }
         if (object instanceof News) {
+            PageHelper.startPage(1,60000);
             list = newsMapper.listPageOrderByNumber();
         }
         if (object instanceof Patent) {
+            PageHelper.startPage(1,60000);
             list = patentMapper.listPageOrderByNumber();
         }
         if (object instanceof Copyright) {
+            PageHelper.startPage(1,60000);
             list = copyrightMapper.listPageOrderByNumber();
         }
         ServiceResult sr = exportExcel("荣誉数据导出EXCEL文档", listName, listId, list);
@@ -198,6 +202,7 @@ public class ExcelServiceImpl implements ExcelService {
     @Override
     public ServiceResult importExcel(String filename, InputStream in, Object object) {
         ServiceResult result = null;
+        int rowTotal = 0, rowNull = 0;
         //判断是否是excel2007格式
         boolean isxlsx = false;
         if (filename.endsWith("xlsx")) {
@@ -208,16 +213,27 @@ public class ExcelServiceImpl implements ExcelService {
             Workbook wb = null;
             if (isxlsx) {
                 wb = new XSSFWorkbook(in);
-            } else {
+            }
+            else if (filename.endsWith("xls")){
                 wb = new HSSFWorkbook(in);
+            }
+            else {
+                return new ServiceResult(400,Message.type_not_support);
             }
             //获得第一个表格
             Sheet sheet = wb.getSheetAt(0);
             //获得第一个表格的行迭代器
             Iterator<Row> rows = sheet.rowIterator();
+            if(rows.hasNext() == false) {
+                return new ServiceResult(401,Message.excel_not_null);
+            }
             //略过每列的标题
             rows.next();
+            if(rows.hasNext() == false) {
+                return new ServiceResult(401,Message.excel_not_null);
+            }
             while (rows.hasNext()) {
+                rowTotal++;
                 //遍历每一行
                 Row row = rows.next();
                 //获得第一行的迭代器
@@ -226,23 +242,51 @@ public class ExcelServiceImpl implements ExcelService {
                 if (object instanceof Award) {
                     //Award类型
                     result = parseAward(cells);
+                    if(result.getStatus() == 300) {
+                        rowNull++;
+                    }
+                    if (result.getStatus() != 200 && result.getStatus() != 300) {
+                        return result;
+                    }
                 } else if (object instanceof Copyright) {
                     //Copyright类型
                     result = parseCopyright(cells);
+                    if(result.getStatus() == 300) {
+                        rowNull++;
+                    }
+                    if (result.getStatus() != 200 && result.getStatus() != 300) {
+                        return result;
+                    }
                 } else if (object instanceof News) {
                     //News类型
                     result = parseNews(cells);
+                    if(result.getStatus() == 300) {
+                        rowNull++;
+                    }
+                    if (result.getStatus() != 200 && result.getStatus() != 300) {
+                        return result;
+                    }
                 } else if (object instanceof Patent) {
                     //Patent类型
                     result = parsePatent(cells);
+                    if(result.getStatus() == 300) {
+                        rowNull++;
+                    }
+                    if (result.getStatus() != 200 && result.getStatus() != 300) {
+                        return result;
+                    }
                 } else {
-                    return new ServiceResult(401, Message.object_not_found);
+                    return new ServiceResult(402, Message.object_not_found);
                 }
+
                 //遍历每一行并将数据插入数据库
             }
-
+            if (rowNull == rowTotal) {
+                return new ServiceResult(405, Message.excel_not_null);
+            }
         } catch (IOException e) {
             e.printStackTrace();
+            return new ServiceResult(500,Message.please_retry);
         }
         return result;
     }
@@ -259,6 +303,7 @@ public class ExcelServiceImpl implements ExcelService {
      */
     private ServiceResult parseAward(Iterator<Cell> cells) {
         Award award = new Award();
+        boolean isEmpty = true;
         while (cells.hasNext()) {
             //在每一行基础上去遍历每一列
             Cell cell = cells.next();
@@ -267,34 +312,95 @@ public class ExcelServiceImpl implements ExcelService {
             if (award != null) {
                 switch (i) {
                     case 0:
+                        if (!ValidationUtils.inMaxVarcharSize(String.valueOf(cell.getStringCellValue()))) {
+                            return new ServiceResult(400, Message.project_too_long);
+                        }
+                        if (String.valueOf(cell.getStringCellValue()) == "") {
+                            break;
+                        }
                         award.setProject(String.valueOf(cell.getStringCellValue()));
+                        isEmpty = false;
                         break;
                     case 1:
+                        if (!ValidationUtils.inMaxVarcharSize(String.valueOf(cell.getStringCellValue()))) {
+                            return new ServiceResult(400, Message.game_too_long);
+                        }
+                        if (String.valueOf(cell.getStringCellValue()) == "") {
+                            break;
+                        }
                         award.setGame(String.valueOf(cell.getStringCellValue()));
+                        isEmpty = false;
                         break;
                     case 2:
+                        if (!ValidationUtils.inMaxVarcharSize(String.valueOf(cell.getStringCellValue()))) {
+                            return new ServiceResult(400, Message.date_too_long);
+                        }
+                        if (String.valueOf(cell.getStringCellValue()) == "") {
+                            break;
+                        }
                         award.setDate(String.valueOf(cell.getStringCellValue()));
+                        isEmpty = false;
                         break;
                     case 3:
+                        if (!ValidationUtils.inMaxVarcharSize(String.valueOf(cell.getStringCellValue()))) {
+                            return new ServiceResult(400, Message.level_too_long);
+                        }
+                        if (String.valueOf(cell.getStringCellValue()) == "") {
+                            break;
+                        }
                         award.setLevel(String.valueOf(cell.getStringCellValue()));
+                        isEmpty = false;
                         break;
                     case 4:
+                        if (!ValidationUtils.inMaxVarcharSize(String.valueOf(cell.getStringCellValue()))) {
+                            return new ServiceResult(400, Message.prize_too_long);
+                        }
+                        if (String.valueOf(cell.getStringCellValue()) == "") {
+                            break;
+                        }
                         award.setPrize(String.valueOf(cell.getStringCellValue()));
+                        isEmpty = false;
                         break;
                     case 5:
+                        if (!ValidationUtils.inMaxVarcharSize(String.valueOf(cell.getStringCellValue()))) {
+                            return new ServiceResult(400, Message.institution_too_long);
+                        }
+                        if (String.valueOf(cell.getStringCellValue()) == "") {
+                            break;
+                        }
                         award.setInstitution(String.valueOf(cell.getStringCellValue()));
+                        isEmpty = false;
                         break;
                     case 6:
+                        if (!ValidationUtils.inMaxVarcharSize(String.valueOf(cell.getStringCellValue()))) {
+                            return new ServiceResult(400, Message.winner_too_long);
+                        }
+                        if (String.valueOf(cell.getStringCellValue()) == "") {
+                            break;
+                        }
                         award.setWinner(String.valueOf(cell.getStringCellValue()));
+                        isEmpty = false;
                         break;
                     case 7:
+                        if (!ValidationUtils.inMaxVarcharSize(String.valueOf(cell.getStringCellValue()))) {
+                            return new ServiceResult(400, Message.leader_too_long);
+                        }
+                        if (String.valueOf(cell.getStringCellValue()) == "") {
+                            break;
+                        }
                         award.setLeader(String.valueOf(cell.getStringCellValue()));
+                        isEmpty = false;
                         break;
                     default:
-                        return new ServiceResult(402,Message.type_not_support);
+                        return new ServiceResult(401,Message.type_not_support);
                 }
             }
         }
+        if (isEmpty == true) {
+            //代表整行为空
+            return new ServiceResult(300, Message.row_null);
+        }
+
         if (awardMapper.insertSelective(award) != 1) {
             return new ServiceResult(403, Message.database_exception);
         }
@@ -314,6 +420,7 @@ public class ExcelServiceImpl implements ExcelService {
      */
     private ServiceResult parsePatent(Iterator<Cell> cells) {
         Patent patent = new Patent();
+        boolean isEmpty = true;
         while (cells.hasNext()) {
             //在每一行基础上去遍历每一列
             Cell cell = cells.next();
@@ -322,22 +429,53 @@ public class ExcelServiceImpl implements ExcelService {
             if (patent != null) {
                 switch (i) {
                     case 0:
+                        if (!ValidationUtils.inMaxVarcharSize(String.valueOf(cell.getStringCellValue()))) {
+                            return new ServiceResult(400, Message.type_too_long);
+                        }
+                        if (String.valueOf(cell.getStringCellValue()) == "") {
+                            break;
+                        }
                         patent.setType(String.valueOf(cell.getStringCellValue()));
+                        isEmpty = false;
                         break;
                     case 1:
+                        if (!ValidationUtils.inMaxVarcharSize(String.valueOf(cell.getStringCellValue()))) {
+                            return new ServiceResult(400, Message.name_too_long);
+                        }
+                        if (String.valueOf(cell.getStringCellValue()) == "") {
+                            break;
+                        }
                         patent.setName(String.valueOf(cell.getStringCellValue()));
+                        isEmpty = false;
                         break;
                     case 2:
+                        if (!ValidationUtils.inMaxVarcharSize(String.valueOf(cell.getStringCellValue()))) {
+                            return new ServiceResult(400, Message.zl_too_long);
+                        }
+                        if (String.valueOf(cell.getStringCellValue()) == "") {
+                            break;
+                        }
                         patent.setZl(String.valueOf(cell.getStringCellValue()));
+                        isEmpty = false;
                         break;
                     case 3:
+                        if (!ValidationUtils.inMaxVarcharSize(String.valueOf(cell.getStringCellValue()))) {
+                            return new ServiceResult(400, Message.inventor_too_long);
+                        }
+                        if (String.valueOf(cell.getStringCellValue()) == "") {
+                            break;
+                        }
                         patent.setInventor(String.valueOf(cell.getStringCellValue()));
+                        isEmpty = false;
                         break;
                     default:
                         return new ServiceResult(402,Message.type_not_support);
 
                 }
             }
+        }
+        if (isEmpty == true) {
+            return new ServiceResult(300, Message.row_null);
         }
         if (patentMapper.insertSelective(patent) != 1) {
             return new ServiceResult(403, Message.database_exception);
@@ -358,6 +496,7 @@ public class ExcelServiceImpl implements ExcelService {
      */
     private ServiceResult parseNews(Iterator<Cell> cells) {
         News news = new News();
+        boolean isEmpty = true;
         while (cells.hasNext()) {
             //在每一行基础上去遍历每一列
             Cell cell = cells.next();
@@ -366,16 +505,33 @@ public class ExcelServiceImpl implements ExcelService {
             if (news != null) {
                 switch (i) {
                     case 0:
+                        if (!ValidationUtils.inMaxVarcharSize(String.valueOf(cell.getStringCellValue()))) {
+                            return new ServiceResult(400, Message.title_too_long);
+                        }
+                        if (String.valueOf(cell.getStringCellValue()) == "") {
+                            break;
+                        }
                         news.setTitle(String.valueOf(cell.getStringCellValue()));
+                        isEmpty = false;
                         break;
                     case 1:
+                        if (!ValidationUtils.inMaxVarcharSize(String.valueOf(cell.getStringCellValue()))) {
+                            return new ServiceResult(400, Message.url_too_long);
+                        }
+                        if (String.valueOf(cell.getStringCellValue()) == "") {
+                            break;
+                        }
                         news.setUrl(String.valueOf(cell.getStringCellValue()));
+                        isEmpty = false;
                         break;
                     default:
                         return new ServiceResult(402,Message.type_not_support);
 
                 }
             }
+        }
+        if (isEmpty == true) {
+             return new ServiceResult(300, Message.row_null);
         }
         if (newsMapper.insertSelective(news) != 1) {
             return new ServiceResult(403, Message.database_exception);
@@ -397,6 +553,7 @@ public class ExcelServiceImpl implements ExcelService {
      */
     private ServiceResult parseCopyright(Iterator<Cell> cells) {
         Copyright copyright = new Copyright();
+        boolean isEmpty = true;
         while (cells.hasNext()) {
             //在每一行基础上去遍历每一列
             Cell cell = cells.next();
@@ -405,19 +562,42 @@ public class ExcelServiceImpl implements ExcelService {
             if (copyright != null) {
                 switch (i) {
                     case 0:
+                        if (!ValidationUtils.inMaxVarcharSize(String.valueOf(cell.getStringCellValue()))) {
+                            return new ServiceResult(400, Message.name_too_long);
+                        }
+                        if (String.valueOf(cell.getStringCellValue()) == "") {
+                            break;
+                        }
                         copyright.setName(String.valueOf(cell.getStringCellValue()));
+                        isEmpty = false;
                         break;
                     case 1:
+                        if (!ValidationUtils.inMaxVarcharSize(String.valueOf(cell.getStringCellValue()))) {
+                            return new ServiceResult(400, Message.rn_too_long);
+                        }
+                        if (String.valueOf(cell.getStringCellValue()) == "") {
+                            break;
+                        }
                         copyright.setRn(String.valueOf(cell.getStringCellValue()));
+                        isEmpty = false;
                         break;
                     case 2:
+                        if (!ValidationUtils.inMaxVarcharSize(String.valueOf(cell.getStringCellValue()))) {
+                            return new ServiceResult(400, Message.date_too_long);
+                        }
+                        if (String.valueOf(cell.getStringCellValue()) == "") {
+                            break;
+                        }
                         copyright.setDate(String.valueOf(cell.getStringCellValue()));
+                        isEmpty = false;
                         break;
                     default:
                         return new ServiceResult(402,Message.type_not_support);
-
                 }
             }
+        }
+        if (isEmpty == true) {
+            return new ServiceResult(300, Message.row_null);
         }
         if (copyrightMapper.insertSelective(copyright) != 1) {
             return new ServiceResult(403, Message.database_exception);

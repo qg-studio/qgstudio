@@ -129,6 +129,10 @@ public enum Message {
      */
     date_too_long("您输入的日期过长"),
     /**
+     * 类型过长
+     */
+    type_too_long("您输入的类型过长"),
+    /**
      * 描述过长
      */
     description_too_long("您输入的描述过长"),
@@ -225,7 +229,22 @@ public enum Message {
      * 文件名不可为空
      */
     filename_not_null("您的文件名不能为空！"),
-
+    /**
+     * 类型不能为空
+     */
+    type_not_null("您上传的Excel文件中type不能为空！"),
+    /**
+     * 类型不能为空
+     */
+    project_not_null("您上传的Excel文件中project不能为空！"),
+    /**
+     * 整行为空
+     */
+    row_null("整行数据为空！"),
+    /**
+     * 著作权不能为空
+     */
+    rn_not_null("您上传的Excel文件中rn不能为空！"),
     /**
      * 标题不可为空
      */
