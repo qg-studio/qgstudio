@@ -16,18 +16,13 @@
 
 package com.qgailab.util;
 
-import com.qgailab.dao.ImageMapper;
-import com.qgailab.exception.UploadException;
-import com.qgailab.model.po.Image;
-import com.qgailab.service.constants.Message;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.web.multipart.MultipartFile;
-
+import javax.imageio.ImageIO;
+import javax.imageio.ImageReader;
+import javax.imageio.stream.ImageInputStream;
 import java.io.File;
 import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
+import java.io.InputStream;
+import java.util.Iterator;
 
 
 /**
@@ -50,5 +45,68 @@ public class UploadUtils {
         return filename;
     }
 
+    /**
+     * 校验图片格式
+     *
+     * @param
+     * @return
+     * @name isImage
+     * @notice none
+     * @author <a href="mailto:kobe524348@gmail.com">黄钰朝</a>
+     * @date 2019-08-02
+     */
+    public static boolean isImage(File resFile) {
+        ImageInputStream iis = null;
+        try {
+            iis = ImageIO.createImageInputStream(resFile);
+            Iterator<ImageReader> iter = ImageIO.getImageReaders(iis);
+            if (iter.hasNext()) {
+                return true;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            if (iis != null) {
+                try {
+                    iis.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return false;
+                }
+            }
+        }
+        return false;
+    }
+
+
+    /**
+     * 校验图片格式
+     *
+     * @param
+     * @return
+     * @name isImage
+     * @notice none
+     * @author <a href="mailto:kobe524348@gmail.com">黄钰朝</a>
+     * @date 2019-08-02
+     */
+    public static boolean isImage(InputStream iis) {
+        try {
+            Iterator<ImageReader> iter = ImageIO.getImageReaders(iis);
+            if (iter.hasNext()) {
+                return true;
+            }
+        } finally {
+            if (iis != null) {
+                try {
+                    iis.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return false;
+                }
+            }
+        }
+        return false;
+    }
 
 }

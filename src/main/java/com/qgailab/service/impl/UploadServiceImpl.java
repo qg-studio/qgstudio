@@ -1,7 +1,9 @@
 package com.qgailab.service.impl;
 
 import com.qgailab.dao.ImageMapper;
+import com.qgailab.exception.NotImageException;
 import com.qgailab.exception.UploadException;
+import com.qgailab.model.dto.ServiceResult;
 import com.qgailab.model.po.Image;
 import com.qgailab.service.UploadService;
 import com.qgailab.service.constants.Message;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -67,8 +70,10 @@ public class UploadServiceImpl implements UploadService {
             if (upload == null || upload.isEmpty()) {
                 throw new UploadException(Message.image_not_null.toString());
             }
+
             File file;
             try {
+
                 //初始化路径
                 File dir = new File(path);
                 if (!dir.exists()) {
@@ -84,13 +89,17 @@ public class UploadServiceImpl implements UploadService {
                 //保存文件
                 file = new File(dir.getAbsolutePath() + File.separator + filename);
                 upload.transferTo(file);
-
+                //校验图片格式
+                if (!UploadUtils.isImage(file)){
+                    file.delete();
+                    throw new NotImageException();
+                }
                 //插入数据库
                 image.setFuuid(fuuid);
                 image.setFilename(filename);
                 imageMapper.insertSelective(image);
                 imageList.add(image);
-            } catch (Exception e) {
+            } catch (IOException e) {
                 throw new UploadException(Message.please_retry.toString());
             }
         }
@@ -98,14 +107,14 @@ public class UploadServiceImpl implements UploadService {
     }
 
     @Override
-    public File uploadFile(MultipartFile file, String path){
+    public File uploadFile(MultipartFile file, String path) {
         String filename = file.getOriginalFilename();
         File dir = new File(path);
         if (!dir.exists()) {
             dir.mkdirs();
         }
         File targetFile = new File(path, filename);
-        if(targetFile.exists()){
+        if (targetFile.exists()) {
             targetFile.delete();
         }
         try {

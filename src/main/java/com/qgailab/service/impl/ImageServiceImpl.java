@@ -2,6 +2,7 @@ package com.qgailab.service.impl;
 
 import com.qgailab.annotation.Permmision;
 import com.qgailab.dao.ImageMapper;
+import com.qgailab.exception.NotImageException;
 import com.qgailab.exception.PathNotExistException;
 import com.qgailab.exception.UploadException;
 import com.qgailab.model.dto.ServiceResult;
@@ -91,16 +92,23 @@ public class ImageServiceImpl implements ImageService {
 
         Image image = null;
         try {
+
             image = imageMapper.selectByPrimaryKey(imageId);
             if (image == null) {
                 return new ServiceResult(401, Message.image_not_found);
             }
+
+            if(!UploadUtils.isImage(upload.getInputStream())){
+                return new ServiceResult(402,Message.type_not_support);
+            }
+
             File file;
             //初始化路径
             File dir = new File(path);
             if (!dir.exists()) {
                 dir.mkdirs();
             }
+
             //删除原有图片
             File oldFile = new File(dir.getAbsolutePath() + File.separator + image.getFilename());
             oldFile.delete();
@@ -113,6 +121,11 @@ public class ImageServiceImpl implements ImageService {
             //保存文件
             file = new File(dir.getAbsolutePath() + File.separator + filename);
             upload.transferTo(file);
+            //校验图片格式
+            if (!UploadUtils.isImage(file)){
+                file.delete();
+                throw new NotImageException();
+            }
             image.setFilename(filename);
             imageMapper.updateByPrimaryKeySelective(image);
         } catch (IOException e) {
