@@ -50,6 +50,10 @@ excel文档导入导出功能的excelservice,
 
 #### 2.4.1 请求格式
 http://主机名：端口/功能模块/操作
+###### 示例：request
+```http request
+http://www.cxkball.club:2333/honor/insert
+```
 #### 2.4.2 请求参数
 formdata格式或者json格式
 ###### 示例：request
