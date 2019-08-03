@@ -26,11 +26,12 @@
 //        String contextPath = req.getContextPath();
 //        String path = uri.substring(contextPath.length());
 //        HttpSession sess;
-//
-//
 //        sess = req.getSession();
 //        //放行登陆注册
-//        if(path.endsWith("login.html")||path.endsWith("image/login.html")){
+//        if(path.endsWith("login.html")||path.endsWith("image/login.html") ||
+//                path.endsWith("js/login.js")||path.endsWith("css/login.css")||
+//                path.endsWith("/favicon.ico")||path.endsWith("js/tools.js")||
+//                path.endsWith("image/background.jpg")){
 //            filterChain.doFilter(req,resp);
 //            return;
 //        }
