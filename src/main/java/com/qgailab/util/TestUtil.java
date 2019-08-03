@@ -32,7 +32,7 @@ public class TestUtil {
         AwardMapper awardMapper = sqlSession.getMapper(AwardMapper.class);
         FeatureMapper featureMapper = sqlSession.getMapper(FeatureMapper.class);
 
-        for (int i = 0; i < 300000; i++) {
+        for (int i = 0; i < 5000; i++) {
             Award award = new Award();
             award.setGame("挑战杯");
             award.setInstitution("中科院");

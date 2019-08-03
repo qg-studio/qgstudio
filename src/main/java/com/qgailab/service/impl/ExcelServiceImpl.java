@@ -1,7 +1,10 @@
 package com.qgailab.service.impl;
 
 import com.github.pagehelper.PageHelper;
-import com.qgailab.dao.*;
+import com.qgailab.dao.AwardMapper;
+import com.qgailab.dao.CopyrightMapper;
+import com.qgailab.dao.NewsMapper;
+import com.qgailab.dao.PatentMapper;
 import com.qgailab.model.dto.ServiceResult;
 import com.qgailab.model.po.Award;
 import com.qgailab.model.po.Copyright;
@@ -11,12 +14,14 @@ import com.qgailab.service.ExcelService;
 import com.qgailab.service.constants.Message;
 import com.qgailab.util.ValidationUtils;
 import org.apache.poi.hssf.usermodel.*;
+import org.apache.poi.poifs.filesystem.NotOLE2FileException;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import java.io.*;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -43,8 +48,6 @@ public class ExcelServiceImpl implements ExcelService {
     @Autowired
     private CopyrightMapper copyrightMapper;
 
-    @Value(value = "#{conf.export}")
-    private String path;
 
     /**
      * 从Mapper中获取一个类的数据
@@ -68,19 +71,19 @@ public class ExcelServiceImpl implements ExcelService {
             listId.add(fields[i].getName());
         }
         if (object instanceof Award) {
-            PageHelper.startPage(1,60000);
+            PageHelper.startPage(1, 60000);
             list = awardMapper.listPageOrderByNumber();
         }
         if (object instanceof News) {
-            PageHelper.startPage(1,60000);
+            PageHelper.startPage(1, 60000);
             list = newsMapper.listPageOrderByNumber();
         }
         if (object instanceof Patent) {
-            PageHelper.startPage(1,60000);
+            PageHelper.startPage(1, 60000);
             list = patentMapper.listPageOrderByNumber();
         }
         if (object instanceof Copyright) {
-            PageHelper.startPage(1,60000);
+            PageHelper.startPage(1, 60000);
             list = copyrightMapper.listPageOrderByNumber();
         }
         ServiceResult sr = exportExcel("荣誉数据导出EXCEL文档", listName, listId, list);
@@ -104,7 +107,7 @@ public class ExcelServiceImpl implements ExcelService {
         Map<Integer, String> titleFieldMap = new HashMap<>();
         int key = 0, value = 0;
         for (int i = 0; i < headersName.size(); i++) {
-            if (headersName.get(i)!=null) {
+            if (headersName.get(i) != null) {
                 headersNameMap.put(key, (String) headersName.get(i));
                 key++;
             }
@@ -185,7 +188,7 @@ public class ExcelServiceImpl implements ExcelService {
                 }
             }
         }
-        return new ServiceResult(200, Message.success,hssfWorkbook);
+        return new ServiceResult(200, Message.success, hssfWorkbook);
     }
 
 
@@ -213,24 +216,22 @@ public class ExcelServiceImpl implements ExcelService {
             Workbook wb = null;
             if (isxlsx) {
                 wb = new XSSFWorkbook(in);
-            }
-            else if (filename.endsWith("xls")){
+            } else if (filename.endsWith("xls")) {
                 wb = new HSSFWorkbook(in);
-            }
-            else {
-                return new ServiceResult(400,Message.type_not_support);
+            } else {
+                return new ServiceResult(400, Message.type_not_support);
             }
             //获得第一个表格
             Sheet sheet = wb.getSheetAt(0);
             //获得第一个表格的行迭代器
             Iterator<Row> rows = sheet.rowIterator();
-            if(rows.hasNext() == false) {
-                return new ServiceResult(401,Message.excel_not_null);
+            if (rows.hasNext() == false) {
+                return new ServiceResult(401, Message.excel_not_null);
             }
             //略过每列的标题
             rows.next();
-            if(rows.hasNext() == false) {
-                return new ServiceResult(401,Message.excel_not_null);
+            if (rows.hasNext() == false) {
+                return new ServiceResult(401, Message.excel_not_null);
             }
             while (rows.hasNext()) {
                 rowTotal++;
@@ -242,7 +243,7 @@ public class ExcelServiceImpl implements ExcelService {
                 if (object instanceof Award) {
                     //Award类型
                     result = parseAward(cells);
-                    if(result.getStatus() == 300) {
+                    if (result.getStatus() == 300) {
                         rowNull++;
                     }
                     if (result.getStatus() != 200 && result.getStatus() != 300) {
@@ -251,7 +252,7 @@ public class ExcelServiceImpl implements ExcelService {
                 } else if (object instanceof Copyright) {
                     //Copyright类型
                     result = parseCopyright(cells);
-                    if(result.getStatus() == 300) {
+                    if (result.getStatus() == 300) {
                         rowNull++;
                     }
                     if (result.getStatus() != 200 && result.getStatus() != 300) {
@@ -260,7 +261,7 @@ public class ExcelServiceImpl implements ExcelService {
                 } else if (object instanceof News) {
                     //News类型
                     result = parseNews(cells);
-                    if(result.getStatus() == 300) {
+                    if (result.getStatus() == 300) {
                         rowNull++;
                     }
                     if (result.getStatus() != 200 && result.getStatus() != 300) {
@@ -269,7 +270,7 @@ public class ExcelServiceImpl implements ExcelService {
                 } else if (object instanceof Patent) {
                     //Patent类型
                     result = parsePatent(cells);
-                    if(result.getStatus() == 300) {
+                    if (result.getStatus() == 300) {
                         rowNull++;
                     }
                     if (result.getStatus() != 200 && result.getStatus() != 300) {
@@ -284,9 +285,12 @@ public class ExcelServiceImpl implements ExcelService {
             if (rowNull == rowTotal) {
                 return new ServiceResult(405, Message.excel_not_null);
             }
+        } catch (NotOLE2FileException e) {
+            e.printStackTrace();
+            return new ServiceResult(406,Message.type_not_support);
         } catch (IOException e) {
             e.printStackTrace();
-            return new ServiceResult(500,Message.please_retry);
+            return new ServiceResult(500, Message.please_retry);
         }
         return result;
     }
@@ -392,7 +396,7 @@ public class ExcelServiceImpl implements ExcelService {
                         isEmpty = false;
                         break;
                     default:
-                        return new ServiceResult(401,Message.type_not_support);
+                        return new ServiceResult(401, Message.type_not_support);
                 }
             }
         }
@@ -469,7 +473,7 @@ public class ExcelServiceImpl implements ExcelService {
                         isEmpty = false;
                         break;
                     default:
-                        return new ServiceResult(402,Message.type_not_support);
+                        return new ServiceResult(402, Message.type_not_support);
 
                 }
             }
@@ -525,20 +529,19 @@ public class ExcelServiceImpl implements ExcelService {
                         isEmpty = false;
                         break;
                     default:
-                        return new ServiceResult(402,Message.type_not_support);
+                        return new ServiceResult(402, Message.type_not_support);
 
                 }
             }
         }
         if (isEmpty == true) {
-             return new ServiceResult(300, Message.row_null);
+            return new ServiceResult(300, Message.row_null);
         }
         if (newsMapper.insertSelective(news) != 1) {
             return new ServiceResult(403, Message.database_exception);
         }
         return new ServiceResult(200, Message.success);
     }
-
 
 
     /**
@@ -592,7 +595,7 @@ public class ExcelServiceImpl implements ExcelService {
                         isEmpty = false;
                         break;
                     default:
-                        return new ServiceResult(402,Message.type_not_support);
+                        return new ServiceResult(402, Message.type_not_support);
                 }
             }
         }
