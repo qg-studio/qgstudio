@@ -167,7 +167,7 @@ public class PatentController {
                         return result;
                     }
                 }else {
-                    return new ServiceResult(401,Message.type_not_support);
+                    return new ServiceResult(402,Message.type_not_support);
                 }
                 targetFile.delete();
         }
