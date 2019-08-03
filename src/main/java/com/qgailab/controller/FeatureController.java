@@ -1,11 +1,13 @@
 package com.qgailab.controller;
 
+import com.qgailab.exception.NotImageException;
 import com.qgailab.model.dto.ServiceResult;
 import com.qgailab.model.po.Feature;
 import com.qgailab.model.po.Image;
 import com.qgailab.service.FeatureService;
 import com.qgailab.service.UploadService;
 import com.qgailab.service.constants.Message;
+import com.qgailab.util.UploadUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -42,14 +44,22 @@ public class FeatureController {
         }
         Feature feature = null;
         try {
+
             ServiceResult result = featureService.selectFeature(featureId);
             if (result.getStatus() != 200) {
                 return result;
             }
+
             String path = request.getSession().getServletContext().getRealPath("/upload/");
             feature = (Feature) result.getData();
             //保存图片数组
-            List<Image> list = uploadService.uploadImage(feature.getUuid(), uploads, path,description);
+            List<Image> list = null;
+            try {
+                list = uploadService.uploadImage(feature.getUuid(), uploads, path,description);
+            } catch (NotImageException e) {
+                e.printStackTrace();
+                return new ServiceResult(401,Message.type_not_support);
+            }
             //更新到feature中
             List<Image> oldList = feature.getImages();
             if (oldList == null) {

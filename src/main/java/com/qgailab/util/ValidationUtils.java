@@ -39,7 +39,7 @@ public class ValidationUtils {
     public static boolean inMaxTextSize(String data){
         if (data == null) {
             return true;
-        } else if (data.length() > 10000) {
+        } else if (data.length() > 1000) {
             return false;
         } else {
             return true;
