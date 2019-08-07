@@ -1,6 +1,7 @@
 package com.qgailab.controller;
 
 import com.qgailab.dao.ImageMapper;
+import com.qgailab.exception.NotImageException;
 import com.qgailab.model.dto.ServiceResult;
 import com.qgailab.model.po.Image;
 import com.qgailab.service.ImageService;
@@ -50,9 +51,16 @@ public class ImageController {
         if (uploads == null || uploads.length == 0) {
             return new ServiceResult(400, Message.image_not_null);
         }
+        ServiceResult result;
         MultipartFile upload = uploads[0];
         String path = request.getSession().getServletContext().getRealPath("/upload/");
-        return imageService.updateImage(upload, path, imageId);
+        try {
+           result=  imageService.updateImage(upload, path, imageId);
+        } catch (NotImageException e) {
+            e.printStackTrace();
+            return new ServiceResult(402,Message.type_not_support);
+        }
+        return result;
     }
 
 

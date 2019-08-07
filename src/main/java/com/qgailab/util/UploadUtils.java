@@ -80,33 +80,6 @@ public class UploadUtils {
     }
 
 
-    /**
-     * 校验图片格式
-     *
-     * @param
-     * @return
-     * @name isImage
-     * @notice none
-     * @author <a href="mailto:kobe524348@gmail.com">黄钰朝</a>
-     * @date 2019-08-02
-     */
-    public static boolean isImage(InputStream iis) {
-        try {
-            Iterator<ImageReader> iter = ImageIO.getImageReaders(iis);
-            if (iter.hasNext()) {
-                return true;
-            }
-        } finally {
-            if (iis != null) {
-                try {
-                    iis.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    return false;
-                }
-            }
-        }
-        return false;
-    }
+
 
 }

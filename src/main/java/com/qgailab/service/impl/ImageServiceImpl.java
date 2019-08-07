@@ -98,10 +98,6 @@ public class ImageServiceImpl implements ImageService {
                 return new ServiceResult(401, Message.image_not_found);
             }
 
-            if(!UploadUtils.isImage(upload.getInputStream())){
-                return new ServiceResult(402,Message.type_not_support);
-            }
-
             File file;
             //初始化路径
             File dir = new File(path);
@@ -122,12 +118,15 @@ public class ImageServiceImpl implements ImageService {
             file = new File(dir.getAbsolutePath() + File.separator + filename);
             upload.transferTo(file);
             //校验图片格式
-            if (!UploadUtils.isImage(file)){
+            if (!UploadUtils.isImage(file)) {
                 file.delete();
                 throw new NotImageException();
             }
             image.setFilename(filename);
             imageMapper.updateByPrimaryKeySelective(image);
+        } catch (NotImageException e) {
+            return new ServiceResult(402, Message.type_not_support);
+
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  * @date 2019-07-25 15:36
  */
 @RequestMapping(value = "/user")
-@Controller
+@RestController
 public class UserController {
 
     @Autowired
@@ -32,6 +32,15 @@ public class UserController {
             request.getSession().setAttribute("login",login);
         }
         return result;
+    }
+
+    @RequestMapping(value = "/checkLogin",method = {RequestMethod.POST,RequestMethod.GET})
+    public ServiceResult checklogin(HttpServletRequest request){
+        if(request.getSession()!=null&&request.getSession().getAttribute("login")!=null){
+            return new ServiceResult(200,Message.success);
+        }else {
+            return new ServiceResult(400,Message.unlogin);
+        }
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
