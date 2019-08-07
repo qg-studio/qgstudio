@@ -238,7 +238,6 @@ function upLoad(number) {
     } else {
         return false;
     }
-    console.log(formData);
 
     $.ajax({
         url: upUrl,
@@ -294,6 +293,9 @@ function showPic() {
             return function () {
                 /*把图片地址存起来*/
                 var picture = document.getElementsByClassName("upLoad");
+                if (!picCheck(picture[num].files[0])) {
+                    return false;
+                }
                 //将文件以Data URL形式读入页面 
                 reader.readAsDataURL(picture[num].files[0]);
                 console.log(picture[num].files);
@@ -332,5 +334,50 @@ function editChange(num) {
     upInput[num].style.cursor = "pointer";
 }
 
+//图片检测
+function picCheck(imgFile) {
+    var imageShow = imgFile;
+    imgType = imgFile.name.split('.')[1];
+    if (!imageShow) {
+        return false;
+    } else if (imageShow.size > 1024 * 1024 * 3) {
+        alert("请控制图片大小在3M以内");
+        return false;
+    } else if (imgType != "png" && imgType != "jpeg" && imgType != "bmp" && imgType != "jpg") {
+        alert("图片格式不正确，请选择png，jpg，jpeg格式的图片");
+        return false;
+    } else {
+        return true;
+    }
+}
 
+/*退出登录*/
+function loginOut() {
+    if (confirm("您确定要退出吗？")) {
 
+        var data = {};
+
+        $.ajax({
+            "url": "http://www.cxkball.club:2333/user/logout",
+            "method": "POST",
+            "headers": {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "data": data,
+            "async": false,
+            "crossDomain": true
+        })
+            .done(function (response) {
+                response = JSON.parse(response);
+                console.log(response);
+                if (response.status == 200) {
+                    window.location.href = "http://www.cxkball.club:2333/login.html";
+                } else {
+                    alert(response.message);
+                }
+            })
+            .fail(function (jqXHR) { })
+    } else {
+        return false;
+    }
+}

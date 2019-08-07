@@ -7,8 +7,27 @@ var form = document.getElementsByClassName('form')[0];
 var groupList = document.getElementsByClassName('group')[0].children;
 var yearList = document.getElementsByClassName('year')[0];
 
-//页面初始化
 (function () {
+    $.ajax({
+        type: "POST",
+        url: serverUrl + "/user/checkLogin",
+        dataType: "json",
+        async: false,
+        contentType: "application/json",
+        success: function (data) {
+            console.log(data);
+            if (data.status == 200) {
+                init();
+            } else {
+                setTimeout(window.location.href = serverUrl + "/login.html", 3000);
+                alert(data.message);
+                // window.location.href = serverUrl + "/login.html";
+            }
+        }
+    })
+})();
+//页面初始化
+function init() {
     var date = new Date();
 
     // 生成年份
@@ -35,7 +54,6 @@ var yearList = document.getElementsByClassName('year')[0];
             this.setAttribute("class", "onGroup");
             page = 1;
             upDate();
-            updataPage();
         }
     }
 
@@ -57,14 +75,13 @@ var yearList = document.getElementsByClassName('year')[0];
             this.setAttribute("class", "onYear");
             page = 1;
             upDate();
-            updataPage();
         }
     }
 
     // 显示全部
     groupList[0].onclick();
 
-})();
+};
 
 // 获取数据和节点插入
 function upDate() {
@@ -84,7 +101,7 @@ function getDate() {
         "grade": grade,
         "field": field,
         "page": page,
-        "pageSize": 11
+        "pageSize": 1
     }
     $.ajax({
         "url": serverUrl + "/member/list",
@@ -99,6 +116,7 @@ function getDate() {
     })
         .done(function (response) {
             data = response.data;
+            updataPage();
             console.log(data);
         })
         .fail(function (jqXHR) {
@@ -110,11 +128,44 @@ function getDate() {
 function updataPage() {
     var pageList = document.getElementsByClassName('page')[0];
     pageList.innerHTML = "";
-    for (var i = 0; i < data.page; i++) {
-        pageList.innerHTML += "<li onclick=\"pageClick()\">" + (i + 1) + "</li>";
-    }
-}
 
+    if (data.page <= 9) {
+    for (var i = 1; i <= data.page; i++) {
+      creatOnePage(i);
+    }
+  } else if (page <= 5) {
+    for (var i = 1; i <= 7; i++) {
+      creatOnePage(i);
+    }
+    creatOnePage("…");
+    creatOnePage(data.page);
+  } else if (page >= data.page - 4) {
+    creatOnePage(1);
+    creatOnePage("…");
+    for (var i = data.page - 6;  i <= data.page; i++) {
+      creatOnePage(i);
+    }
+  } else {
+    creatOnePage(1);
+    creatOnePage("…");
+    for (var i = parseInt(page) - 2; i <= parseInt(page)  + 2; i++) {
+      creatOnePage(i);
+    }
+    creatOnePage("…");
+    creatOnePage(data.page);
+  }
+}
+// 创建一页
+function creatOnePage(i) {
+  var pageList = document.getElementsByClassName('page')[0];
+  if (i == page) {
+    pageList.innerHTML += `<li onclick="pageClick()" class="onPage">${i}</li>`;
+  } else if (i == "…"){
+    pageList.innerHTML += `<li>${i}</li>`;
+  } else {
+    pageList.innerHTML += `<li onclick="pageClick()">${i}</li>`;
+  }
+}
 // 页数点击
 function pageClick() {
     page = event.target.innerText;
@@ -146,8 +197,10 @@ function deleteFun() {
                         if (response.status == 200) {
                             li.style.height = 0; // 删除样式
                             setTimeout(function () {
+                                if (data.data.length == 2) {
+                                    page --;
+                                }
                                 upDate();
-                                updataPage();
                                 alert("删除成功。");
                             }, 520);
                         } else if (response.status == 401) {
@@ -316,9 +369,15 @@ function updateImg(uploads, memberId) {
 function upFiles() {
     var self = event.target;
     var photo = self.parentNode.getElementsByClassName("photo")[0];
-
     var file = self.files[0];
-    console.log(file.size);
+    var fileValue = self.value;
+    var extName = fileValue.substring(fileValue.lastIndexOf(".")).toLowerCase();//（把路径中的所有字母全部转换为小写）         
+    var AllImgExt=".jpg|.jpeg|.gif|.bmp|.png|"; 
+    if(AllImgExt.indexOf(extName+"|") == -1) { 
+        ErrMsg="该文件类型不允许上传。请上传 "+AllImgExt+" 类型的文件，当前文件类型为"+extName; 
+        alert(ErrMsg); 
+        return; 
+    } 
     if (file.size > 5 * 1024 * 1024) {
         alert("图片文件过大");
         return;
@@ -409,4 +468,35 @@ function isNotNullTrim(source) {
     if (source != null && source != undefined && source != 'undefined' && $.trim(source) != "")
         return true;
     return false;
+}
+
+/*退出登录*/
+function loginOut() {
+    if (confirm("您确定要退出吗？")) {
+
+        var data = {};
+
+        $.ajax({
+            "url": "http://www.cxkball.club:2333/user/logout",
+            "method": "POST",
+            "headers": {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "data": data,
+            "async": false,
+            "crossDomain": true
+        })
+            .done(function (response) {
+                response = JSON.parse(response);
+                console.log(response);
+                if (response.status == 200) {
+                    window.location.href = "http://www.cxkball.club:2333/login.html";
+                } else {
+                    alert(response.message);
+                }
+            })
+            .fail(function (jqXHR) { })
+    } else {
+        return false;
+    }
 }

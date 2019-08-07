@@ -28,7 +28,10 @@ function getMoment() {
     console.log("重要时刻",response);
     if (response.status == 200) {
       momentData = response.data;
-      momentList.innerHTML = `<div class="subtitle">重要时刻</div>`;
+      momentList.innerHTML = `
+      <div class="subtitle">重要时刻</div>
+      <img class="rule" src="image/分割线.png" style="display:block; margin:0 auto; margin-bottom:2%; width:20%;">
+      `;
       for (var i = 0; i < momentData.length; i++) { 
         momentList.innerHTML += momentNode(i);
       }
@@ -83,7 +86,7 @@ function momentNode(i) {
   var model = `<div class="list" title="${momentData[i].id}">
                 <div class="img" style="background-image:url(${serverUrl}/upload/${momentData[i].images[0].filename})"></div>
                 <input class="img-file" type="file" disabled="disabled" onchange="upFiles()">
-                <textarea class="title" placeholder="标题" disabled="disabled">${momentData[i].title}</textarea>
+                <textarea class="title" placeholder="标题" disabled="disabled" maxlength="50">${momentData[i].title}</textarea>
                 <img class="edit" src="image/修改.png" onclick="editable()">
                 <img class="commit" src="image/确定.png" style="display: none;" onclick="updateMoment()">
               </div>`
@@ -111,7 +114,10 @@ function getLeader() {
     console.log("指导老师",response);
     if (response.status == 200) {
       leaderData = response.data;
-      leaderList.innerHTML = `<div class="subtitle">指导老师</div>`;
+      leaderList.innerHTML = `
+      <div class="subtitle">指导老师</div>
+      <img class="rule" src="image/分割线.png" style="display:block; margin:0 auto; margin-bottom:2%; width:20%;">
+      `;
       for (var i = 0; i < leaderData.length; i++) { 
         leaderList.innerHTML += leaderNode(i);
       }
@@ -170,9 +176,9 @@ function leaderNode(i) {
   var model = `<div class="list" title="${leaderData[i].id}">
                 <div class="img" style="background-image:url(${serverUrl}/upload/${leaderData[i].images[0].filename})"></div>
                 <input class="img-file" type="file" disabled="disabled" onchange="upFiles()">
-                <textarea class="name" placeholder="姓名" disabled="disabled">${leaderData[i].name}</textarea>
-                <textarea class="position" placeholder="职位" disabled="disabled">${leaderData[i].position}</textarea>
-                <textarea class="description" placeholder="介绍" disabled="disabled">${leaderData[i].description}</textarea>
+                <textarea class="name" placeholder="姓名" disabled="disabled" maxlength="20">${leaderData[i].name}</textarea>
+                <textarea class="position" placeholder="职位" disabled="disabled" maxlength="50">${leaderData[i].position}</textarea>
+                <textarea class="description" placeholder="介绍" disabled="disabled" maxlength="200">${leaderData[i].description}</textarea>
                 <img class="edit" src="image/修改.png" onclick="editable()">
                 <img class="commit" src="image/确定.png" style="display: none;" onclick="updateLeader()">
               </div>`
@@ -200,7 +206,10 @@ function getField() {
     console.log("研究方向",response);
     if (response.status == 200) {
       fieldData = response.data;
-      fieldList.innerHTML = `<div class="subtitle">研究方向</div>`;
+      fieldList.innerHTML = `
+      <div class="subtitle">研究方向</div>
+      <img class="rule" src="image/分割线.png" style="display:block; margin:0 auto; margin-bottom:2%; width:20%;">
+      `;
       for (var i = 0; i < fieldData.length; i++) { 
         fieldList.innerHTML += fieldNode(i);
       }
@@ -266,8 +275,8 @@ function fieldNode(i) {
                  <div class="img" style="background-image:url(${serverUrl}/upload/${fieldData[i].end})" title="后图">
                    <input class="img-file" type="file" disabled="disabled" onchange="upFiles()">
                  </div> 
-                 <textarea class="name" placeholder="名称" disabled="disabled">${fieldData[i].name}</textarea>
-                 <textarea class="description" placeholder="描述" disabled="disabled">${fieldData[i].description}</textarea>
+                 <textarea class="name" placeholder="名称" disabled="disabled" maxlength="30">${fieldData[i].name}</textarea>
+                 <textarea class="description" placeholder="描述" disabled="disabled" maxlength="200">${fieldData[i].description}</textarea>
                  <img class="edit" src="image/修改.png" onclick="editable()">
                 <img class="commit" src="image/确定.png" style="display: none;" onclick="updateField()">
                </div> `
@@ -323,9 +332,9 @@ function getHonor() {
 function honorNode(i) {
   var model =  `<div id="${i}" class="list" title="${honorData[i].id || '*'}">
                  <img class="delete" src="image/×.png" style="top: 0.5rem" onclick="honorDelete()">
-                 <textarea class="title" placeholder="标题" disabled="disabled">${honorData[i].title || ""}</textarea>
-                 <textarea class="date" placeholder="时间" disabled="disabled">${honorData[i].date || ""}</textarea>
-                 <textarea class="description" placeholder="描述" disabled="disabled">${honorData[i].description || ""}</textarea>       
+                 <textarea class="title" placeholder="标题" disabled="disabled" maxlength="50">${honorData[i].title || ""}</textarea>
+                 <textarea class="date" placeholder="时间" disabled="disabled" maxlength="15">${honorData[i].date || ""}</textarea>
+                 <textarea class="description" placeholder="描述" disabled="disabled" maxlength="200">${honorData[i].description || ""}</textarea>       
                  <div class="imgArr"></div>
                  <img class="add2" src="image/图片添加.png">
                  <img class="edit" src="image/修改.png" onclick="editable()">
@@ -652,15 +661,23 @@ function judgeTextarea(list) {
 // 从本地选择图片
 function upFiles() {
   var self = event.target;
+  var file = self.files[0];
+  var fileValue = self.value;
+  var extName = fileValue.substring(fileValue.lastIndexOf(".")).toLowerCase();//（把路径中的所有字母全部转换为小写）         
+  var AllImgExt=".jpg|.jpeg|.gif|.bmp|.png|"; 
+  if(AllImgExt.indexOf(extName+"|") == -1) { 
+    ErrMsg="该文件类型不允许上传。请上传 "+AllImgExt+" 类型的文件，当前文件类型为"+extName; 
+    alert(ErrMsg); 
+    return; 
+  } 
+  if (file.size > 5 * 1024 * 1024) {
+    alert("图片文件过大");
+    return;
+  }
   if (self.parentNode.getAttribute("class") == "img") {
     var img = self.parentNode;
   } else {
     var img = self.parentNode.getElementsByClassName("img")[0];
-  }
-  var file = self.files[0];
-  if (file.size > 5 * 1024 * 1024) {
-    alert("图片文件过大");
-    return;
   }
   var fileRead = new FileReader();
   fileRead.readAsDataURL(file);
@@ -690,8 +707,36 @@ function isNotNullTrim(source){
 
 })();
 
+/*退出登录*/
+function loginOut() {
+  if (confirm("您确定要退出吗？")) {
 
+      var data = {};
 
+      $.ajax({
+          "url": "http://www.cxkball.club:2333/user/logout",
+          "method": "POST",
+          "headers": {
+              "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "data": data,
+          "async": false,
+          "crossDomain": true
+      })
+          .done(function (response) {
+              response = JSON.parse(response);
+              console.log(response);
+              if (response.status == 200) {
+                  window.location.href = "http://www.cxkball.club:2333/login.html";
+              } else {
+                  alert(response.message);
+              }
+          })
+          .fail(function (jqXHR) { })
+  } else {
+      return false;
+  }
+}
 
 
 

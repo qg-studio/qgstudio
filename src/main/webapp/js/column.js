@@ -258,7 +258,7 @@ function editText() {
                 revise[j].style.display = "inline";
                 upInput[j].setAttribute("disabled", "disabled");
                 upInput[j].style.cursor = "auto";
-                if(This.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.title != 'h') {
+                if(This.parentNode.parentNode.getElementsByClassName("image-small")[0].title != 'h') {
                     changePicDesAjax();
                     changePicAjax();
                 } 
@@ -276,9 +276,8 @@ function showPic() {
     var reader = new FileReader();
     window.file = This.files[0];
 
-    if (file.size > 5 * 1024 * 1024) {
-        alert("图片文件过大");
-        return;
+    if(!picCheck(This.files[0])) {
+        return false;
     }
     reader.readAsDataURL(file);
     reader.onload = function () {
@@ -415,6 +414,10 @@ function upLoadpicAjax() {
     var formData = new FormData();
     var This = event.target;
     var img = This.parentNode.parentNode.getElementsByClassName("image-small")[0];
+
+    if(This.parentNode.parentNode.getElementsByClassName("image-small")[0].title != 'h') {
+        return false;
+    }
     
     formData.append('uploads', file);
     formData.append('featureId', This.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.title);
@@ -475,7 +478,6 @@ function changePicAjax() {
 
     formData.append('uploads', file);
     formData.append('imageId', img.title);
-    console.log(formData);
 
     $.ajax({
         url: "http://www.cxkball.club:2333/image/replace",
@@ -486,12 +488,28 @@ function changePicAjax() {
         processData: false,
         contentType: false,
         success: function (data) {
+            console.log(data);
             alert(data.message);
         },
         error: function () {
-            alert(data.message);
+            alert("error");
         }
     });
+
+    // $.ajax({
+    //     "url":"http://www.cxkball.club:2333/image/replace",
+    //     "method": "POST",
+    //     "headers": {
+    //       "Content-Type":"application/x-www-form-urlencoded"
+    //     },
+    //     "data": formData,
+    //     "processData": false,
+    //     "crossDomain": true
+    //     })
+    //    .done(function(response){
+    //     console.log(response);
+    //    })
+    //    .fail(function(jqXHR){})
 
 }
 
@@ -502,6 +520,7 @@ function changePicDesAjax() {
         id: This.parentNode.parentNode.getElementsByClassName("image-small")[0].title,
         description: This.parentNode.parentNode.parentNode.getElementsByClassName("picInput")[0].value
     }
+    
     data = JSON.stringify(data);
 
     $.ajax({
@@ -512,7 +531,10 @@ function changePicDesAjax() {
         async: false,
         contentType: "application/json",
         success: function (data) {
-            alert(data.message);
+            if(data.data.description == This.parentNode.parentNode.parentNode.getElementsByClassName("picInput")[0].value) {
+                return false;
+            }
+            console.log(data.message);
         },
         error: function () {
             alert(data.message);
@@ -570,7 +592,7 @@ function ajaxT() {
                 console.log(imageT);
                 var descriptionT = divDataT[i].description;
                 var titleT = divDataT[i].title;
-                var imgT = (divDataT[i].images[0]) ? divDataT[i].images[0].filename : null;
+                var imgT = (divDataT[i].images[divDataT[i].images.length-1]) ? divDataT[i].images[divDataT[i].images.length-1].filename : null;
                 if (imgT) {
                     imageT[i].src = urlFront + imgT;
                 }
@@ -749,6 +771,10 @@ function upLoadT(number) {
     var upUrl = "http://www.cxkball.club:2333/history/upload";
     var formData = new FormData();
 
+    if(!ulDivT[number].title) {
+        return false;
+    }
+
     if (filedataT) {
         formData.append('uploads', filedataT);
         formData.append('historyId', ulDivT[number].title);
@@ -796,6 +822,7 @@ function changeAjaxT(id, description, title) {
         "crossDomain": true
     })
         .done(function (response) {
+            response = JSON.parse(response);
             alert(response.message);
         })
         .fail(function (jqXHR) {
@@ -810,12 +837,11 @@ function showPicT() {
             return function () {
                 /*把图片地址存起来*/
                 var pictureT = document.getElementsByClassName("upLoadT");
+                picCheck(pictureT[num].files[0]);
                 //将文件以Data URL形式读入页面 
                 readerT.readAsDataURL(pictureT[num].files[0]);
-                console.log(pictureT[num].files);
                 window.filedataT = pictureT[num].files[0] ? pictureT[num].files[0] : 0;
                 readerT.onload = function () {
-                    console.log(readerT.result);
                     imageT[num].src = this.result;
                 }
             }
@@ -852,5 +878,49 @@ function editChangeT(num) {
 
 
 
+//图片检测
+function picCheck(imgFile) {
+    var imageShow = imgFile;
+    imgType = imgFile.name.split('.')[1];
+    if(!imageShow) {                    
+        return false;
+    } else if(imageShow.size > 1024*1024*3) {
+        alert("请控制图片大小在3M以内");
+        return false;
+    } else if(imgType != "png" && imgType != "jpeg" && imgType != "bmp" && imgType != "jpg") {
+        alert("图片格式不正确，请选择png，jpg，jpeg格式的图片");
+        return false;
+    } else {
+        return true;
+    }
+}
+/*退出登录*/
+function loginOut() {
+    if (confirm("您确定要退出吗？")) {
 
+        var data = {};
 
+        $.ajax({
+            "url": "http://www.cxkball.club:2333/user/logout",
+            "method": "POST",
+            "headers": {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "data": data,
+            "async": false,
+            "crossDomain": true
+        })
+            .done(function (response) {
+                response = JSON.parse(response);
+                console.log(response);
+                if (response.status == 200) {
+                    window.location.href = "http://www.cxkball.club:2333/login.html";
+                } else {
+                    alert(response.message);
+                }
+            })
+            .fail(function (jqXHR) { })
+    } else {
+        return false;
+    }
+}

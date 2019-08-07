@@ -2,6 +2,34 @@
 #honor input {
 	background-color: #5b08c3;
 }
+/*表格显示*/
+.excelContainer {
+	display: none;
+    position: absolute;
+	background-color: white;
+    z-index: 10;
+}
+.excelContainer table{
+	margin: 0 auto;
+	width: 80%;
+	border-collapse: collapse;
+	border: black 1px solid;
+}
+.excelContainer th{
+text-align: center;
+padding: 20px 0;
+}
+.excelContainer td{
+padding: 5px 10px;
+border: black 1px solid;
+}
+.excelContainer input{
+border: none;
+    /* 浏览器自带的 input 标签样式并不好看 将 input 标签的边框去掉 */
+}
+
+
+
 h1 {
     position: relative;
     text-transform: uppercase;
@@ -24,7 +52,8 @@ h1:hover:after {
     width: 97%;
 }
 .container {
-	width: 60rem;
+	position: relative;
+	min-width: 58rem;
 }
 .container .honorTitle {
 	margin: 40px 0;
@@ -36,7 +65,7 @@ h1:hover:after {
 .news, 
 .patent, 
 .copyright {
-	width: 60rem;
+	width: 58rem;
 	margin: 10px auto;
 }
 .rule {
@@ -51,21 +80,29 @@ h1:hover:after {
 	text-align: center;
 	font-size: 1.6rem;
 }
-.subtitle img,
-.subtitle input,
-.subtitle a{
+.subtitle button{
 	display: block;
 	position: absolute;
-	height: 1.6rem;
-	width: 1.6rem;
+	height: 2rem;
+	width: 3rem;
 	top: 0.2rem;
+	color: #5b08c3;
+	font-weight: bold;
 	cursor: pointer;
+	outline: none;
+	border: none;
+	border-bottom: 1px solid #5b08c3;
+	background-color: #fff;
 } 
 .subtitle input{
-	opacity: 0;
+	display: block;
+	padding: 1rem 1.5rem;
+	position: absolute;
+	top: 0.2rem;
 	width: 0;
 	height: 0;
-	padding: 0.9rem;
+	opacity: 0;
+	cursor: pointer;
 }
 .header {
 	margin: 1rem 0;
@@ -83,8 +120,9 @@ h1:hover:after {
 .list {
 	position: relative;
 	margin: 0.6rem auto;
-	box-shadow: 0 0px 5px #d2d2d2;
+	box-shadow: 0 0px 5px #d0d0d0;
 	border-radius: 5px;
+	background-color: #fff;
 }
 .award-list {
 	height: 6rem;
@@ -125,8 +163,9 @@ h1:hover:after {
 }
 .list img {
 	display: block;
+	margin-top: -0.6rem;
 	position: absolute;
-	top: 10%;
+	top: 50%;
 	height: 1.2rem;
 	cursor: pointer;
 }
@@ -138,6 +177,7 @@ h1:hover:after {
 }
 .page {
 	margin: 0 auto;
+	height: 2rem;
 	text-align: center;
 }
 .page li {

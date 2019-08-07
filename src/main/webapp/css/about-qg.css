@@ -1,10 +1,10 @@
 .container {
     position: relative;
     top: 20px;
-    left: 270px;
+    left: 250px;
     padding: 2% 3%;
     margin-bottom: 2%;
-    width: 72%;
+    width: 74%;
     height: 100%;
     border-radius: 30px;
     background-color: #fff;
@@ -36,13 +36,9 @@ h1:hover:after {
     width: 97%;
 }
 
-.headline {
-    display: block;
-    margin-bottom: 4%;
-    font-weight: 800;
-    font-size: 300%;
-    font-family: Georgia;
-    line-height: 150%;
+.headline img {
+    width: 100%;
+    margin: 1% 0;
 }
 
 
@@ -51,18 +47,20 @@ h1:hover:after {
     margin: 2% 0;  
 }
 .ulAll ul {
-    display: table;
+    display: block;
     position: relative;
     border-radius: 15px;
     width: 100%;
     height: 150px;
+    text-align: center;
     background-color: #fafafa;
     box-shadow: 5px 5px 2px rgba(0, 0, 0, 0.10);
 }
 .ulAll ul li {
-    display: table-cell;
-    /* width: 33%; */
-    width: 25%;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    width: 24%;
     height: 100%;
     text-align: center;
 }
@@ -97,16 +95,6 @@ h1:hover:after {
     position: relative;
     padding: 20px 0 0 0;
 }
-/* .text textarea {
-    position: absolute;
-    left: 0;
-    padding: 1.5%;
-    width: 100%;
-    height: 70%;
-    overflow: auto;
-    border: 1px solid transparent;
-    background: none;
-} */
 .text input {
     overflow: auto;
     position: absolute;
@@ -121,6 +109,7 @@ h1:hover:after {
 .text textarea {
     overflow: auto;
     position: absolute;
+    margin-top: 6%;
     padding: 1%;
     left: 0;
     border: 1px solid transparent;
@@ -161,7 +150,7 @@ h1:hover:after {
 .increase {
     display: block;
     margin: 0 auto;
-    width: 8%;
+    width: 100%;
     cursor: pointer;
 }
 

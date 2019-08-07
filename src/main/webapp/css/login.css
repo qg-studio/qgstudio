@@ -32,7 +32,8 @@ h3 {
 	letter-spacing: 2px;
 	overflow: hidden;
 }
-input {
+#username,
+#password {
 	display: block;
 	position: absolute;
 	width: 100%;
@@ -44,16 +45,38 @@ input {
 	text-indent: 18px;
 	background-color: #fff;
 }
-span {
+.judge {
 	display: block;
+	padding: 1%;
 	position: absolute;
 	right: 5%;
-	width: 50%;
-	height: 10%;
-	color: #f40;
+	height: 8%;
+	color: #666;
 	font-weight: bold;
 	font-size: 15px;
 	text-align: right; 
+}
+span {
+	display: block;
+	position: absolute;
+	height: 7%;
+	width: 100%;
+	top: 72%;
+}
+#remembrMe{
+	display: block;
+	position: absolute;
+	left: 3%;
+	top: 0;
+	width: 5%;
+	height: 100%;
+}
+span p{
+	position: absolute;
+	top: 0;
+	left: 10%;
+	width: 50%;
+	height: 100%;
 }
 button{
 	display: block;
@@ -72,5 +95,7 @@ button{
 	overflow: hidden;
 	cursor: pointer;
 }
-
+font {
+	color: #f40;
+}
 
