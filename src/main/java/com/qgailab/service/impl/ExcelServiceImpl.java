@@ -279,7 +279,6 @@ public class ExcelServiceImpl implements ExcelService {
                 } else {
                     return new ServiceResult(402, Message.object_not_found);
                 }
-
                 //遍历每一行并将数据插入数据库
             }
             if (rowNull == rowTotal) {
