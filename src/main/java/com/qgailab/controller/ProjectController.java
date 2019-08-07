@@ -1,5 +1,6 @@
 package com.qgailab.controller;
 
+import com.qgailab.exception.NotImageException;
 import com.qgailab.model.dto.ServiceResult;
 import com.qgailab.model.po.Image;
 import com.qgailab.model.po.Project;
@@ -132,6 +133,8 @@ public class ProjectController {
                 oldList.addAll(list);
             }
             projectService.updateProject(project);
+        }catch (NotImageException e) {
+            return new ServiceResult(400,Message.image_type_error);
         } catch (Exception e) {
             e.printStackTrace();
             return new ServiceResult(500, Message.please_retry);

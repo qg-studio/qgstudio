@@ -1,5 +1,6 @@
 package com.qgailab.controller;
 
+import com.qgailab.exception.NotImageException;
 import com.qgailab.model.dto.ServiceResult;
 import com.qgailab.model.po.Image;
 import com.qgailab.model.po.Member;
@@ -46,8 +47,8 @@ public class MemberController {
      */
     @RequestMapping(value = "/list", method = {RequestMethod.POST, RequestMethod.GET})
     public @ResponseBody
-    ServiceResult listMember(int page, int pageSize,String grade,String field) {
-        return memberService.listMember(page, pageSize,grade,field);
+    ServiceResult listMember(int page, int pageSize, String grade, String field) {
+        return memberService.listMember(page, pageSize, grade, field);
     }
 
     /**
@@ -133,9 +134,11 @@ public class MemberController {
             //更新到leader中
             List<Image> oldList = member.getImages();
             //删除之前的图片
-            imageService.removeImageList(path,oldList);
+            imageService.removeImageList(path, oldList);
             member.setImages(list);
             memberService.updateMember(member);
+        } catch (NotImageException e) {
+            return new ServiceResult(400,Message.image_type_error);
         } catch (Exception e) {
             e.printStackTrace();
             return new ServiceResult(500, Message.please_retry);

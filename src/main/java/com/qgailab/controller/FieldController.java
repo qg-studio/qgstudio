@@ -1,6 +1,7 @@
 package com.qgailab.controller;
 
 import com.qgailab.dao.FieldMapper;
+import com.qgailab.exception.NotImageException;
 import com.qgailab.model.dto.ServiceResult;
 import com.qgailab.model.po.Field;
 import com.qgailab.model.po.Image;
@@ -67,7 +68,9 @@ public class FieldController {
                 field.setImages(list);
             }
             fieldService.updateField(field);
-        } catch (Exception e) {
+        } catch (NotImageException e) {
+            return new ServiceResult(400,Message.image_type_error);
+        }catch (Exception e) {
             e.printStackTrace();
             return new ServiceResult(500, Message.please_retry);
         }
