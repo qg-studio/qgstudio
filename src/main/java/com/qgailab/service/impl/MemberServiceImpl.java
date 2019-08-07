@@ -14,6 +14,7 @@ import com.qgailab.service.constants.Message;
 import com.qgailab.service.constants.Module;
 import com.qgailab.service.constants.Operation;
 import com.qgailab.util.PageUtils;
+import com.qgailab.util.StringUtils;
 import com.qgailab.util.UUIDUtils;
 import com.qgailab.util.ValidationUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -54,6 +55,7 @@ public class MemberServiceImpl implements MemberService {
         if (member == null) {
             return new ServiceResult(400, Message.parameter_not_enough);
         }
+
         try {
             if (member.getName() == null || member.getName().trim().isEmpty()) {
                 return new ServiceResult(401, Message.name_not_null);
@@ -155,6 +157,7 @@ public class MemberServiceImpl implements MemberService {
         if (member == null) {
             return new ServiceResult(400, Message.parameter_not_enough);
         }
+
         try {
             if (member.getId() == null) {
                 return new ServiceResult(401, Message.parameter_not_enough);
@@ -162,6 +165,7 @@ public class MemberServiceImpl implements MemberService {
             if (member.getName() == null || member.getName().trim().isEmpty()) {
                 return new ServiceResult(402, Message.name_not_null);
             }
+
             String message = validate(member);
             if(message!=null){
                 return new ServiceResult(403,message,member);
@@ -241,6 +245,7 @@ public class MemberServiceImpl implements MemberService {
      */
     private String validate(Member member) {
         if (!ValidationUtils.inMaxVarcharSize(member.getName())) {
+            member.setName(StringUtils.toLegalText(member.getName()));
             return Message.name_too_long.toString();
         }if(!ValidationUtils.inMaxVarcharSize(member.getGrade())){
             return Message.grade_too_long.toString();

@@ -223,6 +223,10 @@ public enum Message {
     page_invalid("您填写的页数不符合规范！"),
 
     /**
+     * 图片格式不正确
+     */
+    image_type_error("图片格式不正确"),
+    /**
      * 图片不可为空
      */
     image_not_null("您上传的图片不能为空！"),
