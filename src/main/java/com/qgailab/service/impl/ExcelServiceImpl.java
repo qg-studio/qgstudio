@@ -203,7 +203,7 @@ public class ExcelServiceImpl implements ExcelService {
      * @date
      */
     @Override
-    public ServiceResult importExcel(String filename, InputStream in, Object object) {
+    public ServiceResult importExcel(String filename, InputStream in, Object object, Boolean cover) {
         ServiceResult result = null;
         int rowTotal = 0, rowNull = 0;
         //判断是否是excel2007格式
@@ -241,6 +241,15 @@ public class ExcelServiceImpl implements ExcelService {
                 Iterator<Cell> cells = row.cellIterator();
                 //判断所要打印的数据类型（4中类型）
                 if (object instanceof Award) {
+                    //将对应的数据库中的所有数据进行删除
+                    if (cover == true && rowTotal == 1) {
+                        if (awardMapper.deleteAll() != 1) {
+                            return new ServiceResult(500, Message.database_exception);
+                        }
+                    }
+                    else if (cover != false) {
+                        return new ServiceResult(402, Message.type_not_support);
+                    }
                     //Award类型
                     result = parseAward(cells);
                     if (result.getStatus() == 300) {
@@ -251,6 +260,15 @@ public class ExcelServiceImpl implements ExcelService {
                     }
                 } else if (object instanceof Copyright) {
                     //Copyright类型
+                    //将对应的数据库中的所有数据进行删除
+                    if (cover == true && rowTotal == 1) {
+                        if (copyrightMapper.deleteAll() != 1) {
+                            return new ServiceResult(500, Message.database_exception);
+                        }
+                    }
+                    else if (cover != false) {
+                        return new ServiceResult(402, Message.type_not_support);
+                    }
                     result = parseCopyright(cells);
                     if (result.getStatus() == 300) {
                         rowNull++;
@@ -260,6 +278,15 @@ public class ExcelServiceImpl implements ExcelService {
                     }
                 } else if (object instanceof News) {
                     //News类型
+                    //将对应的数据库中的所有数据进行删除
+                    if (cover == true && rowTotal == 1) {
+                        if (newsMapper.deleteAll() != 1) {
+                            return new ServiceResult(500, Message.database_exception);
+                        }
+                    }
+                    else if (cover != false) {
+                        return new ServiceResult(402, Message.type_not_support);
+                    }
                     result = parseNews(cells);
                     if (result.getStatus() == 300) {
                         rowNull++;
@@ -269,6 +296,15 @@ public class ExcelServiceImpl implements ExcelService {
                     }
                 } else if (object instanceof Patent) {
                     //Patent类型
+                    //将对应的数据库中的所有数据进行删除
+                    if (cover == true && rowTotal == 1) {
+                        if (patentMapper.deleteAll() != 1) {
+                            return new ServiceResult(500, Message.database_exception);
+                        }
+                    }
+                    else if (cover != false) {
+                        return new ServiceResult(402, Message.type_not_support);
+                    }
                     result = parsePatent(cells);
                     if (result.getStatus() == 300) {
                         rowNull++;

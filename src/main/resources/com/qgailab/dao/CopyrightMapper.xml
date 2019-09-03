@@ -62,6 +62,9 @@
     delete from copyright
     where id = #{id,jdbcType=BIGINT}
   </delete>
+  <delete id="deleteAll">
+    delete from copyright
+  </delete>
   <insert id="insert" parameterType="com.qgailab.model.po.Copyright">
     <!--
       WARNING - @mbg.generated

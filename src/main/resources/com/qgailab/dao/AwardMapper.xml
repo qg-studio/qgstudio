@@ -69,6 +69,9 @@
     delete from award
     where id = #{id,jdbcType=BIGINT}
   </delete>
+  <delete id="deleteAll">
+    delete from award
+  </delete>
   <insert id="insert" parameterType="com.qgailab.model.po.Award">
     <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
       SELECT LAST_INSERT_ID() AS id

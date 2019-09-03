@@ -41,6 +41,6 @@ public interface ExcelService {
      * @author < a href=" ">郭沛</ a>
      * @date
      */
-    ServiceResult importExcel(String filename, InputStream in, Object object) throws IOException;
+    ServiceResult importExcel(String filename, InputStream in, Object object, Boolean cover) throws IOException;
 
 }

@@ -60,4 +60,10 @@ public interface PatentMapper {
      * @mbg.generated Thu Jul 25 21:46:07 CST 2019
      */
     int updateByPrimaryKey(Patent record);
+
+    /**
+     * 删除所有数据
+     * @return
+     */
+    int deleteAll();
 }

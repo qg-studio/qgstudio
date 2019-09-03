@@ -25,7 +25,7 @@
     <!-- Druid数据源  -->
     <bean id="druidDataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://localhost:3306/qgstudio?characterEncoding=utf-8&amp;serverTimezone=GMT%2B8&amp;useSSL=false" />
+        <property name="url" value="jdbc:mysql://localhost:3308/qgstudio?characterEncoding=utf-8&amp;serverTimezone=GMT%2B8&amp;useSSL=false" />
         <property name="username" value="root" />
         <property name="password" value="6868" />
         <!-- 配置初始化大小、最小、最大 -->
@@ -102,22 +102,22 @@
         </tx:attributes>
     </tx:advice>
     <!--配置AOP增强-->
-    <aop:config>
-        <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.qgailab.service.impl.*ServiceImpl.*(..))"/>
-    </aop:config>
-    <bean id="druid-stat-interceptor" class="com.alibaba.druid.support.spring.stat.DruidStatInterceptor"/>
-    <bean id="druid-stat-pointcut" class="org.springframework.aop.support.JdkRegexpMethodPointcut" scope="prototype">
-        <property name="patterns">
-            <list>
-                <value>com.qgailab.dao.*</value>
-                <value>com.qgailab.service.*</value>
-            </list>
-        </property>
-    </bean>
+<!--    <aop:config>-->
+<!--        <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.qgailab.service.impl.*ServiceImpl.*(..))"/>-->
+<!--    </aop:config>-->
+<!--    <bean id="druid-stat-interceptor" class="com.alibaba.druid.support.spring.stat.DruidStatInterceptor"/>-->
+<!--    <bean id="druid-stat-pointcut" class="org.springframework.aop.support.JdkRegexpMethodPointcut" scope="prototype">-->
+<!--        <property name="patterns">-->
+<!--            <list>-->
+<!--                <value>com.qgailab.dao.*</value>-->
+<!--                <value>com.qgailab.service.*</value>-->
+<!--            </list>-->
+<!--        </property>-->
+<!--    </bean>-->
 
-    <aop:config proxy-target-class="true">
-        <aop:advisor advice-ref="druid-stat-interceptor" pointcut-ref="druid-stat-pointcut"/>
-    </aop:config>
+<!--    <aop:config proxy-target-class="true">-->
+<!--        <aop:advisor advice-ref="druid-stat-interceptor" pointcut-ref="druid-stat-pointcut"/>-->
+<!--    </aop:config>-->
 </beans>
 
 

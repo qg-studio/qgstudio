@@ -61,6 +61,9 @@
     delete from news
     where id = #{id,jdbcType=BIGINT}
   </delete>
+  <delete id="deleteAll">
+    delete from news
+  </delete>
   <insert id="insert" parameterType="com.qgailab.model.po.News">
     <!--
       WARNING - @mbg.generated

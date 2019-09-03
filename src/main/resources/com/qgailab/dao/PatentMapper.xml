@@ -64,6 +64,9 @@
     delete from patent
     where id = #{id,jdbcType=BIGINT}
   </delete>
+  <delete id="deleteAll">
+    delete from patent
+  </delete>
   <insert id="insert" parameterType="com.qgailab.model.po.Patent">
     <!--
       WARNING - @mbg.generated
