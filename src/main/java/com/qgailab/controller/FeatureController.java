@@ -68,6 +68,8 @@ public class FeatureController {
                 oldList.addAll(list);
             }
             featureService.updateFeature(feature);
+        }catch (NotImageException e) {
+            return new ServiceResult(400,Message.image_type_error);
         } catch (Exception e) {
             e.printStackTrace();
             return new ServiceResult(500, Message.please_retry);
