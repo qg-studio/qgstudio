@@ -152,7 +152,8 @@ public class NewsController {
      * @date
      */
     @RequestMapping(value = "/import", method = RequestMethod.POST)
-    public ServiceResult importNews(HttpServletRequest request, @RequestParam(value = "file") MultipartFile[] file) {
+    public ServiceResult importNews(HttpServletRequest request, @RequestParam(value = "file") MultipartFile[] file,
+                                    @RequestParam(value = "cover") Boolean cover) {
         ServiceResult result = null;
         if (file == null || file.length == 0) {
             return new ServiceResult(400, Message.excel_not_null);
@@ -164,7 +165,7 @@ public class NewsController {
                 File targetFile = uploadService.uploadFile(file[i],path);
                 InputStream in = new FileInputStream(targetFile);
                 if (filename.endsWith(".xls") || filename.endsWith(".xlsx")) {
-                    result = excelService.importExcel(filename, in, new News());
+                    result = excelService.importExcel(filename, in, new News(), cover);
                     if (result.getStatus() != 200) {
                         return result;
                     }

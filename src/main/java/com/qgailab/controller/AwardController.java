@@ -132,7 +132,7 @@ public class AwardController {
     }
 
     /**
-     * 从Excel文件导入数据
+     * 从Excel文件导入数据，只进行插入数据
      *
      * @param
      * @return ServiceResult
@@ -142,7 +142,8 @@ public class AwardController {
      * @date
      */
     @RequestMapping(value = "/import", method = RequestMethod.POST)
-    public ServiceResult importAward(HttpServletRequest request, @RequestParam(value = "file") MultipartFile[] file) {
+    public ServiceResult importAward(HttpServletRequest request, @RequestParam(value = "file") MultipartFile[] file,
+                                     @RequestParam(value = "cover") Boolean cover) {
         ServiceResult result = null;
         if (file == null || file.length == 0) {
             return new ServiceResult(400, Message.excel_not_null);
@@ -154,7 +155,7 @@ public class AwardController {
                 File targetFile = uploadService.uploadFile(file[i],path);
                 InputStream in = new FileInputStream(targetFile);
                 if (filename.endsWith(".xls") || filename.endsWith(".xlsx")) {
-                    result = excelService.importExcel(filename, in, new Award());
+                    result = excelService.importExcel(filename, in, new Award(), cover);
                     if (result.getStatus() != 200) {
                         return result;
                     }
@@ -169,5 +170,7 @@ public class AwardController {
         }
         return result;
     }
+
+
 }
 

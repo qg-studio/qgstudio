@@ -58,4 +58,10 @@ public interface AwardMapper {
      * @mbg.generated Thu Jul 25 21:46:07 CST 2019
      */
     int updateByPrimaryKey(Award record);
+
+    /**
+     * 删除所有数据
+     * @return
+     */
+    int deleteAll();
 }
