@@ -151,7 +151,7 @@ public class PatentController {
      */
     @RequestMapping(value = "/import", method = RequestMethod.POST)
     public ServiceResult importPatent(HttpServletRequest request, @RequestParam(value = "file") MultipartFile[] file,
-                                      @RequestParam(value = "cover") Boolean cover) {
+                                      Boolean cover) {
         ServiceResult result = null;
         if (file == null || file.length == 0) {
             return new ServiceResult(400, Message.excel_not_null);

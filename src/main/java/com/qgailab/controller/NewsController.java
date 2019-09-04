@@ -153,7 +153,7 @@ public class NewsController {
      */
     @RequestMapping(value = "/import", method = RequestMethod.POST)
     public ServiceResult importNews(HttpServletRequest request, @RequestParam(value = "file") MultipartFile[] file,
-                                    @RequestParam(value = "cover") Boolean cover) {
+                                    Boolean cover) {
         ServiceResult result = null;
         if (file == null || file.length == 0) {
             return new ServiceResult(400, Message.excel_not_null);

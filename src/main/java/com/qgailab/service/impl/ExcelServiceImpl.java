@@ -243,12 +243,7 @@ public class ExcelServiceImpl implements ExcelService {
                 if (object instanceof Award) {
                     //将对应的数据库中的所有数据进行删除
                     if (cover == true && rowTotal == 1) {
-                        if (awardMapper.deleteAll() != 1) {
-                            return new ServiceResult(500, Message.database_exception);
-                        }
-                    }
-                    else if (cover != false) {
-                        return new ServiceResult(402, Message.type_not_support);
+                        awardMapper.deleteAll();
                     }
                     //Award类型
                     result = parseAward(cells);
@@ -262,12 +257,7 @@ public class ExcelServiceImpl implements ExcelService {
                     //Copyright类型
                     //将对应的数据库中的所有数据进行删除
                     if (cover == true && rowTotal == 1) {
-                        if (copyrightMapper.deleteAll() != 1) {
-                            return new ServiceResult(500, Message.database_exception);
-                        }
-                    }
-                    else if (cover != false) {
-                        return new ServiceResult(402, Message.type_not_support);
+                        copyrightMapper.deleteAll();
                     }
                     result = parseCopyright(cells);
                     if (result.getStatus() == 300) {
@@ -280,12 +270,7 @@ public class ExcelServiceImpl implements ExcelService {
                     //News类型
                     //将对应的数据库中的所有数据进行删除
                     if (cover == true && rowTotal == 1) {
-                        if (newsMapper.deleteAll() != 1) {
-                            return new ServiceResult(500, Message.database_exception);
-                        }
-                    }
-                    else if (cover != false) {
-                        return new ServiceResult(402, Message.type_not_support);
+                        newsMapper.deleteAll();
                     }
                     result = parseNews(cells);
                     if (result.getStatus() == 300) {
@@ -298,12 +283,7 @@ public class ExcelServiceImpl implements ExcelService {
                     //Patent类型
                     //将对应的数据库中的所有数据进行删除
                     if (cover == true && rowTotal == 1) {
-                        if (patentMapper.deleteAll() != 1) {
-                            return new ServiceResult(500, Message.database_exception);
-                        }
-                    }
-                    else if (cover != false) {
-                        return new ServiceResult(402, Message.type_not_support);
+                        patentMapper.deleteAll();
                     }
                     result = parsePatent(cells);
                     if (result.getStatus() == 300) {

@@ -3,7 +3,8 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:aop="http://www.springframework.org/schema/aop"
-       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
    http://www.springframework.org/schema/beans/spring-beans.xsd
    http://www.springframework.org/schema/context
@@ -11,7 +12,9 @@
    http://www.springframework.org/schema/aop
    http://www.springframework.org/schema/aop/spring-aop.xsd
    http://www.springframework.org/schema/tx
-   http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+   http://www.springframework.org/schema/tx/spring-tx.xsd
+   http://www.springframework.org/schema/util
+   http://www.springframework.org/schema/util/spring-util.xsd">
 <!--开启注解的扫描，希望处理service和dao，controller不需要Spring框架去处理-->
     <context:component-scan base-package="com.qgailab">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
@@ -93,7 +96,7 @@
         <property name="dataSource" ref="druidDataSource" />
     </bean>
 
-    <!--配置事务通知-->
+<!--    配置事务通知-->
     <tx:annotation-driven/>
     <tx:advice id="txAdvice" transaction-manager="transactionManager">
         <tx:attributes>
@@ -101,23 +104,23 @@
             <tx:method name="update*" isolation="DEFAULT"/>
         </tx:attributes>
     </tx:advice>
-    <!--配置AOP增强-->
-<!--    <aop:config>-->
-<!--        <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.qgailab.service.impl.*ServiceImpl.*(..))"/>-->
-<!--    </aop:config>-->
-<!--    <bean id="druid-stat-interceptor" class="com.alibaba.druid.support.spring.stat.DruidStatInterceptor"/>-->
-<!--    <bean id="druid-stat-pointcut" class="org.springframework.aop.support.JdkRegexpMethodPointcut" scope="prototype">-->
-<!--        <property name="patterns">-->
-<!--            <list>-->
-<!--                <value>com.qgailab.dao.*</value>-->
-<!--                <value>com.qgailab.service.*</value>-->
-<!--            </list>-->
-<!--        </property>-->
-<!--    </bean>-->
+<!--    配置AOP增强-->
+    <aop:config>
+        <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.qgailab.service.impl.*ServiceImpl.*(..))"/>
+    </aop:config>
+    <bean id="druid-stat-interceptor" class="com.alibaba.druid.support.spring.stat.DruidStatInterceptor"/>
+    <bean id="druid-stat-pointcut" class="org.springframework.aop.support.JdkRegexpMethodPointcut" scope="prototype">
+        <property name="patterns">
+            <list>
+                <value>com.qgailab.dao.*</value>
+                <value>com.qgailab.service.*</value>
+            </list>
+        </property>
+    </bean>
 
-<!--    <aop:config proxy-target-class="true">-->
-<!--        <aop:advisor advice-ref="druid-stat-interceptor" pointcut-ref="druid-stat-pointcut"/>-->
-<!--    </aop:config>-->
+    <aop:config proxy-target-class="true">
+        <aop:advisor advice-ref="druid-stat-interceptor" pointcut-ref="druid-stat-pointcut"/>
+    </aop:config>
 </beans>
 
 
