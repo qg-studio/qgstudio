@@ -981,17 +981,17 @@ function copyrightImport() {
     formdata.append("file", file);
 
     $.ajax({
-        url: serverUrl + "/copyright/import",
-        method: "POST",
-        data: formdata,
-        contentType: false,
-        processData: false,
-        dataType: "json",
-        async: false,
-        success: function (data) {
-            if (data.status == 200) {
-                alert("上传成功");
-            } else {
+                url: serverUrl + "/copyright/import",
+                method: "POST",
+                data: formdata,
+                contentType: false,
+                processData: false,
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    if (data.status == 200) {
+                        alert("上传成功");
+                    } else {
                 alert(data.message);
             }
         }
